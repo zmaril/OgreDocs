@@ -1,8 +1,15 @@
 1![Gremlin](https://github.com/tinkerpop/gremlin/raw/master/doc/images/gremlin-logo.png)
 
-[Gremlin](http://gremlin.tinkerpop.com) is a domain specific language for traversing property graphs. This language has application in the areas of graph query, analysis, and manipulation. See the [Getting Started](https://github.com/tinkerpop/gremlin/wiki/Getting-Started) Gremlin wiki page for downloading and installing Gremlin.
+[Ogre](http://github.com/zmaril/ogre) is a domain specific language
+for traversing property graphs in Clojure. Ogre wraps
+[Gremiln](https://github.com/tinkerpop/gremlin/wiki), a language which
+has application in the areas of graph query, analysis, and
+manipulation. This page is a fork of [GremlinDocs](http://gremlindocs.com/).
 
-Gremlin is an open source project maintained by [TinkerPop](http://tinkerpop.com).  Please join the Gremlin users group at http://groups.google.com/group/gremlin-users for all TinkerPop related discussions.
+Ogre is an open source project maintained by
+[Zack Maril](http://zacharymaril.com). Please join the Gremlin users
+group at http://groups.google.com/group/gremlin-users for any Ogre or
+Gremlin related discussions.
 
 Unless otherwise noted, all samples are derived from the TinkerPop "toy" graph generated with: 
 
@@ -12,9 +19,13 @@ gremlin> g = TinkerGraphFactory.createTinkerGraph()
 
 This produces a hardcoded representation of the graph diagrammed [here](http://github.com/tinkerpop/blueprints/wiki/Property-Graph-Model).  
 
-The documentation and samples presented here attempt to stay current with the most current, stable release of Gremlin.  Please note that this is not the *official* Gremlin documentation.  The official documentation resides in the Gremlin [wiki](https://github.com/tinkerpop/gremlin/wiki). 
+The documentation and samples presented here attempt to stay current
+with the most current, stable release of Ogre. Please note that this
+is the *official* Ogre documentation.
 
-GremlinDocs is a [GitHub repository](https://github.com/spmallette/GremlinDocs).  Pull requests will be considered. 
+OgreDocs is a
+[GitHub repository](https://github.com/spmallette/OgreDocs). Pull
+requests will be celebrated.
 
 
 ## Transform
