@@ -1,8 +1,8 @@
 {
-  "name": "GremlinDocs",
-  "repo":"spmallette/GremlinDocs",
-  "twitter": [ "spmallette" ],
+  "name": "OgreDocs",
+  "repo":"zmaril/OgreDocs"
+  "twitter": [ "zackmaril"]
   "travis": false,
   "issues":false,
-  "google_analytics":"UA-34936244-1"
+  "google_analytics":"UA-11943276-8"
 }

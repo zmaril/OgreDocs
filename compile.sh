@@ -1,6 +1,6 @@
 #!/bin/bash
 
-curl -v -X POST -d name=GremlinDocs -d repo=spmallette%2FGremlinDocs -d travis=false -d issues=false -d google_analytics=UA-34936244-1 -d twitter=spmallette --data-urlencode content@README.md http://documentup.com/compiled > index.html && open index.html
+curl -v -X POST -d name=OgreDocs -d repo=zmaril%2FOgreDocs -d travis=false -d issues=false -d google_analytics=UA-11943276-8 -d twitter=zmaril --data-urlencode content@README.md http://documentup.com/compiled > index.html && open index.html
 
 mv index.html /tmp
 git checkout gh-pages
