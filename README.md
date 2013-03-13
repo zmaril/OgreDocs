@@ -1,5 +1,7 @@
 1![Gremlin](https://github.com/tinkerpop/gremlin/raw/master/doc/images/gremlin-logo.png)
 
+**WARNING OgreDocs is obviously still under development**
+
 [Ogre](http://github.com/zmaril/ogre) is a domain specific language
 for traversing property graphs in Clojure. Ogre wraps
 [Gremiln](https://github.com/tinkerpop/gremlin/wiki), a language which
