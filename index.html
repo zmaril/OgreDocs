@@ -123,6 +123,10 @@
                   <a href="#map/select-only">select-only</a>
                 </li>
               
+                <li>
+                  <a href="#map/path">path</a>
+                </li>
+              
             </ul>
           
         </li>
@@ -133,23 +137,7 @@
             <ul>
               
                 <li>
-                  <a href="#reduce/gather">gather</a>
-                </li>
-              
-                <li>
                   <a href="#reduce/order">order</a>
-                </li>
-              
-                <li>
-                  <a href="#reduce/ordermap">orderMap</a>
-                </li>
-              
-                <li>
-                  <a href="#reduce/path">path</a>
-                </li>
-              
-                <li>
-                  <a href="#reduce/scatter">scatter</a>
                 </li>
               
                 <li>
@@ -328,6 +316,14 @@
                   <a href="#recipes/shortest-path">Shortest Path</a>
                 </li>
               
+                <li>
+                  <a href="#recipes/gather">gather</a>
+                </li>
+              
+                <li>
+                  <a href="#recipes/scatter">scatter</a>
+                </li>
+              
             </ul>
           
         </li>
@@ -504,22 +500,18 @@ requests will be celebrated.
 
 </p>
 <hr>
-<h2 id='reduce'>Reduce</h2 id='reduce'>
-<p>These functions act like reduce. 
+<h3 id='map/path'>path</h3 id='map/path'>
+<p>Gets the path through the pipeline up to this point, where closures are post-processing for each object in the path.  If the path step is provided closures then, in a round robin fashion, the closures are evaluated over each object of the path and that post-processed path is returned.
 
 </p>
-<h3 id='reduce/gather'>gather</h3 id='reduce/gather'>
-<p>Collect all objects up to that step and process the gathered list with the provided closure.
-
-</p>
-<h4>See Also</h4>
-<ul>
-<li><a href="#transform/scatter">scatter</a></li>
-</ul>
 <p><a href="#">top</a>
 
 </p>
 <hr>
+<h2 id='reduce'>Reduce</h2 id='reduce'>
+<p>These functions act like reduce. 
+
+</p>
 <h3 id='reduce/order'>order</h3 id='reduce/order'>
 <p>Order the items in the stream according to the closure if provided.  If no closure is provided, then a default sort order is used.
 
@@ -528,33 +520,6 @@ requests will be celebrated.
 
 </p>
 <hr>
-<h3 id='reduce/ordermap'>orderMap</h3 id='reduce/ordermap'>
-<p>For every incoming map, sort with supplied closure or <code>T.decr</code> or <code>T.incr</code> and emit keys.
-
-</p>
-<p><a href="#">top</a>
-
-</p>
-<hr>
-<h3 id='reduce/path'>path</h3 id='reduce/path'>
-<p>Gets the path through the pipeline up to this point, where closures are post-processing for each object in the path.  If the path step is provided closures then, in a round robin fashion, the closures are evaluated over each object of the path and that post-processed path is returned.
-
-</p>
-<p><a href="#">top</a>
-
-</p>
-<hr>
-<h3 id='reduce/scatter'>scatter</h3 id='reduce/scatter'>
-<p>Unroll all objects in the iterable at that step. Gather/Scatter is good for breadth-first traversals where the gather closure filters out unwanted elements at the current radius.
-
-</p>
-<h4>See Also</h4>
-<ul>
-<li><a href="#transform/gather">gather</a></li>
-</ul>
-<p><a href="#">top</a>
-
-</p>
 <hr>
 <h3 id='reduce/shuffle'>shuffle</h3 id='reduce/shuffle'>
 <p>Collect all objects up to that step into a list and randomize their order.
@@ -942,6 +907,30 @@ gremlin&gt; g.V.as(&#39;x&#39;).outE(&#39;knows&#39;).inV.has(&#39;age&#39;, T.g
 <p>Find the shortest path between two vertices:
 
 </p>
+<p><a href="#">top</a>
+
+</p>
+<hr>
+<h3 id='recipes/gather'>gather</h3 id='recipes/gather'>
+<p>Collect all objects up to that step and process the gathered list with the provided closure.
+
+</p>
+<h4>See Also</h4>
+<ul>
+<li><a href="#transform/scatter">scatter</a></li>
+</ul>
+<p><a href="#">top</a>
+
+</p>
+<hr>
+<h3 id='recipes/scatter'>scatter</h3 id='recipes/scatter'>
+<p>Unroll all objects in the iterable at that step. Gather/Scatter is good for breadth-first traversals where the gather closure filters out unwanted elements at the current radius.
+
+</p>
+<h4>See Also</h4>
+<ul>
+<li><a href="#transform/gather">gather</a></li>
+</ul>
 <p><a href="#">top</a>
 
 </p>
