@@ -103,7 +103,7 @@ Get both incoming and outgoing vertices of the edge.
 
 ***
 
-## Transform
+## Map
 
 Transform steps take an object and emit a transformation of it.
 
@@ -141,6 +141,26 @@ Gets the property map of the graph element.
 
 ***
 
+### select
+
+Select the named steps to emit after select with post-processing closures.
+
+[top](#)
+
+***
+
+### select-only
+
+Select the named steps to emit after select with post-processing closures.
+
+[top](#)
+
+***
+
+## Reduce 
+
+These functions act like reduce. 
+
 ### gather
 
 Collect all objects up to that step and process the gathered list with the provided closure.
@@ -148,16 +168,6 @@ Collect all objects up to that step and process the gathered list with the provi
 #### See Also
 
 * [scatter](#transform/scatter)
-
-[top](#)
-
-***
-
-### memoize
-
-Remembers a particular mapping from input to output.  Long or expensive expressions with no side effects can use this step to remember a mapping, which helps reduce load when previously processed objects are passed into it.
-
-For situations where memoization may consume large amounts of RAM, consider using an embedded key-value store like [JDBM](http://code.google.com/p/jdbm2/) or some other persistent Map implementation.
 
 [top](#)
 
@@ -194,14 +204,6 @@ Unroll all objects in the iterable at that step. Gather/Scatter is good for brea
 #### See Also
 
 * [gather](#transform/gather)
-
-[top](#)
-
-***
-
-### select
-
-Select the named steps to emit after select with post-processing closures.
 
 [top](#)
 
@@ -495,6 +497,16 @@ Used in combination with a `copySplit`, merging the parallel traversals in a rou
 ### ifThenElse
 
 Allows for if-then-else conditional logic.
+
+[top](#)
+
+***
+
+### memoize
+
+Remembers a particular mapping from input to output.  Long or expensive expressions with no side effects can use this step to remember a mapping, which helps reduce load when previously processed objects are passed into it.
+
+For situations where memoization may consume large amounts of RAM, consider using an embedded key-value store like [JDBM](http://code.google.com/p/jdbm2/) or some other persistent Map implementation.
 
 [top](#)
 
