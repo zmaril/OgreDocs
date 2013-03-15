@@ -521,24 +521,6 @@ Recipes are common patterns that are seen in using Gremlin.
 
 Strictly speaking, you cannot have duplicated egdes with the same id.  This example finds edges with same `outV/inV/label` properties.
 
-```text
-gremlin> g = TinkerGraphFactory.createTinkerGraph()
-==>tinkergraph[vertices:6 edges:6]
-gremlin> g.v(1).outE('created')
-==>e[9][1-created->3]
-gremlin> g.addEdge(null, g.v(1), g.v(3), "created", g.e(9).map()) // see note
-==>e[0][1-created->3]
-gremlin> g.v(1).outE('created')
-==>e[0][1-created->3]
-==>e[9][1-created->3]
-gremlin> ElementHelper.haveEqualProperties(g.e(9), g.e(0))
-==>true
-gremlin> e = g.e(9)
-==>e[9][1-created->3]
-gremlin> e.outV.outE(e.label).filter{ElementHelper.haveEqualProperties(e,it)}.as('e').inV.filter{it==e.inV.next()}.back('e').except([e])
-==>e[0][1-created->3]
-```
-
 [top](#)
 
 ***
@@ -546,33 +528,6 @@ gremlin> e.outV.outE(e.label).filter{ElementHelper.haveEqualProperties(e,it)}.as
 ### Hiding Console Output
 
 The Gremlin Console automatically iterates the pipe and outputs the results to the console.  In some cases, this can lead to lots of screen output that isn't terribly useful.  To suppress the output, consider the following:
-
-```text
-gremlin> g.V.sideEffect{it.name='changed'}                          
-==>v[3]
-==>v[2]
-==>v[1]
-==>v[6]
-==>v[5]
-==>v[4]
-gremlin> g.V.sideEffect{it.name='changed-again'}.iterate()    
-==>null
-gremlin> g.V.name
-==>changed-again
-==>changed-again
-==>changed-again
-==>changed-again
-==>changed-again
-==>changed-again
-gremlin> t = g.v(1).out.tree.cap.next()
-==>v[1]={v[3]={}, v[2]={}, v[4]={}}
-gremlin> t
-==>v[1]={v[3]={}, v[2]={}, v[4]={}}
-gremlin> s = g.v(1).out.tree.cap.next();null
-==>null
-gremlin> s
-==>v[1]={v[3]={}, v[2]={}, v[4]={}}
-```
 
 #### See Also
 
@@ -587,26 +542,6 @@ gremlin> s
 
 It is sometimes desireable to not return an entire results set.  Results can be paged or limited as follows:
 
-```text
-gremlin> g.V.has("age", T.gte, 25)
-==>v[2]
-==>v[1]
-==>v[6]
-==>v[4]
-gremlin> g.V.has("age", T.gte, 29)
-==>v[1]
-==>v[6]
-==>v[4]
-gremlin> g.V.has("age", T.gte, 29)[0..1]
-==>v[1]
-==>v[6]
-gremlin> g.V.has("age", T.gte, 29)[0..<1]
-==>v[1]
-gremlin> g.V.has("age", T.gte, 29)[1..2]
-==>v[6]
-==>v[4]
-```
-
 [top](#)
 
 ***
@@ -615,25 +550,9 @@ gremlin> g.V.has("age", T.gte, 29)[1..2]
 
 First, paths for a directed graph:
 
-```text
-gremlin> g.v(1).out.loop(1){it.loops<=3 && !(it.object.id in ['1','5'])}.has('id','5').path
-==>[v[1], v[4], v[5]]
-```
-
 Then, undirected:
 
-```text
-gremlin> g.v(1).both.loop(1){it.loops<=3 && !(it.object.id in ['1','5'])}.has('id','5').path
-==>[v[1], v[4], v[5]]
-==>[v[1], v[3], v[4], v[5]]
-```
-
 Use the value of `it.loops<=3`to control the depth of the traversal:
-
-```text
-gremlin> g.v(1).both.loop(1){it.loops<=2 && !(it.object.id in ['1','5'])}.has('id','5').path
-==>[v[1], v[4], v[5]]
-```
 
 [top](#)
 
@@ -643,28 +562,6 @@ gremlin> g.v(1).both.loop(1){it.loops<=2 && !(it.object.id in ['1','5'])}.has('i
 
 Reading data from an edge file formatted as CSV is easy to do with Gremlin.
 
-```text
-gremlin> g = new TinkerGraph()
-==>tinkergraph[vertices:0 edges:0]
-gremlin> vs=[] as Set;new
-File("edges.txt").eachLine{l->p=l.split(",");vs<<p[0];vs<<p[1];}
-==>1
-==>2
-==>3
-==>4
-gremlin> vs.each{v->g.addVertex(v)}
-==>1
-==>2
-==>3
-==>4
-gremlin> new File("edges.txt").eachLine{l->p=l.split(",");g.addEdge(g.getVertex(p[0]),g.getVertex(p[1]),'friend')}
-gremlin> g.E
-==>e[3][1-friend->4]
-==>e[2][3-friend->4]
-==>e[1][2-friend->3]
-==>e[0][1-friend->2]
-```
-
 [top](#)
 
 ***
@@ -673,22 +570,6 @@ gremlin> g.E
 
 It is sometimes useful to grab a random sample of the items in a collection.  That can be done to some degree with the [random](#filter.random) step, but getting an explicit number of items is not supported using that step.
 
-```text
-gremlin> g.v(1).out.shuffle
-==>v[2]
-==>v[3]
-==>v[4]
-gremlin> g.v(1).out.shuffle
-==>v[3]
-==>v[2]
-==>v[4]
-gremlin> g.v(1).out.random(0.5)
-==>v[2]
-gremlin> g.v(1).out.random(0.5)
-==>v[4]
-==>v[3]
-```
-
 [top](#)
 
 ***
@@ -696,24 +577,6 @@ gremlin> g.v(1).out.random(0.5)
 ### Shortest Path
 
 Find the shortest path between two vertices:
-
-```text
-gremlin> g.v(1).out.loop(1){it.object.id != "5" & it.loops < 6}.path
-==>[v[1], v[4], v[5]]
-```
-
-[top](#)
-
-***
-
-### Writing To File
-
-TinkerPop supports a number of different graph file formats, like [GraphML](https://github.com/tinkerpop/blueprints/wiki/GraphML-Reader-and-Writer-Library), [GML](https://github.com/tinkerpop/blueprints/wiki/GML-Reader-and-Writer-Library), and [GraphSON](https://github.com/tinkerpop/blueprints/wiki/GraphSON-Reader-and-Writer-Library), but sometimes a custom format or just a simple edge list is desireable.  The following code shows how to open a file and side-effect out a comma-separated file of in and out vertices for each edge in the graph.
-
-```text
-gremlin> new File("/tmp/edge-set.txt").withWriter{f -> g.E.sideEffect{f << "${it.outV.id.next()},${it.inV.id.next()}\r\n"}.iterate()}
-==>null
-```
 
 [top](#)
 
