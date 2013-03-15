@@ -283,51 +283,6 @@
         </li>
       
         <li>
-          <a href="#methods">Methods</a>
-          
-            <ul>
-              
-                <li>
-                  <a href="#methods/graph-addedge">Graph.addEdge</a>
-                </li>
-              
-                <li>
-                  <a href="#methods/graph-addvertex">Graph.addVertex</a>
-                </li>
-              
-                <li>
-                  <a href="#methods/graph-e">Graph.e</a>
-                </li>
-              
-                <li>
-                  <a href="#methods/graph-idx-string">Graph.idx(String)</a>
-                </li>
-              
-                <li>
-                  <a href="#methods/graph-v">Graph.v</a>
-                </li>
-              
-                <li>
-                  <a href="#methods/index-map-entry">Index[Map.Entry]</a>
-                </li>
-              
-                <li>
-                  <a href="#methods/pipe-fill">Pipe.fill</a>
-                </li>
-              
-                <li>
-                  <a href="#methods/pipe-iterate">Pipe.iterate</a>
-                </li>
-              
-                <li>
-                  <a href="#methods/pipe-next">Pipe.next</a>
-                </li>
-              
-            </ul>
-          
-        </li>
-      
-        <li>
           <a href="#recipes">Recipes</a>
           
             <ul>
@@ -767,22 +722,6 @@ gremlin&gt; g.V.as(&#39;x&#39;).outE(&#39;knows&#39;).inV.has(&#39;age&#39;, T.g
 <p>Emits input, but groups input after processing it by provided key-closure and value-closure.  It is also possible to supply an optional reduce-closure.  
 
 </p>
-<pre><code class="text">gremlin&gt; g.V.groupBy{it}{it.out}.cap
-==&gt;{v[3]=[], v[2]=[], v[1]=[v[2], v[4], v[3]], v[6]=[v[3]], v[5]=[], v[4]=[v[5], v[3]]}
-gremlin&gt; g.V.groupBy{it}{it.out}{it.size()}.cap
-==&gt;{v[3]=0, v[2]=0, v[1]=3, v[6]=1, v[5]=0, v[4]=2}
-gremlin&gt; m = [:]
-gremlin&gt; g.V.groupBy(m){it}{it.out}.iterate();null;
-==&gt;null
-gremlin&gt; m
-==&gt;v[3]=[]
-==&gt;v[2]=[]
-==&gt;v[1]=[v[2], v[4], v[3]]
-==&gt;v[6]=[v[3]]
-==&gt;v[5]=[]
-==&gt;v[4]=[v[5], v[3]]
-gremlin&gt; g.V.out.groupBy{it.name}{it.in}{it.unique().findAll{i -&gt; i.age &gt; 30}.name}.cap
-==&gt;{lop=[josh, peter], ripple=[josh], josh=[], vadas=[]}</code></pre>
 <h4>See Also</h4>
 <ul>
 <li><a href="#side-effect/groupcount">groupCount</a></li>
@@ -795,26 +734,6 @@ gremlin&gt; g.V.out.groupBy{it.name}{it.in}{it.unique().findAll{i -&gt; i.age &g
 <p>Emits input, but updates a map for each input, where closures provides generic map update.
 
 </p>
-<pre><code class="text">gremlin&gt; g.V.out.groupCount(m)
-==&gt;v[2]
-==&gt;v[4]
-==&gt;v[3]
-==&gt;v[3]
-==&gt;v[5]
-==&gt;v[3]
-gremlin&gt; m
-==&gt;v[2]=1
-==&gt;v[4]=1
-==&gt;v[3]=3
-==&gt;v[5]=1
-gremlin&gt; g.v(1).out.groupCount(m){it}{it.b+1.0}.out.groupCount(m){it}{it.b+0.5}
-==&gt;v[5]
-==&gt;v[3]
-gremlin&gt; m
-==&gt;v[2]=1.0
-==&gt;v[4]=1.0
-==&gt;v[5]=0.5
-==&gt;v[3]=1.5</code></pre>
 <h4>See Also</h4>
 <ul>
 <li><a href="#side-effect/groupby">groupBy</a></li>
@@ -827,24 +746,6 @@ gremlin&gt; m
 <p>Behaves similar to <code>back</code> except that it does not filter. It will go down a particular path and back up to where it left off. As such, its useful for yielding a sideeffect down a particular branch.
 
 </p>
-<pre><code class="text">gremlin&gt; g.V.out(&#39;knows&#39;).has(&#39;age&#39;, T.gt, 30).back(2)        
-==&gt;v[1]
-gremlin&gt; g.V.out(&#39;knows&#39;).has(&#39;age&#39;, T.gt, 30).optional(2)    
-==&gt;v[3]
-==&gt;v[2]
-==&gt;v[1]
-==&gt;v[6]
-==&gt;v[5]
-==&gt;v[4]
-gremlin&gt; g.V.as(&#39;x&#39;).outE(&#39;knows&#39;).inV.has(&#39;age&#39;, T.gt, 30).back(&#39;x&#39;)
-==&gt;v[1]
-gremlin&gt; g.V.as(&#39;x&#39;).outE(&#39;knows&#39;).inV.has(&#39;age&#39;, T.gt, 30).optional(&#39;x&#39;)
-==&gt;v[3]
-==&gt;v[2]
-==&gt;v[1]
-==&gt;v[6]
-==&gt;v[5]
-==&gt;v[4]</code></pre>
 <h4>See Also</h4>
 <ul>
 <li><a href="#filter/back">back</a></li>
@@ -857,15 +758,6 @@ gremlin&gt; g.V.as(&#39;x&#39;).outE(&#39;knows&#39;).inV.has(&#39;age&#39;, T.g
 <p>Emits input, but calls a side effect closure on each input.
 
 </p>
-<pre><code class="text">gremlin&gt; youngest = Integer.MAX_VALUE
-==&gt;2147483647
-gremlin&gt; g.V.hasNot(&#39;age&#39;, null).sideEffect{youngest=youngest&gt;it.age?it.age:youngest}
-==&gt;v[2]
-==&gt;v[1]
-==&gt;v[6]
-==&gt;v[4]
-gremlin&gt; youngest
-==&gt;27</code></pre>
 <p><a href="#">top</a>
 
 </p>
@@ -874,11 +766,6 @@ gremlin&gt; youngest
 <p>Emits input, but adds input to collection, where provided closure processes input prior to insertion (lazy).  In being &quot;lazy&quot;, &#39;store&#39; will keep element as they are being requested.
 
 </p>
-<pre><code class="text">gremlin&gt; x = []
-gremlin&gt; g.v(1).out.store(x).next()
-==&gt;v[2]
-gremlin&gt; x
-==&gt;v[2]</code></pre>
 <h4>See Also</h4>
 <ul>
 <li><a href="#side-effect/aggregate">aggregate</a></li>
@@ -892,34 +779,6 @@ gremlin&gt; x
 <p>Emits input, but stores row of as values (constrained by column names if provided) in a table.  Accepts an optional set of closures that are applied in round-robin fashion to each column of the table.
 
 </p>
-<pre><code class="text">gremlin&gt; t = new Table()  
-gremlin&gt; g.V.name.as(&#39;name&#39;).back(1).age.as(&#39;age&#39;).table(t)
-==&gt;null
-==&gt;27
-==&gt;29
-==&gt;35
-==&gt;null
-==&gt;32
-gremlin&gt; t
-==&gt;[name:lop, age:null]
-==&gt;[name:vadas, age:27]
-==&gt;[name:marko, age:29]
-==&gt;[name:peter, age:35]
-==&gt;[name:ripple, age:null]
-==&gt;[name:josh, age:32]
-gremlin&gt; t = new Table()
-gremlin&gt; g.V.hasNot(&#39;age&#39;, null).name.as(&#39;name&#39;).back(1).age.as(&#39;age&#39;).table(t){it}{it&gt;30 ? &#39;over thirty&#39; : &#39;under thirty&#39;}
-==&gt;27
-==&gt;29
-==&gt;35
-==&gt;32
-gremlin&gt; t
-==&gt;[name:vadas, age:under thirty]
-==&gt;[name:marko, age:under thirty]
-==&gt;[name:peter, age:over thirty]
-==&gt;[name:josh, age:over thirty]
-gremlin&gt; t.get(0,&#39;name&#39;)      
-==&gt;vadas</code></pre>
 <h3 id='side-effect/tree'>tree</h3 id='side-effect/tree'>
 <p><a href="#">top</a>
 
@@ -928,18 +787,6 @@ gremlin&gt; t.get(0,&#39;name&#39;)
 <p>Emit input, but stores the tree formed by the traversal as a map.  Accepts an optional set of closures to be applied in round-robin fashion over each level of the tree.
 
 </p>
-<pre><code class="text">gremlin&gt; g.v(1).out.out.tree.cap
-==&gt;{v[1]={v[4]={v[3]={}, v[5]={}}}}
-gremlin&gt; g.v(1).out.out.tree{it.name}.cap
-==&gt;{marko={josh={lop={}, ripple={}}}}
-gremlin&gt; g.v(1).out.out.tree{it.name}{&quot;child1:&quot; + it.name}{&quot;child2:&quot; + it.name}.cap
-==&gt;{marko={child1:josh={child2:lop={}, child2:ripple={}}}}
-gremlin&gt; t = new Tree()                                                               
-gremlin&gt; g.v(1).out.out.tree(t){it.name}{&quot;child1:&quot; + it.name}{&quot;child2:&quot; + it.name}    
-==&gt;v[5]
-==&gt;v[3]
-gremlin&gt; t.get(&#39;marko&#39;)
-==&gt;child1:josh={child2:lop={}, child2:ripple={}}</code></pre>
 <h2 id='branch'>Branch</h2 id='branch'>
 <p>Branch steps decide which step to take.
 
@@ -948,16 +795,6 @@ gremlin&gt; t.get(&#39;marko&#39;)
 <p>Copies incoming object to internal pipes.
 
 </p>
-<pre><code class="text">gremlin&gt; g.v(1).out(&#39;knows&#39;).copySplit(_().out(&#39;created&#39;).name, _().age).fairMerge
-==&gt;ripple
-==&gt;27
-==&gt;lop
-==&gt;32
-gremlin&gt; g.v(1).out(&#39;knows&#39;).copySplit(_().out(&#39;created&#39;).name, _().age).exhaustMerge
-==&gt;ripple
-==&gt;lop
-==&gt;27
-==&gt;32</code></pre>
 <h4>See Also</h4>
 <ul>
 <li><a href="#branch/exhaustmerge">exhaustMerge</a></li>
@@ -971,11 +808,6 @@ gremlin&gt; g.v(1).out(&#39;knows&#39;).copySplit(_().out(&#39;created&#39;).nam
 <p>Used in combination with a <code>copySplit</code>, merging the parallel traversals by exhaustively getting the objects of the first, then the second, etc.
 
 </p>
-<pre><code class="text">gremlin&gt; g.v(1).out(&#39;knows&#39;).copySplit(_().out(&#39;created&#39;).name, _().age).exhaustMerge
-==&gt;ripple
-==&gt;lop
-==&gt;27
-==&gt;32</code></pre>
 <h4>See Also</h4>
 <ul>
 <li><a href="#branch/copysplit">copySplit</a></li>
@@ -989,11 +821,6 @@ gremlin&gt; g.v(1).out(&#39;knows&#39;).copySplit(_().out(&#39;created&#39;).nam
 <p>Used in combination with a <code>copySplit</code>, merging the parallel traversals in a round-robin fashion.
 
 </p>
-<pre><code class="text">gremlin&gt; g.v(1).out(&#39;knows&#39;).copySplit(_().out(&#39;created&#39;).name, _().age).fairMerge
-==&gt;ripple
-==&gt;27
-==&gt;lop
-==&gt;32</code></pre>
 <h4>See Also</h4>
 <ul>
 <li><a href="#branch/copysplit">copySplit</a></li>
@@ -1007,10 +834,6 @@ gremlin&gt; g.v(1).out(&#39;knows&#39;).copySplit(_().out(&#39;created&#39;).nam
 <p>Allows for if-then-else conditional logic.
 
 </p>
-<pre><code class="text">gremlin&gt; g.v(1).out.ifThenElse{it.name==&#39;josh&#39;}{it.age}{it.name}
-==&gt;vadas
-==&gt;32
-==&gt;lop</code></pre>
 <p><a href="#">top</a>
 
 </p>
@@ -1027,219 +850,6 @@ gremlin&gt; g.v(1).out(&#39;knows&#39;).copySplit(_().out(&#39;created&#39;).nam
 <p>The final argument is known as the &quot;emit&quot; closure. This boolean-based closure will determine wether the current object in the loop structure is emitted or not. As such, it is possible to emit intermediate objects, not simply those at the end of the loop.
 
 </p>
-<pre><code class="text">gremlin&gt; g.v(1).out.out                         
-==&gt;v[5]
-==&gt;v[3]
-gremlin&gt; g.v(1).out.loop(1){it.loops&lt;3}
-==&gt;v[5]
-==&gt;v[3]
-gremlin&gt; g.v(1).out.loop(1){it.loops&lt;3}{it.object.name==&#39;josh&#39;} 
-==&gt;v[4]</code></pre>
-<p><a href="#">top</a>
-
-</p>
-<hr>
-<h2 id='methods'>Methods</h2 id='methods'>
-<p>Methods represent functions that make it faster and easier to work with <a href="http://blueprints.tinkerpop.com">Blueprints</a> and <a href="http://pipes.tinkerpop.com">Pipes</a> APIs.  It is important to keep in mind that the full <a href="http://download.oracle.com/javase/6/docs/api/">Java API</a> and <a href="http://groovy.codehaus.org/groovy-jdk">Groovy API</a> are accessible from Gremlin.
-
-</p>
-<h3 id='methods/graph-addedge'>Graph.addEdge</h3 id='methods/graph-addedge'>
-<p>Adds an edge to the graph.  Note that most graph implementations ignore the identifier supplied to <code>addEdge</code>.  
-
-</p>
-<pre><code class="text">gremlin&gt; g = new TinkerGraph()                     
-==&gt;tinkergraph[vertices:0 edges:0]
-gremlin&gt; v1 = g.addVertex(100)                     
-==&gt;v[100]
-gremlin&gt; v2 = g.addVertex(200)
-==&gt;v[200]
-gremlin&gt; g.addEdge(v1,v2,&#39;friend&#39;)                 
-==&gt;e[0][100-friend-&gt;200]
-gremlin&gt; g.addEdge(1000,v1,v2,&#39;buddy&#39;)             
-==&gt;e[1000][100-buddy-&gt;200]
-gremlin&gt; g.addEdge(null,v1,v2,&#39;pal&#39;,[weight:0.75f])
-==&gt;e[1][100-pal-&gt;200]</code></pre>
-<p><a href="#">top</a>
-
-</p>
-<hr>
-<h3 id='methods/graph-addvertex'>Graph.addVertex</h3 id='methods/graph-addvertex'>
-<p>Adds a vertex to the graph.  Note that most graph implementations ignore the identifier supplied to <code>addVertex</code>.  
-
-</p>
-<pre><code class="text">gremlin&gt; g = new TinkerGraph()                     
-==&gt;tinkergraph[vertices:0 edges:0]
-gremlin&gt; g.addVertex()
-==&gt;v[0]
-gremlin&gt; g.addVertex(100)
-==&gt;v[100]
-gremlin&gt; g.addVertex(null,[name:&quot;stephen&quot;])
-==&gt;v[1]</code></pre>
-<p><a href="#">top</a>
-
-</p>
-<hr>
-<h3 id='methods/graph-e'>Graph.e</h3 id='methods/graph-e'>
-<p>Get an edge or set of edges by providing one or more edge identifiers.  The identifiers must be the identifiers assigned by the underlying graph implementation.
-
-</p>
-<pre><code class="text">gremlin&gt; g.e(10)
-==&gt;e[10][4-created-&gt;5]
-gremlin&gt; g.e(10,11,12)
-==&gt;e[10][4-created-&gt;5]
-==&gt;e[11][4-created-&gt;3]
-==&gt;e[12][6-created-&gt;3]
-gremlin&gt; ids = [10,11,12]
-==&gt;10
-==&gt;11
-==&gt;12
-gremlin&gt; g.e(ids.toArray())
-==&gt;e[10][4-created-&gt;5]
-==&gt;e[11][4-created-&gt;3]
-==&gt;e[12][6-created-&gt;3]</code></pre>
-<h4>See Also</h4>
-<ul>
-<li><a href="#methods/graph-v">Graph.v</a></li>
-</ul>
-<p><a href="#">top</a>
-
-</p>
-<hr>
-<h3 id='methods/graph-idx-string'>Graph.idx(String)</h3 id='methods/graph-idx-string'>
-<p>Get an manual index by its name.
-
-</p>
-<pre><code class="text">gremlin&gt; g.createIndex(&quot;my-index&quot;, Vertex.class)
-==&gt;index[my-index:Vertex]
-gremlin&gt; myIdx = g.idx(&quot;my-index&quot;).put(&quot;name&quot;, &quot;marko&quot;, g.v(1))
-==&gt;null
-gremlin&gt; myIdx.getIndexName()
-==&gt;my-index</code></pre>
-<h4>See Also</h4>
-<ul>
-<li><a href="#methods/index-map-entry">Index[Map.Entry]</a></li>
-</ul>
-<p><a href="#">top</a>
-
-</p>
-<hr>
-<h3 id='methods/graph-v'>Graph.v</h3 id='methods/graph-v'>
-<p>Get a vertex or set of vertices by providing one or more vertex identifiers.  The identifiers must be the identifiers assigned by the underlying graph implementation.
-
-</p>
-<pre><code class="text">gremlin&gt; g.v(1)  
-==&gt;v[1]
-gremlin&gt; g.v(1,2,3)
-==&gt;v[1]
-==&gt;v[2]
-==&gt;v[3]
-gremlin&gt; ids = [1,2,3]
-==&gt;1
-==&gt;2
-==&gt;3
-gremlin&gt; g.v(ids.toArray())
-==&gt;v[1]
-==&gt;v[2]
-==&gt;v[3]</code></pre>
-<h4>See Also</h4>
-<ul>
-<li><a href="#methods/graph-e">Graph.e</a></li>
-</ul>
-<p><a href="#">top</a>
-
-</p>
-<hr>
-<h3 id='methods/index-map-entry'>Index[Map.Entry]</h3 id='methods/index-map-entry'>
-<p>Look up a value in an index.
-
-</p>
-<pre><code class="text">gremlin&gt; g.createIndex(&quot;my-index&quot;, Vertex.class)
-==&gt;index[my-index:Vertex]
-gremlin&gt; g.idx(&quot;my-index&quot;).put(&quot;name&quot;, &quot;marko&quot;, g.v(1))
-==&gt;null
-gremlin&gt; g.idx(&quot;my-index&quot;)[[name:&quot;marko&quot;]]  
-==&gt;v[1]</code></pre>
-<h4>See Also</h4>
-<ul>
-<li><a href="#methods/graph-idx-string">Graph.idx(String)</a></li>
-</ul>
-<p><a href="#">top</a>
-
-</p>
-<hr>
-<h3 id='methods/pipe-fill'>Pipe.fill</h3 id='methods/pipe-fill'>
-<p>Takes all the results in the pipeline and puts them into the provided collection.
-
-</p>
-<pre><code class="text">gremlin&gt; m = []
-gremlin&gt; g.v(1).out.fill(m)
-==&gt;v[2]
-==&gt;v[4]
-==&gt;v[3]
-gremlin&gt; m
-==&gt;v[2]
-==&gt;v[4]
-==&gt;v[3]</code></pre>
-<h4>See Also</h4>
-<ul>
-<li><a href="#side-effect/aggregate">aggregate</a></li>
-<li><a href="#side-effect/store">store</a></li>
-</ul>
-<p><a href="#">top</a>
-
-</p>
-<hr>
-<h3 id='methods/pipe-iterate'>Pipe.iterate</h3 id='methods/pipe-iterate'>
-<p>Calls <a href="#methods/pipe-next">Pipe.next</a> for all objects in the pipe. This is an important notion to follow when considering the behavior of the Gremlin Console.  The Gremlin Console iterates through the pipeline automatically and outputs the results.  Outside of the Gremlin Console or if more than one statement is present on a single line of the Gremlin Console, iterating the pipe must be done manually.  Read more about this topic in the Gremlin Wiki <a href="https://github.com/tinkerpop/gremlin/wiki/Troubleshooting">Troubleshooting Page</a>.
-
-</p>
-<p>There are some important things to note in the example below.  Had the the first line of Gremlin been executed separately, as opposed to being placed on the same line separated by a semi-colon, the names of all the vertices would have changed because the Gremlin Console would have automatically iterated the pipe and processed the side-effects.
-
-</p>
-<pre><code class="text">gremlin&gt; g.V.sideEffect{it.name=&quot;same-again&quot;};g.V.name          
-==&gt;lop
-==&gt;vadas
-==&gt;marko
-==&gt;peter
-==&gt;ripple
-==&gt;josh
-gremlin&gt; g.V.sideEffect{it.name=&quot;same&quot;}.iterate();g.V.name      
-==&gt;same
-==&gt;same
-==&gt;same
-==&gt;same
-==&gt;same
-==&gt;same</code></pre>
-<h4>See Also</h4>
-<ul>
-<li><a href="#methods/pipe-next">Pipe.next</a></li>
-</ul>
-<p><a href="#">top</a>
-
-</p>
-<hr>
-<h3 id='methods/pipe-next'>Pipe.next</h3 id='methods/pipe-next'>
-<p>Gets the next object in the pipe or the next <em>n</em> objects.  This is an important notion to follow when considering the behavior of the Gremlin Console.  The Gremlin Console iterates through the pipeline automatically and outputs the results.  Outside of the Gremlin Console or if more than one statement is present on a single line of the Gremlin Console, iterating the pipe must be done manually.  Read more about this topic in the Gremlin Wiki <a href="https://github.com/tinkerpop/gremlin/wiki/Troubleshooting">Troubleshooting Page</a>.
-
-</p>
-<p>There are some important things to note in the example below.  Had the the first line of Gremlin been executed separately, as opposed to being placed on the same line separated by a semi-colon, the name of the vertex would have changed because the Gremlin Console would have automatically iterated the pipe and processed the side-effect.
-
-</p>
-<pre><code class="text">gremlin&gt; g.v(1).sideEffect{it.name=&quot;same&quot;};g.v(1).name
-==&gt;marko
-gremlin&gt; g.v(1).sideEffect{it.name=&quot;same&quot;}.next();g.v(1).name   
-==&gt;same
-gremlin&gt; g.V.sideEffect{it.name=&quot;same-again&quot;}.next(3);g.V.name
-==&gt;same-again
-==&gt;same-again
-==&gt;same-again
-==&gt;peter
-==&gt;ripple
-==&gt;josh</code></pre>
-<h4>See Also</h4>
-<ul>
-<li><a href="#methods/pipe-iterate">Pipe.iterate</a></li>
-</ul>
 <p><a href="#">top</a>
 
 </p>
