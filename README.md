@@ -1,10 +1,10 @@
-1![Gremlin](https://github.com/tinkerpop/gremlin/raw/master/doc/images/gremlin-logo.png)
+![Gremlin](https://github.com/tinkerpop/gremlin/raw/master/doc/images/gremlin-logo.png)
 
 **WARNING OgreDocs is obviously still under development**
 
 [Ogre](http://github.com/zmaril/ogre) is a domain specific language
 for traversing property graphs in Clojure. Ogre wraps
-[Gremiln](https://github.com/tinkerpop/gremlin/wiki), a language which
+[Gremlin](https://github.com/tinkerpop/gremlin/wiki), a language which
 has application in the areas of graph query, analysis, and
 manipulation. This page is a fork of [GremlinDocs](http://gremlindocs.com/).
 
@@ -15,8 +15,8 @@ Gremlin related discussions.
 
 Unless otherwise noted, all samples are derived from the TinkerPop "toy" graph generated with: 
 
-```text
-gremlin> g = TinkerGraphFactory.createTinkerGraph()
+```clojure
+(use 'ogre.tinkergraph)
 ```
 
 This produces a hardcoded representation of the graph diagrammed [here](http://github.com/tinkerpop/blueprints/wiki/Property-Graph-Model).  
@@ -29,38 +29,7 @@ OgreDocs is a
 [GitHub repository](https://github.com/spmallette/OgreDocs). Pull
 requests will be celebrated.
 
-
-## Transform
-
-Transform steps take an object and emit a transformation of it.
-
-### _
-
-Identity turns an arbitrary object into a "pipeline".
-
-```text
-gremlin> x = [1,2,3]
-==>1
-==>2
-==>3
-gremlin> x._().transform{it+1}
-==>2
-==>3
-==>4
-gremlin> x = g.E.has('weight', T.gt, 0.5f).toList()
-==>e[10][4-created->5]
-==>e[8][1-knows->4]
-gremlin> x.inV
-==>[StartPipe, InPipe]
-==>[StartPipe, InPipe]
-gremlin> x._().inV
-==>v[5]
-==>v[4]
-```
-
-[top](#)
-
-***
+## Traversal 
 
 ### both
 
@@ -122,6 +91,40 @@ gremlin> e.inV
 gremlin> e.bothV
 ==>v[6]
 ==>v[3]
+```
+
+[top](#)
+
+***
+
+## Transform
+
+Transform steps take an object and emit a transformation of it.
+
+*** 
+
+### _
+
+Identity turns an arbitrary object into a "pipeline".
+
+```text
+gremlin> x = [1,2,3]
+==>1
+==>2
+==>3
+gremlin> x._().transform{it+1}
+==>2
+==>3
+==>4
+gremlin> x = g.E.has('weight', T.gt, 0.5f).toList()
+==>e[10][4-created->5]
+==>e[8][1-knows->4]
+gremlin> x.inV
+==>[StartPipe, InPipe]
+==>[StartPipe, InPipe]
+gremlin> x._().inV
+==>v[5]
+==>v[4]
 ```
 
 [top](#)
