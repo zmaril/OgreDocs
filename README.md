@@ -157,37 +157,6 @@ Select the named steps to emit after select with post-processing closures.
 
 ***
 
-## Reduce 
-
-These functions act like reduce. 
-
-### gather
-
-Collect all objects up to that step and process the gathered list with the provided closure.
-
-#### See Also
-
-* [scatter](#transform/scatter)
-
-[top](#)
-
-***
-
-### order
-
-Order the items in the stream according to the closure if provided.  If no closure is provided, then a default sort order is used.
-
-[top](#)
-
-***
-
-### orderMap
-
-For every incoming map, sort with supplied closure or `T.decr` or `T.incr` and emit keys.
-
-[top](#)
-
-***
 
 ### path
 
@@ -197,15 +166,17 @@ Gets the path through the pipeline up to this point, where closures are post-pro
 
 ***
 
-### scatter
+## Reduce 
 
-Unroll all objects in the iterable at that step. Gather/Scatter is good for breadth-first traversals where the gather closure filters out unwanted elements at the current radius.
+These functions act like reduce. 
 
-#### See Also
+### order
 
-* [gather](#transform/gather)
+Order the items in the stream according to the closure if provided.  If no closure is provided, then a default sort order is used.
 
 [top](#)
+
+***
 
 ***
 
@@ -590,6 +561,30 @@ It is sometimes useful to grab a random sample of the items in a collection.  Th
 ### Shortest Path
 
 Find the shortest path between two vertices:
+
+[top](#)
+
+***
+
+### gather
+
+Collect all objects up to that step and process the gathered list with the provided closure.
+
+#### See Also
+
+* [scatter](#transform/scatter)
+
+[top](#)
+
+***
+
+### scatter
+
+Unroll all objects in the iterable at that step. Gather/Scatter is good for breadth-first traversals where the gather closure filters out unwanted elements at the current radius.
+
+#### See Also
+
+* [gather](#transform/gather)
 
 [top](#)
 
