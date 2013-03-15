@@ -95,60 +95,69 @@
         </li>
       
         <li>
-          <a href="#transform">Transform</a>
+          <a href="#map">Map</a>
           
             <ul>
               
                 <li>
-                  <a href="#transform/id">id</a>
+                  <a href="#map/id">id</a>
                 </li>
               
                 <li>
-                  <a href="#transform/property">property</a>
+                  <a href="#map/property">property</a>
                 </li>
               
                 <li>
-                  <a href="#transform/label">label</a>
+                  <a href="#map/label">label</a>
                 </li>
               
                 <li>
-                  <a href="#transform/map">map</a>
+                  <a href="#map/map">map</a>
                 </li>
               
                 <li>
-                  <a href="#transform/gather">gather</a>
+                  <a href="#map/select">select</a>
                 </li>
               
                 <li>
-                  <a href="#transform/memoize">memoize</a>
+                  <a href="#map/select-only">select-only</a>
+                </li>
+              
+            </ul>
+          
+        </li>
+      
+        <li>
+          <a href="#reduce">Reduce</a>
+          
+            <ul>
+              
+                <li>
+                  <a href="#reduce/gather">gather</a>
                 </li>
               
                 <li>
-                  <a href="#transform/order">order</a>
+                  <a href="#reduce/order">order</a>
                 </li>
               
                 <li>
-                  <a href="#transform/ordermap">orderMap</a>
+                  <a href="#reduce/ordermap">orderMap</a>
                 </li>
               
                 <li>
-                  <a href="#transform/path">path</a>
+                  <a href="#reduce/path">path</a>
                 </li>
               
                 <li>
-                  <a href="#transform/scatter">scatter</a>
+                  <a href="#reduce/scatter">scatter</a>
                 </li>
               
                 <li>
-                  <a href="#transform/select">select</a>
+                  <a href="#reduce/shuffle">shuffle</a>
                 </li>
               
                 <li>
-                  <a href="#transform/shuffle">shuffle</a>
-                </li>
-              
-                <li>
-                  <a href="#transform/transform">transform</a>
+                  <a href="#reduce/transform">transform</a>
                 </li>
               
             </ul>
@@ -272,6 +281,10 @@
               
                 <li>
                   <a href="#branch/ifthenelse">ifThenElse</a>
+                </li>
+              
+                <li>
+                  <a href="#branch/memoize">memoize</a>
                 </li>
               
                 <li>
@@ -438,12 +451,12 @@ requests will be celebrated.
 
 </p>
 <hr>
-<h2 id='transform'>Transform</h2 id='transform'>
+<h2 id='map'>Map</h2 id='map'>
 <p>Transform steps take an object and emit a transformation of it.
 
 </p>
 <hr>
-<h3 id='transform/id'>id</h3 id='transform/id'>
+<h3 id='map/id'>id</h3 id='map/id'>
 <p>Gets the unique identifier of the element.  
 
 </p>
@@ -451,7 +464,7 @@ requests will be celebrated.
 
 </p>
 <hr>
-<h3 id='transform/property'>property</h3 id='transform/property'>
+<h3 id='map/property'>property</h3 id='map/property'>
 <p>Get the property value of an element.  The property value can be obtained by simply appending the name to the end of the element or by referencing it as a Groovy map element with square brackets.  For best performance, drop down to the Blueprints API and use <code>getProperty(key)</code>.
 
 </p>
@@ -459,7 +472,7 @@ requests will be celebrated.
 
 </p>
 <hr>
-<h3 id='transform/label'>label</h3 id='transform/label'>
+<h3 id='map/label'>label</h3 id='map/label'>
 <p>Gets the label of an edge.
 
 </p>
@@ -467,7 +480,7 @@ requests will be celebrated.
 
 </p>
 <hr>
-<h3 id='transform/map'>map</h3 id='transform/map'>
+<h3 id='map/map'>map</h3 id='map/map'>
 <p>Gets the property map of the graph element.
 
 </p>
@@ -475,7 +488,27 @@ requests will be celebrated.
 
 </p>
 <hr>
-<h3 id='transform/gather'>gather</h3 id='transform/gather'>
+<h3 id='map/select'>select</h3 id='map/select'>
+<p>Select the named steps to emit after select with post-processing closures.
+
+</p>
+<p><a href="#">top</a>
+
+</p>
+<hr>
+<h3 id='map/select-only'>select-only</h3 id='map/select-only'>
+<p>Select the named steps to emit after select with post-processing closures.
+
+</p>
+<p><a href="#">top</a>
+
+</p>
+<hr>
+<h2 id='reduce'>Reduce</h2 id='reduce'>
+<p>These functions act like reduce. 
+
+</p>
+<h3 id='reduce/gather'>gather</h3 id='reduce/gather'>
 <p>Collect all objects up to that step and process the gathered list with the provided closure.
 
 </p>
@@ -487,18 +520,7 @@ requests will be celebrated.
 
 </p>
 <hr>
-<h3 id='transform/memoize'>memoize</h3 id='transform/memoize'>
-<p>Remembers a particular mapping from input to output.  Long or expensive expressions with no side effects can use this step to remember a mapping, which helps reduce load when previously processed objects are passed into it.
-
-</p>
-<p>For situations where memoization may consume large amounts of RAM, consider using an embedded key-value store like <a href="http://code.google.com/p/jdbm2/">JDBM</a> or some other persistent Map implementation.
-
-</p>
-<p><a href="#">top</a>
-
-</p>
-<hr>
-<h3 id='transform/order'>order</h3 id='transform/order'>
+<h3 id='reduce/order'>order</h3 id='reduce/order'>
 <p>Order the items in the stream according to the closure if provided.  If no closure is provided, then a default sort order is used.
 
 </p>
@@ -506,7 +528,7 @@ requests will be celebrated.
 
 </p>
 <hr>
-<h3 id='transform/ordermap'>orderMap</h3 id='transform/ordermap'>
+<h3 id='reduce/ordermap'>orderMap</h3 id='reduce/ordermap'>
 <p>For every incoming map, sort with supplied closure or <code>T.decr</code> or <code>T.incr</code> and emit keys.
 
 </p>
@@ -514,7 +536,7 @@ requests will be celebrated.
 
 </p>
 <hr>
-<h3 id='transform/path'>path</h3 id='transform/path'>
+<h3 id='reduce/path'>path</h3 id='reduce/path'>
 <p>Gets the path through the pipeline up to this point, where closures are post-processing for each object in the path.  If the path step is provided closures then, in a round robin fashion, the closures are evaluated over each object of the path and that post-processed path is returned.
 
 </p>
@@ -522,7 +544,7 @@ requests will be celebrated.
 
 </p>
 <hr>
-<h3 id='transform/scatter'>scatter</h3 id='transform/scatter'>
+<h3 id='reduce/scatter'>scatter</h3 id='reduce/scatter'>
 <p>Unroll all objects in the iterable at that step. Gather/Scatter is good for breadth-first traversals where the gather closure filters out unwanted elements at the current radius.
 
 </p>
@@ -534,15 +556,7 @@ requests will be celebrated.
 
 </p>
 <hr>
-<h3 id='transform/select'>select</h3 id='transform/select'>
-<p>Select the named steps to emit after select with post-processing closures.
-
-</p>
-<p><a href="#">top</a>
-
-</p>
-<hr>
-<h3 id='transform/shuffle'>shuffle</h3 id='transform/shuffle'>
+<h3 id='reduce/shuffle'>shuffle</h3 id='reduce/shuffle'>
 <p>Collect all objects up to that step into a list and randomize their order.
 
 </p>
@@ -554,7 +568,7 @@ requests will be celebrated.
 
 </p>
 <hr>
-<h3 id='transform/transform'>transform</h3 id='transform/transform'>
+<h3 id='reduce/transform'>transform</h3 id='reduce/transform'>
 <p>Transform emits the result of a closure.
 
 </p>
@@ -828,6 +842,17 @@ gremlin&gt; g.V.as(&#39;x&#39;).outE(&#39;knows&#39;).inV.has(&#39;age&#39;, T.g
 <hr>
 <h3 id='branch/ifthenelse'>ifThenElse</h3 id='branch/ifthenelse'>
 <p>Allows for if-then-else conditional logic.
+
+</p>
+<p><a href="#">top</a>
+
+</p>
+<hr>
+<h3 id='branch/memoize'>memoize</h3 id='branch/memoize'>
+<p>Remembers a particular mapping from input to output.  Long or expensive expressions with no side effects can use this step to remember a mapping, which helps reduce load when previously processed objects are passed into it.
+
+</p>
+<p>For situations where memoization may consume large amounts of RAM, consider using an embedded key-value store like <a href="http://code.google.com/p/jdbm2/">JDBM</a> or some other persistent Map implementation.
 
 </p>
 <p><a href="#">top</a>
