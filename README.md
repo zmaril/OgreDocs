@@ -166,6 +166,71 @@ Gets the path through the pipeline up to this point, where closures are post-pro
 
 ***
 
+## Converters 
+
+Ogre cannot do everything for you. You still have to ask to do things. 
+
+### to-list
+
+[top](#)
+
+***
+
+### into-vec
+
+[top](#)
+
+***
+
+### into-set
+
+[top](#)
+
+***
+
+### first-of
+
+[top](#)
+
+***
+
+### first-into-vec
+
+[top](#)
+
+***
+
+### first-into-set
+
+[top](#)
+
+***
+
+
+### first-into-map
+
+[top](#)
+
+***
+
+### all-into-vecs
+
+[top](#)
+
+***
+
+### all-into-sets
+
+[top](#)
+
+***
+
+### all-into-maps
+
+[top](#)
+
+***
+
 ## Reduce 
 
 These functions act like reduce. 
