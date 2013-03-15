@@ -31,24 +31,57 @@ requests will be celebrated.
 
 ## Traversal 
 
-### <->
+### --> / out
+
+Gets the out adjacent vertices to the vertex.
+
+[top](#)
+
+***
+
+### --E> / out-edges
+
+Gets the outgoing edges to the vertex.
+
+[top](#)
+
+***
+
+### out-vertex
+
+Get both outgoing tail vertex of the edge.
+
+[top](#)
+
+***
+
+### <-- / in
+
+Gets the adjacent vertices to the vertex.
+
+[top](#)
+
+***
+
+### <E-- / in-vertices
+
+Gets the incoming edges of the vertex.
+
+[top](#)
+
+***
+
+### in-vertex
+
+Get both incoming head vertex of the edge.
+
+[top](#)
+
+***
+
+### <-> / both
 
 Get both adjacent vertices of the vertex, the in and the out.
-
-```text
-gremlin> v = g.v(4)
-==>v[4]
-gremlin> v.both
-==>v[1]
-==>v[5]
-==>v[3]
-gremlin> v.both('knows')
-==>v[1]
-gremlin> v.both('knows', 'created')
-==>v[1]
-==>v[5]
-==>v[3]
-```
 
 [top](#)
 
@@ -58,21 +91,6 @@ gremlin> v.both('knows', 'created')
 
 Get both incoming and outgoing edges of the vertex.
 
-```text
-gremlin> v = g.v(4)
-==>v[4]
-gremlin> v.bothE
-==>e[8][1-knows->4]
-==>e[10][4-created->5]
-==>e[11][4-created->3]
-gremlin> v.bothE('knows')
-==>e[8][1-knows->4]
-gremlin> v.bothE('knows', 'created')
-==>e[8][1-knows->4]
-==>e[10][4-created->5]
-==>e[11][4-created->3]
-```
-
 [top](#)
 
 ***
@@ -80,18 +98,6 @@ gremlin> v.bothE('knows', 'created')
 ### both-vertices
 
 Get both incoming and outgoing vertices of the edge.
-
-```text
-gremlin> e = g.e(12)
-==>e[12][6-created->3]
-gremlin> e.outV
-==>v[6]
-gremlin> e.inV
-==>v[3]
-gremlin> e.bothV
-==>v[6]
-==>v[3]
-```
 
 [top](#)
 
@@ -103,72 +109,9 @@ Transform steps take an object and emit a transformation of it.
 
 *** 
 
-### _
-
-Identity turns an arbitrary object into a "pipeline".
-
-```text
-gremlin> x = [1,2,3]
-==>1
-==>2
-==>3
-gremlin> x._().transform{it+1}
-==>2
-==>3
-==>4
-gremlin> x = g.E.has('weight', T.gt, 0.5f).toList()
-==>e[10][4-created->5]
-==>e[8][1-knows->4]
-gremlin> x.inV
-==>[StartPipe, InPipe]
-==>[StartPipe, InPipe]
-gremlin> x._().inV
-==>v[5]
-==>v[4]
-```
-
-[top](#)
-
-***
-
 ### cap
 
 Gets the side-effect of the pipe prior.  In other words, it emits the value of the previous step and not the values that flow through it.
-
-```text
-gremlin> g.V('lang', 'java').in('created').name.groupCount
-==>marko
-==>josh
-==>peter
-==>josh
-gremlin> g.V('lang', 'java').in('created').name.groupCount.cap
-==>{marko=1, peter=1, josh=2}
-```
-
-[top](#)
-
-***
-
-### E
-
-The edge iterator for the graph.  Utilize this to iterate through all the edges in the graph.  Use with care on large graphs.
-
-```text
-gremlin> g.E
-==>e[10][4-created->5]
-==>e[7][1-knows->2]
-==>e[9][1-created->3]
-==>e[8][1-knows->4]
-==>e[11][4-created->3]
-==>e[12][6-created->3]
-gremlin> g.E.weight
-==>1.0
-==>0.5
-==>0.4
-==>1.0
-==>0.4
-==>0.2
-```
 
 [top](#)
 
@@ -177,17 +120,6 @@ gremlin> g.E.weight
 ### gather
 
 Collect all objects up to that step and process the gathered list with the provided closure.
-
-```text
-gremlin> g.v(1).out
-==>v[2]
-==>v[4]
-==>v[3]
-gremlin> g.v(1).out.gather
-==>[v[2], v[4], v[3]]
-gremlin> g.v(1).out.gather{it.size()}
-==>3
-```
 
 #### See Also
 
@@ -201,89 +133,6 @@ gremlin> g.v(1).out.gather{it.size()}
 
 Gets the unique identifier of the element.  
 
-```text
-gremlin> v = g.V("name", "marko").next()
-==>v[1]
-gremlin> v.id
-==>1
-gremlin> g.v(1).id
-==>1
-```
-
-[top](#)
-
-***
-
-### in
-
-Gets the adjacent vertices to the vertex.
-
-```text
-gremlin> v = g.v(4)
-==>v[4]
-gremlin> v.inE.outV
-==>v[1]
-gremlin> v.in
-==>v[1]
-gremlin> v = g.v(3)
-==>v[3]
-gremlin> v.in("created")
-==>v[1]
-==>v[4]
-==>v[6]
-gremlin> v.inE("created").outV
-==>v[1]
-==>v[4]
-==>v[6]
-```
-
-[top](#)
-
-***
-
-### inE
-
-Gets the incoming edges of the vertex.
-
-```text
-gremlin> v = g.v(4)
-==>v[4]
-gremlin> v.inE.outV
-==>v[1]
-gremlin> v.in
-==>v[1]
-gremlin> v = g.v(3)
-==>v[3]
-gremlin> v.in("created")
-==>v[1]
-==>v[4]
-==>v[6]
-gremlin> v.inE("created").outV
-==>v[1]
-==>v[4]
-==>v[6]
-```
-
-[top](#)
-
-***
-
-### inV
-
-Get both incoming head vertex of the edge.
-
-```text
-gremlin> e = g.e(12)
-==>e[12][6-created->3]
-gremlin> e.outV
-==>v[6]
-gremlin> e.inV
-==>v[3]
-gremlin> e.bothV
-==>v[6]
-==>v[3]
-```
-
 [top](#)
 
 ***
@@ -291,21 +140,6 @@ gremlin> e.bothV
 ### key
 
 Get the property value of an element.  The property value can be obtained by simply appending the name to the end of the element or by referencing it as a Groovy map element with square brackets.  For best performance, drop down to the Blueprints API and use `getProperty(key)`.
-
-```text
-gremlin> v = g.v(3)
-==>v[3]
-gremlin> v.name
-==>lop
-gremlin> v['name']
-==>lop
-gremlin> x = 'name'
-==>name
-gremlin> v[x]
-==>lop
-gremlin> v.getProperty('name')
-==>lop
-```
 
 [top](#)
 
@@ -315,17 +149,6 @@ gremlin> v.getProperty('name')
 
 Gets the label of an edge.
 
-```text
-gremlin> g.v(6).outE.label
-==>created
-gremlin> g.v(1).outE.filter{it.label=='created'}
-==>e[9][1-created->3]
-
-// a more efficient approach to use of label
-gremlin> g.v(1).outE.has('label','created')
-==>e[9][1-created->3]
-```
-
 [top](#)
 
 ***
@@ -333,14 +156,6 @@ gremlin> g.v(1).outE.has('label','created')
 ### map
 
 Gets the property map of the graph element.
-
-```text
-gremlin> g.v(1).map
-==>{name=marko, age=29}
-gremlin> g.v(1).map()
-==>name=marko
-==>age=29
-```
 
 [top](#)
 
@@ -352,19 +167,6 @@ Remembers a particular mapping from input to output.  Long or expensive expressi
 
 For situations where memoization may consume large amounts of RAM, consider using an embedded key-value store like [JDBM](http://code.google.com/p/jdbm2/) or some other persistent Map implementation.
 
-```text
-gremlin> g.V.out.out.memoize(1).name
-==>ripple
-==>lop
-gremlin> g.V.out.as('here').out.memoize('here').name
-==>ripple
-==>lop
-gremlin> m = [:]
-gremlin> g.V.out.out.memoize(1,m).name
-==>ripple
-==>lop
-```
-
 [top](#)
 
 ***
@@ -372,26 +174,6 @@ gremlin> g.V.out.out.memoize(1,m).name
 ### order
 
 Order the items in the stream according to the closure if provided.  If no closure is provided, then a default sort order is used.
-
-```text
-gremlin> g.V.name.order
-==>josh
-==>lop
-==>marko
-==>peter
-==>ripple
-==>vadas
-gremlin>  g.V.name.order{it.b <=> it.a}
-==>vadas
-==>ripple
-==>peter
-==>marko
-==>lop
-==>josh
-gremlin> g.V.order{it.b.name <=> it.a.name}.out('knows')
-==>v[2]
-==>v[4]
-```
 
 [top](#)
 
@@ -401,103 +183,6 @@ gremlin> g.V.order{it.b.name <=> it.a.name}.out('knows')
 
 For every incoming map, sort with supplied closure or `T.decr` or `T.incr` and emit keys.
 
-```text
-gremlin> g.V.both.groupCount.cap.next()
-==>v[3]=3
-==>v[2]=1
-==>v[1]=3
-==>v[6]=1
-==>v[5]=1
-==>v[4]=3
-gremlin> g.V.both.groupCount.cap.orderMap(T.decr)
-==>v[3]
-==>v[1]
-==>v[4]
-==>v[2]
-==>v[6]
-==>v[5]
-gremlin> g.V.both.groupCount.cap.orderMap(T.decr)[0..1]
-==>v[3]
-==>v[1]
-gremlin> g.V.both.groupCount.cap.orderMap(T.decr)[0..1].name
-==>lop
-==>marko
-```
-
-[top](#)
-
-***
-
-### out
-
-Gets the out adjacent vertices to the vertex.
-
-```text
-gremlin> v = g.v(1)
-==>v[1]
-gremlin> v.outE.inV
-==>v[2]
-==>v[4]
-==>v[3]
-gremlin> v.out
-==>v[2]
-==>v[4]
-==>v[3]
-gremlin> v.outE('knows').inV
-==>v[2]
-==>v[4]
-gremlin> v.out('knows')
-==>v[2]
-==>v[4]
-```
-
-[top](#)
-
-***
-
-### outE
-
-Gets the outgoing edges to the vertex.
-
-```text
-gremlin> v = g.v(1)
-==>v[1]
-gremlin> v.outE.inV
-==>v[2]
-==>v[4]
-==>v[3]
-gremlin> v.out
-==>v[2]
-==>v[4]
-==>v[3]
-gremlin> v.outE('knows').inV
-==>v[2]
-==>v[4]
-gremlin> v.out('knows')
-==>v[2]
-==>v[4]
-```
-
-[top](#)
-
-***
-
-### outV
-
-Get both outgoing tail vertex of the edge.
-
-```text
-gremlin> e = g.e(12)
-==>e[12][6-created->3]
-gremlin> e.outV
-==>v[6]
-gremlin> e.inV
-==>v[3]
-gremlin> e.bothV
-==>v[6]
-==>v[3]
-```
-
 [top](#)
 
 ***
@@ -506,25 +191,6 @@ gremlin> e.bothV
 
 Gets the path through the pipeline up to this point, where closures are post-processing for each object in the path.  If the path step is provided closures then, in a round robin fashion, the closures are evaluated over each object of the path and that post-processed path is returned.
 
-```text
-gremlin> g.v(1).out.path
-==>[v[1], v[2]]
-==>[v[1], v[4]]
-==>[v[1], v[3]]
-gremlin> g.v(1).out.path{it.id}
-==>[1, 2]
-==>[1, 4]
-==>[1, 3]
-gremlin> g.v(1).out.path{it.id}{it.name}
-==>[1, vadas]
-==>[1, josh]
-==>[1, lop]
-gremlin> g.v(1).outE.inV.name.path
-==>[v[1], e[7][1-knows->2], v[2], vadas]
-==>[v[1], e[8][1-knows->4], v[4], josh]
-==>[v[1], e[9][1-created->3], v[3], lop]
-```
-
 [top](#)
 
 ***
@@ -532,18 +198,6 @@ gremlin> g.v(1).outE.inV.name.path
 ### scatter
 
 Unroll all objects in the iterable at that step. Gather/Scatter is good for breadth-first traversals where the gather closure filters out unwanted elements at the current radius.
-
-```text
-gremlin> g.v(1).out
-==>v[2]
-==>v[4]
-==>v[3]
-gremlin> g.v(1).out.gather{it[1..2]}
-==>[v[4], v[3]]
-gremlin> g.v(1).out.gather{it[1..2]}.scatter
-==>v[4]
-==>v[3]
-```
 
 #### See Also
 
@@ -557,21 +211,6 @@ gremlin> g.v(1).out.gather{it[1..2]}.scatter
 
 Select the named steps to emit after select with post-processing closures.
 
-```text
-gremlin> g.v(1).as('x').out('knows').as('y').select
-==>[x:v[1], y:v[2]]
-==>[x:v[1], y:v[4]]
-gremlin> g.v(1).as('x').out('knows').as('y').select(["y"])
-==>[y:v[2]]
-==>[y:v[4]]
-gremlin> g.v(1).as('x').out('knows').as('y').select(["y"]){it.name}
-==>[y:vadas]
-==>[y:josh]
-gremlin>  g.v(1).as('x').out('knows').as('y').select{it.id}{it.name}
-==>[x:1, y:vadas]
-==>[x:1, y:josh]
-```
-
 [top](#)
 
 ***
@@ -579,17 +218,6 @@ gremlin>  g.v(1).as('x').out('knows').as('y').select{it.id}{it.name}
 ### shuffle
 
 Collect all objects up to that step into a list and randomize their order.
-
-```text
-gremlin> g.v(1).out.shuffle
-==>v[2]
-==>v[3]
-==>v[4]
-gremlin> g.v(1).out.shuffle
-==>v[3]
-==>v[2]
-==>v[4]
-```
 
 #### See Also
 
@@ -603,43 +231,6 @@ gremlin> g.v(1).out.shuffle
 
 Transform emits the result of a closure.
 
-```text
-gremlin> g.E.has('weight', T.gt, 0.5f).outV.map
-==>32
-==>29
-gremlin> g.E.has('weight', T.gt, 0.5f).outV.age.transform{it+2}
-==>34
-==>31
-gremlin> g.E.has('weight', T.gt, 0.5f).outV.transform{[it.id,it.age]}
-==>[4, 32]
-==>[1, 29]
-gremlin> g.E.has('weight', T.gt, 0.5f).outV.transform{[id:it.id,age:it.age]}
-==>{id=4, age=32}
-==>{id=1, age=29}
-```
-
-[top](#)
-
-***
-
-### V
-
-The vertex iterator for the graph.  Utilize this to iterate through all the vertices in the graph.  Use with care on large graphs unless used in combination with a key index lookup.
-
-```text
-gremlin> g.V
-==>v[3]
-==>v[2]
-==>v[1]
-==>v[6]
-==>v[5]
-==>v[4]
-gremlin> g.V("name", "marko")
-==>v[1]
-gremlin> g.V("name", "marko").name
-==>marko
-```
-
 [top](#)
 
 ***
@@ -648,48 +239,10 @@ gremlin> g.V("name", "marko").name
 
 Filter steps decide whether to allow an object to pass to the next step or not.
 
-### [i]
-
-A index filter that emits the particular indexed object.
-
-```text
-gremlin> g.V[0].name
-==>lop
-```
-
-[top](#)
-
-***
 
 ### [i..j]
 
 A range filter that emits the objects within a range.
-
-```text
-gremlin> g.V[0..2].name
-==>lop
-==>vadas
-==>marko
-gremlin> g.V[0..<2].name
-==>lop
-==>vadas
-```
-
-[top](#)
-
-***
-
-### and
-
-Takes a collection of pipes and emits incoming objects that are true for all of the pipes.
-
-```text
-gremlin> g.v(1).outE.and(_().has('weight', T.gt, 0.4f), _().has('weight', T.lt, 0.8f))
-==>e[7][1-knows->2]
-gremlin> g.V.and(_().both("knows"), _().both("created"))
-==>v[1]
-==>v[4]
-```
 
 [top](#)
 
@@ -714,19 +267,6 @@ gremlin> g.V.as('x').outE('knows').inV.has('age', T.gt, 30).back('x').age
 
 Emit only incoming objects that have not been seen before with an optional closure being the object to check on.
 
-```text
-gremlin> g.v(1).out.in
-==>v[1]
-==>v[1]
-==>v[1]
-==>v[4]
-==>v[6]
-gremlin> g.v(1).out.in.dedup()
-==>v[1]
-==>v[4]
-==>v[6]
-```
-
 [top](#)
 
 ***
@@ -734,20 +274,6 @@ gremlin> g.v(1).out.in.dedup()
 ### except
 
 Emit everything to pass except what is in the supplied collection.
-
-```text
-gremlin> x = [g.v(1), g.v(2), g.v(3)]
-==>v[1]
-==>v[2]
-==>v[3]
-gremlin> g.V.except(x)
-==>v[6]
-==>v[5]
-==>v[4]
-gremlin> x = []
-gremlin> g.v(1).out.aggregate(x).out.except(x)
-==>v[5]
-```
 
 #### See Also
 
@@ -760,12 +286,6 @@ gremlin> g.v(1).out.aggregate(x).out.except(x)
 ### filter
 
 Decide whether to allow an object to pass.  Return true from the closure to allow an object to pass.
-
-```text
-gremlin> g.V.filter{it.age > 29}.name
-==>peter
-==>josh
-```
 
 [top](#)
 
@@ -783,17 +303,6 @@ Allows an element if it has a particular property.  Utilizes several options for
 * T.lt - less than
 
 It is worth noting that the syntax of `has` is similar to `g.V("name", "marko")`, which has the difference of being a [key index](https://github.com/tinkerpop/blueprints/wiki/Graph-Indices) lookup and as such will perform faster. In contrast, this line, `g.V.has("name", "marko")`, will iterate over all vertices checking the `name` property of each vertex for a match and will be significantly slower than the key index approach.
-
-```text
-gremlin> g.V.has("name", "marko").name
-==>marko
-gremlin> g.v(1).outE.has("weight", T.gte, 0.5f).weight
-==>0.5
-==>1.0
-gremlin> g.V.has("age", null).name
-==>lop
-==>ripple
-```
 
 #### See Also
 
@@ -814,17 +323,6 @@ Allows an element if it does not have a particular property.  Utilizes several o
 * T.lte - less than or equal to
 * T.lt - less than
 
-```text
-gremlin> g.v(1).outE.hasNot("weight", T.eq, 0.5f).weight
-==>1.0
-==>0.4
-gremlin> g.V.hasNot("age", null).name
-==>vadas
-==>marko
-==>peter
-==>josh
-```
-
 [top](#)
 
 ***
@@ -832,13 +330,6 @@ gremlin> g.V.hasNot("age", null).name
 ### interval
 
 Allow elements to pass that have their property in the provided start and end interval.
-
-```text
-gremlin> g.E.interval("weight", 0.3f, 0.9f).weight
-==>0.5
-==>0.4
-==>0.4
-```
 
 #### See Also
 
@@ -848,34 +339,9 @@ gremlin> g.E.interval("weight", 0.3f, 0.9f).weight
 
 ***
 
-### or
-
-Takes a collection of pipes and emits incoming objects that are true for any of the pipes.
-
-```text
-gremlin> g.v(1).outE.or(_().has('id', T.eq, "9"), _().has('weight', T.lt, 0.6f))
-==>e[7][1-knows->2]
-==>e[9][1-created->3]
-```
-
-[top](#)
-
-***
-
 ### random
 
 Emits the incoming object if biased coin toss is heads.
-
-```text
-gremlin> g.V.random(0.5)
-==>v[3]
-==>v[1]
-==>v[6]
-gremlin> g.V.random(0.5)
-==>v[2]
-==>v[5]
-==>v[4]
-```
 
 [top](#)
 
@@ -884,20 +350,6 @@ gremlin> g.V.random(0.5)
 ### retain
 
 Allow everything to pass except what is not in the supplied collection.
-
-```text
-gremlin> x = [g.v(1), g.v(2), g.v(3)]
-==>v[1]
-==>v[2]
-==>v[3]
-gremlin> g.V.retain(x)
-==>v[3]
-==>v[2]
-==>v[1]
-gremlin> x = []
-gremlin> g.v(1).out.aggregate(x).out.retain(x)
-==>v[3]
-```
 
 #### See Also
 
@@ -911,18 +363,6 @@ gremlin> g.v(1).out.aggregate(x).out.retain(x)
 
 Emit the object only if the current path has no repeated elements.
 
-```text
-gremlin> g.v(1).out.in
-==>v[1]
-==>v[1]
-==>v[1]
-==>v[4]
-==>v[6]
-gremlin> g.v(1).out.in.simplePath
-==>v[4]
-==>v[6]
-```
-
 [top](#)
 
 ***
@@ -931,39 +371,9 @@ gremlin> g.v(1).out.in.simplePath
 
 Side Effect steps pass the object, but yield some kind of side effect while doing so.
 
-### aggregate
-
-Emits input, but adds input in collection, where provided closure processes input prior to insertion (greedy). In being "greedy", 'aggregate' will exhaust all the items that come to it from previous steps before emitting the next element.
-
-```text
-gremlin> x = []
-gremlin> g.v(1).out.aggregate(x).next()
-==>v[2]
-gremlin> x
-==>v[2]
-==>v[4]
-==>v[3]
-```
-
-#### See Also
-
-* [store](#side-effect/store)
-* [fill](#methods/pipe-fill)
-
-[top](#)
-
-***
-
 ### as
 
 Emits input, but names the previous step.
-
-```text
-gremlin> g.V.out('knows').has('age', T.gt, 30).back(2).age     
-==>29
-gremlin> g.V.as('x').outE('knows').inV.has('age', T.gt, 30).back('x').age
-==>29
-```
 
 [top](#)
 
