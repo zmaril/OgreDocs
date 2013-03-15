@@ -1,17 +1,24 @@
 ![Gremlin](https://github.com/tinkerpop/gremlin/raw/master/doc/images/gremlin-logo.png)
 
-**WARNING OgreDocs is obviously still under development**
+**WARNING OgreDocs is still being written.**
 
 [Ogre](http://github.com/zmaril/ogre) is a domain specific language
 for traversing property graphs in Clojure. Ogre wraps
-[Gremlin](https://github.com/tinkerpop/gremlin/wiki), a language which
-has application in the areas of graph query, analysis, and
-manipulation. This page is a fork of [GremlinDocs](http://gremlindocs.com/).
-
-Ogre is an open source project maintained by
+[Gremlin](https://github.com/tinkerpop/gremlin/wiki), a library which
+enables all sorts of fast and easy operations on graphs. Ogre is an
+open source project maintained by
 [Zack Maril](http://zacharymaril.com). Please join the Gremlin users
 group at http://groups.google.com/group/gremlin-users for any Ogre or
 Gremlin related discussions.
+
+The documentation and samples presented here attempt to stay current
+with the most current, stable release of Ogre. Please note that this
+is the *official* Ogre documentation. This page is a fork of
+[GremlinDocs](http://gremlindocs.com/). OgreDocs is a
+[GitHub repository](https://github.com/spmallette/OgreDocs). Pull
+requests will be celebrated.
+
+## Getting started 
 
 Unless otherwise noted, all samples are derived from the TinkerPop "toy" graph generated with: 
 
@@ -20,14 +27,6 @@ Unless otherwise noted, all samples are derived from the TinkerPop "toy" graph g
 ```
 
 This produces a hardcoded representation of the graph diagrammed [here](http://github.com/tinkerpop/blueprints/wiki/Property-Graph-Model).  
-
-The documentation and samples presented here attempt to stay current
-with the most current, stable release of Ogre. Please note that this
-is the *official* Ogre documentation.
-
-OgreDocs is a
-[GitHub repository](https://github.com/spmallette/OgreDocs). Pull
-requests will be celebrated.
 
 ## Traversal 
 
