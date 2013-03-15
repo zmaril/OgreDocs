@@ -109,26 +109,6 @@ Transform steps take an object and emit a transformation of it.
 
 *** 
 
-### cap
-
-Gets the side-effect of the pipe prior.  In other words, it emits the value of the previous step and not the values that flow through it.
-
-[top](#)
-
-***
-
-### gather
-
-Collect all objects up to that step and process the gathered list with the provided closure.
-
-#### See Also
-
-* [scatter](#transform/scatter)
-
-[top](#)
-
-***
-
 ### id
 
 Gets the unique identifier of the element.  
@@ -137,7 +117,7 @@ Gets the unique identifier of the element.
 
 ***
 
-### key
+### property
 
 Get the property value of an element.  The property value can be obtained by simply appending the name to the end of the element or by referencing it as a Groovy map element with square brackets.  For best performance, drop down to the Blueprints API and use `getProperty(key)`.
 
@@ -156,6 +136,18 @@ Gets the label of an edge.
 ### map
 
 Gets the property map of the graph element.
+
+[top](#)
+
+***
+
+### gather
+
+Collect all objects up to that step and process the gathered list with the provided closure.
+
+#### See Also
+
+* [scatter](#transform/scatter)
 
 [top](#)
 
@@ -414,6 +406,15 @@ Behaves similar to `back` except that it does not filter. It will go down a part
 [top](#)
 
 ***
+
+### cap
+
+Gets the side-effect of the pipe prior.  In other words, it emits the value of the previous step and not the values that flow through it.
+
+[top](#)
+
+***
+
 
 ### sideEffect
 
