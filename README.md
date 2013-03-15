@@ -20,6 +20,14 @@ requests will be celebrated.
 
 ## Getting started 
 
+### leiningen 
+
+versioning ideas
+
+### git clone 
+
+### repl
+
 Unless otherwise noted, all samples are derived from the TinkerPop "toy" graph generated with: 
 
 ```clojure
