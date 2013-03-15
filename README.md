@@ -343,9 +343,43 @@ Go back to the results from n-steps ago or go back to the results of a named ste
 
 ***
 
+### optional
+
+Behaves similar to `back` except that it does not filter. It will go
+down a particular path and back up to where it left off. As such, its
+useful for yielding a sideeffect down a particular branch.
+
+[top](#)
+
+***
+
 ### loop 
 
-Loop over a particular set of steps in the pipeline.  The first argument is either the number of steps back in the pipeline to go or a named step.  The second argument is a while closure evaluating the current object.  The `it` component of the loop step closure has three properties that are accessible. These properties can be used to reason about when to break out of the loop.
+Loop over a particular set of steps in the pipeline. The first
+argument is either the number of steps back in the pipeline to go or a
+named step. The second argument is a while closure evaluating the
+current object. The `it` component of the loop step closure has three
+properties that are accessible. These properties can be used to reason
+about when to break out of the loop.
+
+* `it.object`: the current object of the traverser.
+* `it.path`: the current path of the traverser.
+* `it.loops`: the number of times the traverser has looped through the loop section.
+
+The final argument is known as the "emit" closure. This boolean-based closure will determine wether the current object in the loop structure is emitted or not. As such, it is possible to emit intermediate objects, not simply those at the end of the loop.
+
+[top](#)
+
+***
+
+### loop-to 
+
+Loop over a particular set of steps in the pipeline. The first
+argument is either the number of steps back in the pipeline to go or a
+named step. The second argument is a while closure evaluating the
+current object. The `it` component of the loop step closure has three
+properties that are accessible. These properties can be used to reason
+about when to break out of the loop.
 
 * `it.object`: the current object of the traverser.
 * `it.path`: the current path of the traverser.
@@ -360,39 +394,20 @@ The final argument is known as the "emit" closure. This boolean-based closure wi
 
 ## Side Effect
 
-Side Effect steps pass the object, but yield some kind of side effect while doing so.
+Side Effect steps pass the object, but yield some kind of side effect
+while doing so.
 
-### groupBy
+### get-grouped-by
 
 Emits input, but groups input after processing it by provided key-closure and value-closure.  It is also possible to supply an optional reduce-closure.  
 
-#### See Also
-
-* [groupCount](#side-effect/groupcount)
-
 [top](#)
 
 ***
 
-### groupCount
+### get-group-count
 
 Emits input, but updates a map for each input, where closures provides generic map update.
-
-#### See Also
-
-* [groupBy](#side-effect/groupby)
-
-[top](#)
-
-***
-
-### optional
-
-Behaves similar to `back` except that it does not filter. It will go down a particular path and back up to where it left off. As such, its useful for yielding a sideeffect down a particular branch.
-
-#### See Also
-
-* [back](#filter/back)
 
 [top](#)
 
@@ -407,7 +422,7 @@ Gets the side-effect of the pipe prior.  In other words, it emits the value of t
 ***
 
 
-### sideEffect
+### side-effect
 
 Emits input, but calls a side effect closure on each input.
 
@@ -415,24 +430,11 @@ Emits input, but calls a side effect closure on each input.
 
 ***
 
-### store
-
-Emits input, but adds input to collection, where provided closure processes input prior to insertion (lazy).  In being "lazy", 'store' will keep element as they are being requested.
-
-#### See Also
-
-* [aggregate](#side-effect/aggregate)
-* [fill](#methods/pipe-fill)
-
-[top](#)
-
-***
-
-### table
+### get-table
 
 Emits input, but stores row of as values (constrained by column names if provided) in a table.  Accepts an optional set of closures that are applied in round-robin fashion to each column of the table.
 
-### tree
+### get-tree
 
 [top](#)
 
@@ -444,46 +446,25 @@ Emit input, but stores the tree formed by the traversal as a map.  Accepts an op
 
 Branch steps decide which step to take.
 
-### copySplit
+### copy-split
 
 Copies incoming object to internal pipes.
 
-#### See Also
-
-* [exhaustMerge](#branch/exhaustmerge)
-* [fairMerge](#branch/fairmerge)
-
-[top](#)
-
 ***
 
-### exhaustMerge
+### exhaust-merge
 
 Used in combination with a `copySplit`, merging the parallel traversals by exhaustively getting the objects of the first, then the second, etc.
 
-#### See Also
-
-* [copySplit](#branch/copysplit)
-* [fairMerge](#branch/fairmerge)
-
-[top](#)
-
 ***
 
-### fairMerge
+### fair-merge
 
 Used in combination with a `copySplit`, merging the parallel traversals in a round-robin fashion.
 
-#### See Also
-
-* [copySplit](#branch/copysplit)
-* [exaustMerge](#branch/exhaustmerge)
-
-[top](#)
-
 ***
 
-### ifThenElse
+### if-then-else
 
 Allows for if-then-else conditional logic.
 
@@ -508,19 +489,6 @@ Recipes are common patterns that are seen in using Gremlin.
 ### Duplicate Edges
 
 Strictly speaking, you cannot have duplicated egdes with the same id.  This example finds edges with same `outV/inV/label` properties.
-
-[top](#)
-
-***
-
-### Hiding Console Output
-
-The Gremlin Console automatically iterates the pipe and outputs the results to the console.  In some cases, this can lead to lots of screen output that isn't terribly useful.  To suppress the output, consider the following:
-
-#### See Also
-
-* [Pipe.iterate](#methods/pipe-iterate)
-* [Pipe.next](#methods/pipe-next)
 
 [top](#)
 
