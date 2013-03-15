@@ -31,7 +31,7 @@ requests will be celebrated.
 
 ## Traversal 
 
-### both
+### <->
 
 Get both adjacent vertices of the vertex, the in and the out.
 
@@ -54,7 +54,7 @@ gremlin> v.both('knows', 'created')
 
 ***
 
-### bothE
+### <->
 
 Get both incoming and outgoing edges of the vertex.
 
@@ -77,7 +77,7 @@ gremlin> v.bothE('knows', 'created')
 
 ***
 
-### bothV
+### both-vertices
 
 Get both incoming and outgoing vertices of the edge.
 
