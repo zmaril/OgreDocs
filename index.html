@@ -315,10 +315,6 @@
                   <a href="#recipes/shortest-path">Shortest Path</a>
                 </li>
               
-                <li>
-                  <a href="#recipes/writing-to-file">Writing To File</a>
-                </li>
-              
             </ul>
           
         </li>
@@ -862,21 +858,6 @@ gremlin&gt; g.V.as(&#39;x&#39;).outE(&#39;knows&#39;).inV.has(&#39;age&#39;, T.g
 <p>Strictly speaking, you cannot have duplicated egdes with the same id.  This example finds edges with same <code>outV/inV/label</code> properties.
 
 </p>
-<pre><code class="text">gremlin&gt; g = TinkerGraphFactory.createTinkerGraph()
-==&gt;tinkergraph[vertices:6 edges:6]
-gremlin&gt; g.v(1).outE(&#39;created&#39;)
-==&gt;e[9][1-created-&gt;3]
-gremlin&gt; g.addEdge(null, g.v(1), g.v(3), &quot;created&quot;, g.e(9).map()) // see note
-==&gt;e[0][1-created-&gt;3]
-gremlin&gt; g.v(1).outE(&#39;created&#39;)
-==&gt;e[0][1-created-&gt;3]
-==&gt;e[9][1-created-&gt;3]
-gremlin&gt; ElementHelper.haveEqualProperties(g.e(9), g.e(0))
-==&gt;true
-gremlin&gt; e = g.e(9)
-==&gt;e[9][1-created-&gt;3]
-gremlin&gt; e.outV.outE(e.label).filter{ElementHelper.haveEqualProperties(e,it)}.as(&#39;e&#39;).inV.filter{it==e.inV.next()}.back(&#39;e&#39;).except([e])
-==&gt;e[0][1-created-&gt;3]</code></pre>
 <p><a href="#">top</a>
 
 </p>
@@ -885,30 +866,6 @@ gremlin&gt; e.outV.outE(e.label).filter{ElementHelper.haveEqualProperties(e,it)}
 <p>The Gremlin Console automatically iterates the pipe and outputs the results to the console.  In some cases, this can lead to lots of screen output that isn&#39;t terribly useful.  To suppress the output, consider the following:
 
 </p>
-<pre><code class="text">gremlin&gt; g.V.sideEffect{it.name=&#39;changed&#39;}                          
-==&gt;v[3]
-==&gt;v[2]
-==&gt;v[1]
-==&gt;v[6]
-==&gt;v[5]
-==&gt;v[4]
-gremlin&gt; g.V.sideEffect{it.name=&#39;changed-again&#39;}.iterate()    
-==&gt;null
-gremlin&gt; g.V.name
-==&gt;changed-again
-==&gt;changed-again
-==&gt;changed-again
-==&gt;changed-again
-==&gt;changed-again
-==&gt;changed-again
-gremlin&gt; t = g.v(1).out.tree.cap.next()
-==&gt;v[1]={v[3]={}, v[2]={}, v[4]={}}
-gremlin&gt; t
-==&gt;v[1]={v[3]={}, v[2]={}, v[4]={}}
-gremlin&gt; s = g.v(1).out.tree.cap.next();null
-==&gt;null
-gremlin&gt; s
-==&gt;v[1]={v[3]={}, v[2]={}, v[4]={}}</code></pre>
 <h4>See Also</h4>
 <ul>
 <li><a href="#methods/pipe-iterate">Pipe.iterate</a></li>
@@ -922,23 +879,6 @@ gremlin&gt; s
 <p>It is sometimes desireable to not return an entire results set.  Results can be paged or limited as follows:
 
 </p>
-<pre><code class="text">gremlin&gt; g.V.has(&quot;age&quot;, T.gte, 25)
-==&gt;v[2]
-==&gt;v[1]
-==&gt;v[6]
-==&gt;v[4]
-gremlin&gt; g.V.has(&quot;age&quot;, T.gte, 29)
-==&gt;v[1]
-==&gt;v[6]
-==&gt;v[4]
-gremlin&gt; g.V.has(&quot;age&quot;, T.gte, 29)[0..1]
-==&gt;v[1]
-==&gt;v[6]
-gremlin&gt; g.V.has(&quot;age&quot;, T.gte, 29)[0..&lt;1]
-==&gt;v[1]
-gremlin&gt; g.V.has(&quot;age&quot;, T.gte, 29)[1..2]
-==&gt;v[6]
-==&gt;v[4]</code></pre>
 <p><a href="#">top</a>
 
 </p>
@@ -947,19 +887,12 @@ gremlin&gt; g.V.has(&quot;age&quot;, T.gte, 29)[1..2]
 <p>First, paths for a directed graph:
 
 </p>
-<pre><code class="text">gremlin&gt; g.v(1).out.loop(1){it.loops&lt;=3 &amp;&amp; !(it.object.id in [&#39;1&#39;,&#39;5&#39;])}.has(&#39;id&#39;,&#39;5&#39;).path
-==&gt;[v[1], v[4], v[5]]</code></pre>
 <p>Then, undirected:
 
 </p>
-<pre><code class="text">gremlin&gt; g.v(1).both.loop(1){it.loops&lt;=3 &amp;&amp; !(it.object.id in [&#39;1&#39;,&#39;5&#39;])}.has(&#39;id&#39;,&#39;5&#39;).path
-==&gt;[v[1], v[4], v[5]]
-==&gt;[v[1], v[3], v[4], v[5]]</code></pre>
 <p>Use the value of <code>it.loops&lt;=3</code>to control the depth of the traversal:
 
 </p>
-<pre><code class="text">gremlin&gt; g.v(1).both.loop(1){it.loops&lt;=2 &amp;&amp; !(it.object.id in [&#39;1&#39;,&#39;5&#39;])}.has(&#39;id&#39;,&#39;5&#39;).path
-==&gt;[v[1], v[4], v[5]]</code></pre>
 <p><a href="#">top</a>
 
 </p>
@@ -968,25 +901,6 @@ gremlin&gt; g.V.has(&quot;age&quot;, T.gte, 29)[1..2]
 <p>Reading data from an edge file formatted as CSV is easy to do with Gremlin.
 
 </p>
-<pre><code class="text">gremlin&gt; g = new TinkerGraph()
-==&gt;tinkergraph[vertices:0 edges:0]
-gremlin&gt; vs=[] as Set;new
-File(&quot;edges.txt&quot;).eachLine{l-&gt;p=l.split(&quot;,&quot;);vs&lt;&lt;p[0];vs&lt;&lt;p[1];}
-==&gt;1
-==&gt;2
-==&gt;3
-==&gt;4
-gremlin&gt; vs.each{v-&gt;g.addVertex(v)}
-==&gt;1
-==&gt;2
-==&gt;3
-==&gt;4
-gremlin&gt; new File(&quot;edges.txt&quot;).eachLine{l-&gt;p=l.split(&quot;,&quot;);g.addEdge(g.getVertex(p[0]),g.getVertex(p[1]),&#39;friend&#39;)}
-gremlin&gt; g.E
-==&gt;e[3][1-friend-&gt;4]
-==&gt;e[2][3-friend-&gt;4]
-==&gt;e[1][2-friend-&gt;3]
-==&gt;e[0][1-friend-&gt;2]</code></pre>
 <p><a href="#">top</a>
 
 </p>
@@ -995,19 +909,6 @@ gremlin&gt; g.E
 <p>It is sometimes useful to grab a random sample of the items in a collection.  That can be done to some degree with the <a href="#filter.random">random</a> step, but getting an explicit number of items is not supported using that step.
 
 </p>
-<pre><code class="text">gremlin&gt; g.v(1).out.shuffle
-==&gt;v[2]
-==&gt;v[3]
-==&gt;v[4]
-gremlin&gt; g.v(1).out.shuffle
-==&gt;v[3]
-==&gt;v[2]
-==&gt;v[4]
-gremlin&gt; g.v(1).out.random(0.5)
-==&gt;v[2]
-gremlin&gt; g.v(1).out.random(0.5)
-==&gt;v[4]
-==&gt;v[3]</code></pre>
 <p><a href="#">top</a>
 
 </p>
@@ -1016,18 +917,6 @@ gremlin&gt; g.v(1).out.random(0.5)
 <p>Find the shortest path between two vertices:
 
 </p>
-<pre><code class="text">gremlin&gt; g.v(1).out.loop(1){it.object.id != &quot;5&quot; &amp; it.loops &lt; 6}.path
-==&gt;[v[1], v[4], v[5]]</code></pre>
-<p><a href="#">top</a>
-
-</p>
-<hr>
-<h3 id='recipes/writing-to-file'>Writing To File</h3 id='recipes/writing-to-file'>
-<p>TinkerPop supports a number of different graph file formats, like <a href="https://github.com/tinkerpop/blueprints/wiki/GraphML-Reader-and-Writer-Library">GraphML</a>, <a href="https://github.com/tinkerpop/blueprints/wiki/GML-Reader-and-Writer-Library">GML</a>, and <a href="https://github.com/tinkerpop/blueprints/wiki/GraphSON-Reader-and-Writer-Library">GraphSON</a>, but sometimes a custom format or just a simple edge list is desireable.  The following code shows how to open a file and side-effect out a comma-separated file of in and out vertices for each edge in the graph.
-
-</p>
-<pre><code class="text">gremlin&gt; new File(&quot;/tmp/edge-set.txt&quot;).withWriter{f -&gt; g.E.sideEffect{f &lt;&lt; &quot;${it.outV.id.next()},${it.inV.id.next()}\r\n&quot;}.iterate()}
-==&gt;null</code></pre>
 <p><a href="#">top</a>
 
 </p>
