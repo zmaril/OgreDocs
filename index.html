@@ -219,7 +219,15 @@
                 </li>
               
                 <li>
+                  <a href="#annotations/optional">optional</a>
+                </li>
+              
+                <li>
                   <a href="#annotations/loop">loop</a>
+                </li>
+              
+                <li>
+                  <a href="#annotations/loop-to">loop-to</a>
                 </li>
               
             </ul>
@@ -232,15 +240,11 @@
             <ul>
               
                 <li>
-                  <a href="#side-effect/groupby">groupBy</a>
+                  <a href="#side-effect/get-grouped-by">get-grouped-by</a>
                 </li>
               
                 <li>
-                  <a href="#side-effect/groupcount">groupCount</a>
-                </li>
-              
-                <li>
-                  <a href="#side-effect/optional">optional</a>
+                  <a href="#side-effect/get-group-count">get-group-count</a>
                 </li>
               
                 <li>
@@ -248,19 +252,15 @@
                 </li>
               
                 <li>
-                  <a href="#side-effect/sideeffect">sideEffect</a>
+                  <a href="#side-effect/side-effect">side-effect</a>
                 </li>
               
                 <li>
-                  <a href="#side-effect/store">store</a>
+                  <a href="#side-effect/get-table">get-table</a>
                 </li>
               
                 <li>
-                  <a href="#side-effect/table">table</a>
-                </li>
-              
-                <li>
-                  <a href="#side-effect/tree">tree</a>
+                  <a href="#side-effect/get-tree">get-tree</a>
                 </li>
               
             </ul>
@@ -273,19 +273,19 @@
             <ul>
               
                 <li>
-                  <a href="#branch/copysplit">copySplit</a>
+                  <a href="#branch/copy-split">copy-split</a>
                 </li>
               
                 <li>
-                  <a href="#branch/exhaustmerge">exhaustMerge</a>
+                  <a href="#branch/exhaust-merge">exhaust-merge</a>
                 </li>
               
                 <li>
-                  <a href="#branch/fairmerge">fairMerge</a>
+                  <a href="#branch/fair-merge">fair-merge</a>
                 </li>
               
                 <li>
-                  <a href="#branch/ifthenelse">ifThenElse</a>
+                  <a href="#branch/if-then-else">if-then-else</a>
                 </li>
               
                 <li>
@@ -303,10 +303,6 @@
               
                 <li>
                   <a href="#recipes/duplicate-edges">Duplicate Edges</a>
-                </li>
-              
-                <li>
-                  <a href="#recipes/hiding-console-output">Hiding Console Output</a>
                 </li>
               
                 <li>
@@ -699,8 +695,44 @@ requests will be celebrated.
 
 </p>
 <hr>
+<h3 id='annotations/optional'>optional</h3 id='annotations/optional'>
+<p>Behaves similar to <code>back</code> except that it does not filter. It will go
+down a particular path and back up to where it left off. As such, its
+useful for yielding a sideeffect down a particular branch.
+
+</p>
+<p><a href="#">top</a>
+
+</p>
+<hr>
 <h3 id='annotations/loop'>loop</h3 id='annotations/loop'>
-<p>Loop over a particular set of steps in the pipeline.  The first argument is either the number of steps back in the pipeline to go or a named step.  The second argument is a while closure evaluating the current object.  The <code>it</code> component of the loop step closure has three properties that are accessible. These properties can be used to reason about when to break out of the loop.
+<p>Loop over a particular set of steps in the pipeline. The first
+argument is either the number of steps back in the pipeline to go or a
+named step. The second argument is a while closure evaluating the
+current object. The <code>it</code> component of the loop step closure has three
+properties that are accessible. These properties can be used to reason
+about when to break out of the loop.
+
+</p>
+<ul>
+<li><code>it.object</code>: the current object of the traverser.</li>
+<li><code>it.path</code>: the current path of the traverser.</li>
+<li><code>it.loops</code>: the number of times the traverser has looped through the loop section.</li>
+</ul>
+<p>The final argument is known as the &quot;emit&quot; closure. This boolean-based closure will determine wether the current object in the loop structure is emitted or not. As such, it is possible to emit intermediate objects, not simply those at the end of the loop.
+
+</p>
+<p><a href="#">top</a>
+
+</p>
+<hr>
+<h3 id='annotations/loop-to'>loop-to</h3 id='annotations/loop-to'>
+<p>Loop over a particular set of steps in the pipeline. The first
+argument is either the number of steps back in the pipeline to go or a
+named step. The second argument is a while closure evaluating the
+current object. The <code>it</code> component of the loop step closure has three
+properties that are accessible. These properties can be used to reason
+about when to break out of the loop.
 
 </p>
 <ul>
@@ -716,41 +748,22 @@ requests will be celebrated.
 </p>
 <hr>
 <h2 id='side-effect'>Side Effect</h2 id='side-effect'>
-<p>Side Effect steps pass the object, but yield some kind of side effect while doing so.
+<p>Side Effect steps pass the object, but yield some kind of side effect
+while doing so.
 
 </p>
-<h3 id='side-effect/groupby'>groupBy</h3 id='side-effect/groupby'>
+<h3 id='side-effect/get-grouped-by'>get-grouped-by</h3 id='side-effect/get-grouped-by'>
 <p>Emits input, but groups input after processing it by provided key-closure and value-closure.  It is also possible to supply an optional reduce-closure.  
 
 </p>
-<h4>See Also</h4>
-<ul>
-<li><a href="#side-effect/groupcount">groupCount</a></li>
-</ul>
 <p><a href="#">top</a>
 
 </p>
 <hr>
-<h3 id='side-effect/groupcount'>groupCount</h3 id='side-effect/groupcount'>
+<h3 id='side-effect/get-group-count'>get-group-count</h3 id='side-effect/get-group-count'>
 <p>Emits input, but updates a map for each input, where closures provides generic map update.
 
 </p>
-<h4>See Also</h4>
-<ul>
-<li><a href="#side-effect/groupby">groupBy</a></li>
-</ul>
-<p><a href="#">top</a>
-
-</p>
-<hr>
-<h3 id='side-effect/optional'>optional</h3 id='side-effect/optional'>
-<p>Behaves similar to <code>back</code> except that it does not filter. It will go down a particular path and back up to where it left off. As such, its useful for yielding a sideeffect down a particular branch.
-
-</p>
-<h4>See Also</h4>
-<ul>
-<li><a href="#filter/back">back</a></li>
-</ul>
 <p><a href="#">top</a>
 
 </p>
@@ -763,7 +776,7 @@ requests will be celebrated.
 
 </p>
 <hr>
-<h3 id='side-effect/sideeffect'>sideEffect</h3 id='side-effect/sideeffect'>
+<h3 id='side-effect/side-effect'>side-effect</h3 id='side-effect/side-effect'>
 <p>Emits input, but calls a side effect closure on each input.
 
 </p>
@@ -771,24 +784,11 @@ requests will be celebrated.
 
 </p>
 <hr>
-<h3 id='side-effect/store'>store</h3 id='side-effect/store'>
-<p>Emits input, but adds input to collection, where provided closure processes input prior to insertion (lazy).  In being &quot;lazy&quot;, &#39;store&#39; will keep element as they are being requested.
-
-</p>
-<h4>See Also</h4>
-<ul>
-<li><a href="#side-effect/aggregate">aggregate</a></li>
-<li><a href="#methods/pipe-fill">fill</a></li>
-</ul>
-<p><a href="#">top</a>
-
-</p>
-<hr>
-<h3 id='side-effect/table'>table</h3 id='side-effect/table'>
+<h3 id='side-effect/get-table'>get-table</h3 id='side-effect/get-table'>
 <p>Emits input, but stores row of as values (constrained by column names if provided) in a table.  Accepts an optional set of closures that are applied in round-robin fashion to each column of the table.
 
 </p>
-<h3 id='side-effect/tree'>tree</h3 id='side-effect/tree'>
+<h3 id='side-effect/get-tree'>get-tree</h3 id='side-effect/get-tree'>
 <p><a href="#">top</a>
 
 </p>
@@ -800,46 +800,22 @@ requests will be celebrated.
 <p>Branch steps decide which step to take.
 
 </p>
-<h3 id='branch/copysplit'>copySplit</h3 id='branch/copysplit'>
+<h3 id='branch/copy-split'>copy-split</h3 id='branch/copy-split'>
 <p>Copies incoming object to internal pipes.
 
 </p>
-<h4>See Also</h4>
-<ul>
-<li><a href="#branch/exhaustmerge">exhaustMerge</a></li>
-<li><a href="#branch/fairmerge">fairMerge</a></li>
-</ul>
-<p><a href="#">top</a>
-
-</p>
 <hr>
-<h3 id='branch/exhaustmerge'>exhaustMerge</h3 id='branch/exhaustmerge'>
+<h3 id='branch/exhaust-merge'>exhaust-merge</h3 id='branch/exhaust-merge'>
 <p>Used in combination with a <code>copySplit</code>, merging the parallel traversals by exhaustively getting the objects of the first, then the second, etc.
 
 </p>
-<h4>See Also</h4>
-<ul>
-<li><a href="#branch/copysplit">copySplit</a></li>
-<li><a href="#branch/fairmerge">fairMerge</a></li>
-</ul>
-<p><a href="#">top</a>
-
-</p>
 <hr>
-<h3 id='branch/fairmerge'>fairMerge</h3 id='branch/fairmerge'>
+<h3 id='branch/fair-merge'>fair-merge</h3 id='branch/fair-merge'>
 <p>Used in combination with a <code>copySplit</code>, merging the parallel traversals in a round-robin fashion.
 
 </p>
-<h4>See Also</h4>
-<ul>
-<li><a href="#branch/copysplit">copySplit</a></li>
-<li><a href="#branch/exhaustmerge">exaustMerge</a></li>
-</ul>
-<p><a href="#">top</a>
-
-</p>
 <hr>
-<h3 id='branch/ifthenelse'>ifThenElse</h3 id='branch/ifthenelse'>
+<h3 id='branch/if-then-else'>if-then-else</h3 id='branch/if-then-else'>
 <p>Allows for if-then-else conditional logic.
 
 </p>
@@ -866,19 +842,6 @@ requests will be celebrated.
 <p>Strictly speaking, you cannot have duplicated egdes with the same id.  This example finds edges with same <code>outV/inV/label</code> properties.
 
 </p>
-<p><a href="#">top</a>
-
-</p>
-<hr>
-<h3 id='recipes/hiding-console-output'>Hiding Console Output</h3 id='recipes/hiding-console-output'>
-<p>The Gremlin Console automatically iterates the pipe and outputs the results to the console.  In some cases, this can lead to lots of screen output that isn&#39;t terribly useful.  To suppress the output, consider the following:
-
-</p>
-<h4>See Also</h4>
-<ul>
-<li><a href="#methods/pipe-iterate">Pipe.iterate</a></li>
-<li><a href="#methods/pipe-next">Pipe.next</a></li>
-</ul>
 <p><a href="#">top</a>
 
 </p>
