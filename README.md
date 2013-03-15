@@ -205,24 +205,9 @@ Transform emits the result of a closure.
 Filter steps decide whether to allow an object to pass to the next step or not.
 
 
-### [i..j]
+### range
 
 A range filter that emits the objects within a range.
-
-[top](#)
-
-***
-
-### back
-
-Go back to the results from n-steps ago or go back to the results of a named step.
-
-```text
-gremlin> g.V.out('knows').has('age', T.gt, 30).back(2).age
-==>29
-gremlin> g.V.as('x').outE('knows').inV.has('age', T.gt, 30).back('x').age
-==>29
-```
 
 [top](#)
 
@@ -332,9 +317,7 @@ Emit the object only if the current path has no repeated elements.
 
 ***
 
-## Side Effect
-
-Side Effect steps pass the object, but yield some kind of side effect while doing so.
+## Annotations 
 
 ### as
 
@@ -343,6 +326,41 @@ Emits input, but names the previous step.
 [top](#)
 
 ***
+
+### back
+
+Go back to the results from n-steps ago or go back to the results of a named step.
+
+[top](#)
+
+***
+
+### back-to
+
+Go back to the results from n-steps ago or go back to the results of a named step.
+
+[top](#)
+
+***
+
+### loop 
+
+Loop over a particular set of steps in the pipeline.  The first argument is either the number of steps back in the pipeline to go or a named step.  The second argument is a while closure evaluating the current object.  The `it` component of the loop step closure has three properties that are accessible. These properties can be used to reason about when to break out of the loop.
+
+* `it.object`: the current object of the traverser.
+* `it.path`: the current path of the traverser.
+* `it.loops`: the number of times the traverser has looped through the loop section.
+
+The final argument is known as the "emit" closure. This boolean-based closure will determine wether the current object in the loop structure is emitted or not. As such, it is possible to emit intermediate objects, not simply those at the end of the loop.
+
+[top](#)
+
+***
+
+
+## Side Effect
+
+Side Effect steps pass the object, but yield some kind of side effect while doing so.
 
 ### groupBy
 
@@ -478,20 +496,6 @@ Allows for if-then-else conditional logic.
 Remembers a particular mapping from input to output.  Long or expensive expressions with no side effects can use this step to remember a mapping, which helps reduce load when previously processed objects are passed into it.
 
 For situations where memoization may consume large amounts of RAM, consider using an embedded key-value store like [JDBM](http://code.google.com/p/jdbm2/) or some other persistent Map implementation.
-
-[top](#)
-
-***
-
-### loop 
-
-Loop over a particular set of steps in the pipeline.  The first argument is either the number of steps back in the pipeline to go or a named step.  The second argument is a while closure evaluating the current object.  The `it` component of the loop step closure has three properties that are accessible. These properties can be used to reason about when to break out of the loop.
-
-* `it.object`: the current object of the traverser.
-* `it.path`: the current path of the traverser.
-* `it.loops`: the number of times the traverser has looped through the loop section.
-
-The final argument is known as the "emit" closure. This boolean-based closure will determine wether the current object in the loop structure is emitted or not. As such, it is possible to emit intermediate objects, not simply those at the end of the loop.
 
 [top](#)
 

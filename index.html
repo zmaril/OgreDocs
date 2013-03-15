@@ -158,11 +158,7 @@
             <ul>
               
                 <li>
-                  <a href="#filter/i-j">[i..j]</a>
-                </li>
-              
-                <li>
-                  <a href="#filter/back">back</a>
+                  <a href="#filter/range">range</a>
                 </li>
               
                 <li>
@@ -206,13 +202,34 @@
         </li>
       
         <li>
-          <a href="#side-effect">Side Effect</a>
+          <a href="#annotations">Annotations</a>
           
             <ul>
               
                 <li>
-                  <a href="#side-effect/as">as</a>
+                  <a href="#annotations/as">as</a>
                 </li>
+              
+                <li>
+                  <a href="#annotations/back">back</a>
+                </li>
+              
+                <li>
+                  <a href="#annotations/back-to">back-to</a>
+                </li>
+              
+                <li>
+                  <a href="#annotations/loop">loop</a>
+                </li>
+              
+            </ul>
+          
+        </li>
+      
+        <li>
+          <a href="#side-effect">Side Effect</a>
+          
+            <ul>
               
                 <li>
                   <a href="#side-effect/groupby">groupBy</a>
@@ -273,10 +290,6 @@
               
                 <li>
                   <a href="#branch/memoize">memoize</a>
-                </li>
-              
-                <li>
-                  <a href="#branch/loop">loop</a>
                 </li>
               
             </ul>
@@ -546,22 +559,10 @@ requests will be celebrated.
 
 
 </p>
-<h3 id='filter/i-j'>[i..j]</h3 id='filter/i-j'>
+<h3 id='filter/range'>range</h3 id='filter/range'>
 <p>A range filter that emits the objects within a range.
 
 </p>
-<p><a href="#">top</a>
-
-</p>
-<hr>
-<h3 id='filter/back'>back</h3 id='filter/back'>
-<p>Go back to the results from n-steps ago or go back to the results of a named step.
-
-</p>
-<pre><code class="text">gremlin&gt; g.V.out(&#39;knows&#39;).has(&#39;age&#39;, T.gt, 30).back(2).age
-==&gt;29
-gremlin&gt; g.V.as(&#39;x&#39;).outE(&#39;knows&#39;).inV.has(&#39;age&#39;, T.gt, 30).back(&#39;x&#39;).age
-==&gt;29</code></pre>
 <p><a href="#">top</a>
 
 </p>
@@ -673,11 +674,8 @@ gremlin&gt; g.V.as(&#39;x&#39;).outE(&#39;knows&#39;).inV.has(&#39;age&#39;, T.g
 
 </p>
 <hr>
-<h2 id='side-effect'>Side Effect</h2 id='side-effect'>
-<p>Side Effect steps pass the object, but yield some kind of side effect while doing so.
-
-</p>
-<h3 id='side-effect/as'>as</h3 id='side-effect/as'>
+<h2 id='annotations'>Annotations</h2 id='annotations'>
+<h3 id='annotations/as'>as</h3 id='annotations/as'>
 <p>Emits input, but names the previous step.
 
 </p>
@@ -685,6 +683,42 @@ gremlin&gt; g.V.as(&#39;x&#39;).outE(&#39;knows&#39;).inV.has(&#39;age&#39;, T.g
 
 </p>
 <hr>
+<h3 id='annotations/back'>back</h3 id='annotations/back'>
+<p>Go back to the results from n-steps ago or go back to the results of a named step.
+
+</p>
+<p><a href="#">top</a>
+
+</p>
+<hr>
+<h3 id='annotations/back-to'>back-to</h3 id='annotations/back-to'>
+<p>Go back to the results from n-steps ago or go back to the results of a named step.
+
+</p>
+<p><a href="#">top</a>
+
+</p>
+<hr>
+<h3 id='annotations/loop'>loop</h3 id='annotations/loop'>
+<p>Loop over a particular set of steps in the pipeline.  The first argument is either the number of steps back in the pipeline to go or a named step.  The second argument is a while closure evaluating the current object.  The <code>it</code> component of the loop step closure has three properties that are accessible. These properties can be used to reason about when to break out of the loop.
+
+</p>
+<ul>
+<li><code>it.object</code>: the current object of the traverser.</li>
+<li><code>it.path</code>: the current path of the traverser.</li>
+<li><code>it.loops</code>: the number of times the traverser has looped through the loop section.</li>
+</ul>
+<p>The final argument is known as the &quot;emit&quot; closure. This boolean-based closure will determine wether the current object in the loop structure is emitted or not. As such, it is possible to emit intermediate objects, not simply those at the end of the loop.
+
+</p>
+<p><a href="#">top</a>
+
+</p>
+<hr>
+<h2 id='side-effect'>Side Effect</h2 id='side-effect'>
+<p>Side Effect steps pass the object, but yield some kind of side effect while doing so.
+
+</p>
 <h3 id='side-effect/groupby'>groupBy</h3 id='side-effect/groupby'>
 <p>Emits input, but groups input after processing it by provided key-closure and value-closure.  It is also possible to supply an optional reduce-closure.  
 
@@ -818,22 +852,6 @@ gremlin&gt; g.V.as(&#39;x&#39;).outE(&#39;knows&#39;).inV.has(&#39;age&#39;, T.g
 
 </p>
 <p>For situations where memoization may consume large amounts of RAM, consider using an embedded key-value store like <a href="http://code.google.com/p/jdbm2/">JDBM</a> or some other persistent Map implementation.
-
-</p>
-<p><a href="#">top</a>
-
-</p>
-<hr>
-<h3 id='branch/loop'>loop</h3 id='branch/loop'>
-<p>Loop over a particular set of steps in the pipeline.  The first argument is either the number of steps back in the pipeline to go or a named step.  The second argument is a while closure evaluating the current object.  The <code>it</code> component of the loop step closure has three properties that are accessible. These properties can be used to reason about when to break out of the loop.
-
-</p>
-<ul>
-<li><code>it.object</code>: the current object of the traverser.</li>
-<li><code>it.path</code>: the current path of the traverser.</li>
-<li><code>it.loops</code>: the number of times the traverser has looped through the loop section.</li>
-</ul>
-<p>The final argument is known as the &quot;emit&quot; closure. This boolean-based closure will determine wether the current object in the loop structure is emitted or not. As such, it is possible to emit intermediate objects, not simply those at the end of the loop.
 
 </p>
 <p><a href="#">top</a>
