@@ -5,7 +5,7 @@
 [Ogre](http://github.com/zmaril/ogre) is a domain specific language
 for traversing property graphs in [Clojure](http://clojure.org/). Ogre
 wraps [Gremlin](https://github.com/tinkerpop/gremlin/wiki), a library
-which enables all sorts of neat operations on graphs. 
+which enables [all sorts of groovy operations on graphs](http://gremlindocs.com/). 
 
 The documentation and samples presented here attempt to stay current
 with the most current, stable release of Ogre. Please join the
