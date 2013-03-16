@@ -154,10 +154,10 @@ Let's break this down:
   element of id 1. 
 * `q/-->` is a function which adds on an outwards traversal step to
   the pipe. This means that the Gremlin query will take all the
-  vertices it is currently thinking about and then look for all the
-  vertices that the previous vertices pointed to. 
+  vertices it is currently thinking about and then think about all the
+  vertices that the vertices in it's mind pointed to.
 * `q/into-vec!` executes the query and returns the results inside of a
-  vector. Up until this call, the Gremlin query hasn't actually done
+  vector. Before this call, the Gremlin query hasn't actually done
   anything yet. Only when a function that ends with a bang is passed
   in does anything actually happen beyond just a GremlinPipeline
   getting built up. 
@@ -174,12 +174,13 @@ So far so good. But, I wonder, who is the dashing rogue behind
 ;;"vadas"
 ```
 
-`q/query` isn't just about running Gremlin queries. Remember,
-it's really just a glorified `->` with helper functions. That means we
-can stick a `first` in there to get the first vertex of the vector.
-`(q/prop :name)` takes a property key and returns a function which
-takes a vertex and returns the given property. Thus, `"vadas"` is the
-charming face of `#<TinkerVertex v[2]>`.
+`q/query` isn't just about running Gremlin queries. Remember, it's
+really just a glorified `->`, and a bunch of provided helper
+functions. That means we can stick a `first` in there to get the first
+vertex of the vector. `(q/prop :name)` takes a property key and
+returns a function which takes a vertex and returns the given
+property. Thus, `"vadas"` is the charming face of `#<TinkerVertex
+v[2]>`.
 
 ***
 
@@ -192,7 +193,7 @@ vertices are connected.
 
 `-->` or `out` gets the out adjacent vertices (the functions do
 exactly the same thing, one just looks cooler). Additionally, labels
-can be supplied that makes the graph only traverse edges with those
+can be supplied that so that the query only traverse edges with those
 labels. This also applies to the other traversal functions where it
 makes sense (any function that is named with arrows).
 
@@ -225,7 +226,7 @@ makes sense (any function that is named with arrows).
 
 ### out-edges / --E>
 
-Gets the outgoing edges of the vertex.
+Get the outgoing edges of the vertex.
 
 ``` clojure
 (q/query (g/find-by-id 4)
@@ -260,7 +261,7 @@ two objects "in the pipeline". Thus, we get two objects back.
 
 ### in / <--
 
-Gets the adjacent vertices to the vertex.
+Get the adjacent vertices pointing to the vertex.
 
 ``` clojure
 (q/query (g/find-by-id 3)
@@ -271,7 +272,7 @@ Gets the adjacent vertices to the vertex.
 
 ### in-edges / <E--
 
-Gets the incoming edges of the vertex.
+Get the incoming edges of the vertex.
 
 ``` clojure
 (q/query (g/find-by-id 3)
@@ -295,7 +296,7 @@ Get incoming head vertex of the edge.
 
 ### both / <->
 
-Get both adjacent vertices of the vertex, the in and the out.
+Get any vertices that are connected to the given vertex. 
 
 ``` clojure
 (q/query (g/find-by-id 4)
@@ -332,11 +333,11 @@ Get both incoming and outgoing vertices of the edge.
 
 ***
 
-## Map
+## Map-like functions
 
 The following functions are conceptually similar in scope to
-`clojure.core/map` and so are grouped together. They all take in a
-function and perform some transformation on it. 
+`clojure.core/map` and so are grouped together. They all take in some
+object and perform a transformation on it.
 
 ### id
 
@@ -383,24 +384,19 @@ Get the property value of an element.
 
 ### label
 
-Gets the label of an edge.
+Get the label of an edge.
 
 ``` clojure
 (q/query (g/find-by-id 1)
-         (q/property :name)
+         q/--E>
+         q/label
          q/into-vec!)
-;;["marko"]
-
-(q/query (g/find-by-id 1)
-         q/-->
-         (q/property :name)
-         q/into-vec!)
-;;["vadas" "josh" "lop"]
+;;["knows" "knows" "created"]
 ``` 
 
 ### map
 
-Gets the property map of the graph element.
+Get the property map of the graph element.
 
 ``` clojure
 (q/query (g/find-by-id 1)
@@ -421,10 +417,10 @@ Gets the property map of the graph element.
 ``` 
 
 We now see two new functions in addition to `q/map`: `first-into-map!`
-and `all-into-maps!`. As you see, Gremlin doesn't return Clojure data
-structures. The new functions execute the Gremlin query and then call
-the correct conversion methods to ensure that you can work with the
-returned objects without too much hassle. 
+and `all-into-maps!`. As you see in the first example, Gremlin doesn't
+return Clojure data structures. The new functions execute the Gremlin
+query and then call the correct conversion methods to ensure that you
+can work with the returned objects without too much hassle.
 
 ### path
 
@@ -496,16 +492,16 @@ Transform applies a function to each object.
 ``` 
 
 `first-of!` executes the query and gets the first element from the
-list. Don't shoot yourself in the foot.
+list. Don't shoot yourself in the foot with this. 
 
 ## Executors
 
 Ogre cannot do everything for you. Specifically, it does not figure
-out the sorts of Java objects that are returned from some arbitrary
+out the types of Java objects that are returned from some arbitrary
 query and convert them automatically into Clojure objects. So, with
 that in mind, Ogre includes several functions that execute the
-pipeline and then do conversions into Clojure data structures.
-
+pipeline and then do conversions into specific Clojure data
+structures.
 
 ### to-list!
 
