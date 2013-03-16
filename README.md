@@ -3,13 +3,13 @@
 **WARNING OgreDocs is still being written.**
 
 [Ogre](http://github.com/zmaril/ogre) is a domain specific language
-for traversing property graphs in Clojure. Ogre wraps
+for traversing property graphs in [Clojure](http://clojure.org/). Ogre wraps
 [Gremlin](https://github.com/tinkerpop/gremlin/wiki), a library which
-enables all sorts of fast and easy operations on graphs. Ogre is an
-open source project maintained by
-[Zack Maril](http://zacharymaril.com). Please join the Gremlin users
-group at http://groups.google.com/group/gremlin-users for any Ogre or
-Gremlin related discussions.
+enables all sorts of neat operations on graphs. Ogre is an open source
+project maintained by [Zack Maril](http://zacharymaril.com). Please
+join the Gremlin users group at
+http://groups.google.com/group/gremlin-users for any Ogre or Gremlin
+related discussions.
 
 The documentation and samples presented here attempt to stay current
 with the most current, stable release of Ogre. Please note that this
@@ -18,13 +18,32 @@ is the *official* Ogre documentation. This page is a fork of
 [GitHub repository](https://github.com/spmallette/OgreDocs). Pull
 requests will be celebrated.
 
+Ogre currently powers
+[Archimedes](https://github.com/zmaril/archimedes), a Clojure library
+for blueprints, and [Hermes](https://github.com/zmaril/hermes), a
+Clojure library for working with
+[Titan](http://thinkaurelius.github.com/titan/) (built on top of
+Archimedes). 
+
 ***
 
 ## Getting started
 
+### The stack
+
 ### leiningen
 
-versioning ideas
+The version scheme for Ogre is as follows:
+`[Full Gremlin version].[Ogre major version]`. Philosophically, the
+authors of Gremlin are the ones who will be causing most of the
+changes to Ogre. Ogre is a mere wrapper around their work and the
+version scheme acknowledges that directly. Thus, the first and current
+release is `0.2.2.0`, meaning that Ogre uses Gremlin `0.2.2` and has
+undergone zero major versions itself so far. 
+
+To get started with Ogre write away, include the following
+dependency for leiningen: `[zmaril/ogre "0.2.2.0"]`.
+
 
 ### git clone
 
