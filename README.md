@@ -14,7 +14,7 @@ for any Ogre related discussions. Please use the
 [Ogre issue page](https://github.com/zmaril/ogre/issues) for reporting
 bugs and discussing features. For any errors or corrections with
 OgreDocs, please use the
-[Orge docs issue page](https://github.com/zmaril/ogredocs).
+[OrgeDocs issue page](https://github.com/zmaril/ogredocs).
 
 Pull requests will be celebrated, scrutinized, and hopefully accepted.
 If the pull request is really solid, then I'll probably [give you commit
@@ -25,10 +25,9 @@ Ogre currently powers
 [Archimedes](https://github.com/zmaril/archimedes), a Clojure library
 for blueprints, and [Hermes](https://github.com/zmaril/hermes), a
 Clojure library built on top of Archimedes for working with
-[Titan](http://thinkaurelius.github.com/titan/).
-
-Ogre is an open source project maintained by
-[Zack Maril](http://zacharymaril.com). 
+[Titan](http://thinkaurelius.github.com/titan/). Ogre, Archimedes, and
+Hermes are all open source projects maintained by
+[Zack Maril](https://twitter.com/ZackMaril).
 
 ***
 
