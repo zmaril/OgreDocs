@@ -204,8 +204,6 @@ exactly the same thing, one just looks cooler).
 ;;[#<TinkerVertex v[5]> #<TinkerVertex v[3]>]
 ```
 
-[top](#)
-
 ***
 
 ### --E> / out-edges
@@ -223,8 +221,6 @@ Gets the outgoing edges of the vertex.
          q/into-vec!)
 ;;[#<TinkerEdge e[10][4-created->5]> #<TinkerEdge e[11][4-created->3]>]
 ```
-
-[top](#)
 
 ***
 
@@ -247,15 +243,18 @@ same as the `--E>` query except we are asking for the `out-vertex`.
 That means, by the time we are asking for the `out-vertex`, we have
 two objects "in the pipeline". Thus, we get two objects back. 
 
-[top](#)
-
 ***
 
 ### <-- / in
 
 Gets the adjacent vertices to the vertex.
 
-[top](#)
+``` clojure
+(q/query (g/find-by-id 3)
+         q/<--
+         q/into-vec!)
+;;[#<TinkerVertex v[1]> #<TinkerVertex v[4]> #<TinkerVertex v[6]>]
+```
 
 ***
 
@@ -263,15 +262,25 @@ Gets the adjacent vertices to the vertex.
 
 Gets the incoming edges of the vertex.
 
-[top](#)
+``` clojure
+(q/query (g/find-by-id 3)
+         q/<E--
+         q/into-vec!)
+;;[#<TinkerEdge e[9][1-created->3]> #<TinkerEdge e[11][4-created->3]> #<TinkerEdge e[12][6-created->3]>]
+```
 
 ***
 
 ### in-vertex
 
-Get both incoming head vertex of the edge.
-
-[top](#)
+Get incoming head vertex of the edge.
+``` clojure
+(q/query (g/find-by-id 3)
+         q/<E--
+         q/in-vertex
+         q/into-vec!)
+;;[#<TinkerVertex v[3]> #<TinkerVertex v[3]> #<TinkerVertex v[3]>]
+```
 
 ***
 
@@ -279,15 +288,26 @@ Get both incoming head vertex of the edge.
 
 Get both adjacent vertices of the vertex, the in and the out.
 
-[top](#)
+``` clojure
+(q/query (g/find-by-id 4)
+         q/<->
+         q/into-vec!)
+;;[#<TinkerVertex v[1]> #<TinkerVertex v[5]> #<TinkerVertex v[3]>]
+```
 
 ***
 
-### <->
+### <E>/both-edges
 
 Get both incoming and outgoing edges of the vertex.
 
-[top](#)
+``` clojure
+(q/query (g/find-by-id 4)
+         q/<E>
+         q/into-vec!)
+;;[#<TinkerEdge e[8][1-knows->4]> #<TinkerEdge e[10][4-created->5]> #<TinkerEdge e[11][4-created->3]>]
+```
+
 
 ***
 
