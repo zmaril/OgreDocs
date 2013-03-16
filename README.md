@@ -60,15 +60,16 @@ The version scheme for Ogre is as follows:
 authors of Gremlin are the ones who will be causing most of the
 changes to Ogre. Ogre is a mere wrapper around their work and the
 version scheme acknowledges that directly. Thus, the first and current
-release is `0.2.2.0`, meaning that Ogre uses Gremlin `0.2.2` and has
-undergone zero major versions itself so far. 
+release is `0.2.2.0`, meaning that the current release uses Gremlin
+`0.2.2` and has undergone zero major versions itself so far since
+release.
 
-To get started with Ogre right away, include the following
-dependency for leiningen: `[zmaril/ogre "0.2.2.0"]`.
+To get started with Ogre, include the following dependency for
+leiningen: `[zmaril/ogre "0.2.2.0"]`.
 
 ### The TinkerGraph
 
-Unless otherwise noted, all samples rely on the TinkerPop "toy" graph.
+Unless otherwise noted, all samples reference the TinkeGraph.
 
 ```clojure 
 (use 'ogre.tinkergraph) 
