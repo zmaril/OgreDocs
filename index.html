@@ -580,23 +580,25 @@ a vector.
          q/into-vec!</span>)</span>
 <span class="comment">;;[#&lt;TinkerVertex v[2]> #&lt;TinkerVertex v[4]> #&lt;TinkerVertex v[3]>]</span></code></pre>
 <p>Let&#39;s break this down: 
-<em> <code>q/query</code> is a macro that is
-  <a href="https://github.com/zmaril/ogre/blob/master/src/ogre/util.clj#L13">just a combination</a>
-  of <code>-&gt;</code> and <code>(GremlinPipeline.)</code>. It takes in a single element or a
-  Collection and creates a new pipeline around them. 
-</em> <code>g/find-by-id</code> is a function that goes and asks the vertex for the
-  element of id 1. 
-<em> <code>q/--&gt;</code> is a function which adds on an outwards traversal step to
-  the pipe. This means that the Gremlin query will take all the
-  vertices it is currently thinking about and then look for all the
-  vertices that the previous vertices pointed to. 
-</em> <code>q/into-vec!</code> executes the query and returns the results inside of a
-  vector. Up until this call, the Gremlin query hasn&#39;t actually done
-  anything yet. Only when a function that ends with a bang is passed
-  in does anything actually happen beyond just a GremlinPipeline
-  getting built up. 
 
 </p>
+<ul>
+<li><code>q/query</code> is a macro that is
+<a href="https://github.com/zmaril/ogre/blob/master/src/ogre/util.clj#L13">just a combination</a>
+of <code>-&gt;</code> and <code>(GremlinPipeline.)</code>. It takes in a single element or a
+Collection and creates a new pipeline around them. </li>
+<li><code>g/find-by-id</code> is a function that goes and asks the vertex for the
+element of id 1. </li>
+<li><code>q/--&gt;</code> is a function which adds on an outwards traversal step to
+the pipe. This means that the Gremlin query will take all the
+vertices it is currently thinking about and then look for all the
+vertices that the previous vertices pointed to. </li>
+<li><code>q/into-vec!</code> executes the query and returns the results inside of a
+vector. Up until this call, the Gremlin query hasn&#39;t actually done
+anything yet. Only when a function that ends with a bang is passed
+in does anything actually happen beyond just a GremlinPipeline
+getting built up. </li>
+</ul>
 <p>So far so good. But, I wonder, who is the dashing rogue behind
 <code>#&lt;TinkerVertex v[2]&gt;</code>?
 
