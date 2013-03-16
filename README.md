@@ -28,7 +28,18 @@ Clojure library built on top of Archimedes for working with
 
 ## Getting started
 
-### The stack
+### The Tinkerpop stack
+
+Before gooing down the rabbit hole, I offer the briefest of warnings:
+the [Tinkerpop folks](https://github.com/tinkerpop?tab=members) have
+been working on Gremlin,
+[Pipes](https://github.com/tinkerpop/pipes/wiki), and
+[Blueprints](https://github.com/tinkerpop/blueprints/wiki) for a few
+years now and the stack has become incredibly intertwined. Ogre and
+[Archimedes](https://github.com/zmaril/archimedes) try to hide all of
+this from you at some hide level, but every abstraction leaks. Your
+stack traces will speak of `com.tinkerpop.X` and there is nothing I
+want to do about that. With that, let's get started! 
 
 ### leiningen
 
