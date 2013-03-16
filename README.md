@@ -11,8 +11,10 @@ The documentation and samples presented here attempt to stay current
 with the most current, stable release of Ogre. Please join the
 [Gremlin users group](http://groups.google.com/group/gremlin-users)
 for any Ogre related discussions. Please use the
-[Github issue page](https://github.com/zmaril/ogre/issues) for
-reporting bugs and discussing features.
+[Ogre issue page](https://github.com/zmaril/ogre/issues) for reporting
+bugs and discussing features. For any errors or corrections with
+OgreDocs, please use the
+[Orge docs issue page](https://github.com/zmaril/ogredocs).
 
 Pull requests will be celebrated, scrutinized, and hopefully accepted.
 If the pull request is really solid, then I'll probably [give you commit
