@@ -320,48 +320,15 @@
                 </li>
               
                 <li>
-                  <a href="#side-effect/get-group-count">get-group-count</a>
+                  <a href="#side-effect/get-table">get-table!</a>
                 </li>
               
                 <li>
-                  <a href="#side-effect/get-table">get-table</a>
-                </li>
-              
-                <li>
-                  <a href="#side-effect/get-tree">get-tree</a>
+                  <a href="#side-effect/get-tree">get-tree!</a>
                 </li>
               
                 <li>
                   <a href="#side-effect/side-effect">side-effect</a>
-                </li>
-              
-            </ul>
-          
-        </li>
-      
-        <li>
-          <a href="#branch">Branch</a>
-          
-            <ul>
-              
-                <li>
-                  <a href="#branch/copy-split">copy-split</a>
-                </li>
-              
-                <li>
-                  <a href="#branch/exhaust-merge">exhaust-merge</a>
-                </li>
-              
-                <li>
-                  <a href="#branch/fair-merge">fair-merge</a>
-                </li>
-              
-                <li>
-                  <a href="#branch/if-then-else">if-then-else</a>
-                </li>
-              
-                <li>
-                  <a href="#branch/memoize">memoize</a>
                 </li>
               
             </ul>
@@ -1290,7 +1257,7 @@ instead.
 <span class="comment">;;["ripple" "lop"]</span></code></pre>
 <hr>
 <h2 id='side-effect'>Side Effect</h2 id='side-effect'>
-<p>As this stage in Ogre&#39;s development, side effect steps immediately
+<p>As this stage in Ogre&#39;s development, most side effect steps immediately
 return various data structures about the query. 
 
 </p>
@@ -1310,18 +1277,53 @@ processed objects grouped by the value of the key function.
          <span class="list">(<span class="title">q/get-grouped-by</span><span class="body">! <span class="list">(<span class="title">q/prop</span><span class="body"> <span class="keyword">:lang</span></span>)</span>
                             <span class="list">(<span class="title">q/prop</span><span class="body"> <span class="keyword">:name</span></span>)</span></span>)</span></span>)</span>
 <span class="comment">;;{nil ["vadas" "marko" "peter" "josh"], "java" ["lop" "ripple"]}</span></code></pre>
-<h3 id='side-effect/get-group-count'>get-group-count</h3 id='side-effect/get-group-count'>
-<p>Emits input, but updates a map for each input, where closures provides
-generic map update.
-
+<p>(q/query (g/get-vertices)
+         (q/get-grouped-by! (q/prop :lang)
 </p>
-<h3 id='side-effect/get-table'>get-table</h3 id='side-effect/get-table'>
-<p>Emits input, but stores row of as values (constrained by column names
-if provided) in a table. Accepts an optional set of closures that are
-applied in round-robin fashion to each column of the table.
-
+<pre><code>                        <span class="comment">#(q/query % q/out q/into-vec!)))</span></code></pre>
+<p>;;{nil [[] 
+;;      [#<TinkerVertex v[2]> #<TinkerVertex v[4]> #<TinkerVertex v[3]>]
+;;      [#<TinkerVertex v[3]>] 
+;;      [#<TinkerVertex v[5]> #<TinkerVertex v[3]>]], 
+;;      &quot;java&quot; [[] []]}
 </p>
-<h3 id='side-effect/get-tree'>get-tree</h3 id='side-effect/get-tree'>
+<pre><code>
+### <span class="keyword">get</span>-group-count!
+
+Takes <span class="keyword">in</span> a key <span class="keyword">function</span>, <span class="keyword">and</span> optionally, a counting <span class="keyword">function</span>. Returns
+the count of the objects grouped by the key <span class="keyword">function</span>.
+
+```clojure 
+(q/query (g/<span class="keyword">get</span>-vertices)
+         (q/<span class="keyword">get</span>-group-count! (q/prop :lang)))
+;;{nil <span class="number">4</span>, <span class="string">"java"</span> <span class="number">2</span>}
+(q/query (g/<span class="keyword">get</span>-vertices)
+         (q/<span class="keyword">get</span>-group-count! (q/prop :lang)
+                             (fn [a b] (+ b (count (.getProperty a <span class="string">"name"</span>))))))
+;;{nil <span class="number">19</span>, <span class="string">"java"</span> <span class="number">9</span>}</code></pre>
+<h3 id='side-effect/get-table'>get-table!</h3 id='side-effect/get-table'>
+<pre><code class="clojure"><span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/get-vertices</span><span class="body"></span>)</span>
+         <span class="list">(<span class="title">q/property</span><span class="body"> <span class="keyword">:name</span></span>)</span>
+         <span class="list">(<span class="title">q/as</span><span class="body"> <span class="string">"name"</span></span>)</span>
+         <span class="list">(<span class="title">q/back</span><span class="body"> <span class="number">1</span></span>)</span>
+         <span class="list">(<span class="title">q/property</span><span class="body"> <span class="keyword">:age</span></span>)</span>
+         <span class="list">(<span class="title">q/as</span><span class="body"> <span class="string">"age"</span></span>)</span>
+         <span class="list">(<span class="title">q/get-table</span><span class="body">!</span>)</span></span>)</span>
+<span class="comment">;;({:name "lop", :age nil} {:name "vadas", :age 27} </span>
+<span class="comment">;; {:name "marko", :age 29} {:name "peter", :age 35} </span>
+<span class="comment">;; {:name "ripple", :age nil} {:name "josh", :age 32})         </span>
+
+<span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/get-vertices</span><span class="body"></span>)</span>
+         <span class="list">(<span class="title">q/property</span><span class="body"> <span class="keyword">:name</span></span>)</span>
+         <span class="list">(<span class="title">q/as</span><span class="body"> <span class="string">"name"</span></span>)</span>
+         <span class="list">(<span class="title">q/back</span><span class="body"> <span class="number">1</span></span>)</span>
+         <span class="list">(<span class="title">q/property</span><span class="body"> <span class="keyword">:age</span></span>)</span>
+         <span class="list">(<span class="title">q/as</span><span class="body"> <span class="string">"age"</span></span>)</span>
+         <span class="list">(<span class="title">q/get-table</span><span class="body">! count #<span class="list">(<span class="title">or</span><span class="body"> % <span class="number">18</span></span>)</span></span>)</span></span>)</span>
+<span class="comment">;;({:name 3, :age 18} {:name 5, :age 27} </span>
+<span class="comment">;; {:name 5, :age 29} {:name 5, :age 35} </span>
+<span class="comment">;; {:name 6, :age 18} {:name 4, :age 32})</span></code></pre>
+<h3 id='side-effect/get-tree'>get-tree!</h3 id='side-effect/get-tree'>
 <p>Emit input, but stores the tree formed by the traversal as a map.
 Accepts an optional set of closures to be applied in round-robin
 fashion over each level of the tree.
@@ -1329,43 +1331,6 @@ fashion over each level of the tree.
 </p>
 <h3 id='side-effect/side-effect'>side-effect</h3 id='side-effect/side-effect'>
 <p>Emits input, but calls a side effect closure on each input.
-
-</p>
-<hr>
-<h2 id='branch'>Branch</h2 id='branch'>
-<p>Branch steps decide which step to take.
-
-</p>
-<h3 id='branch/copy-split'>copy-split</h3 id='branch/copy-split'>
-<p>Copies incoming object to internal pipes.
-
-</p>
-<h3 id='branch/exhaust-merge'>exhaust-merge</h3 id='branch/exhaust-merge'>
-<p>Used in combination with a <code>copySplit</code>, merging the parallel
-traversals by exhaustively getting the objects of the first, then the
-second, etc.
-
-</p>
-<h3 id='branch/fair-merge'>fair-merge</h3 id='branch/fair-merge'>
-<p>Used in combination with a <code>copySplit</code>, merging the parallel
-traversals in a round-robin fashion.
-
-</p>
-<h3 id='branch/if-then-else'>if-then-else</h3 id='branch/if-then-else'>
-<p>Allows for if-then-else conditional logic.
-
-</p>
-<h3 id='branch/memoize'>memoize</h3 id='branch/memoize'>
-<p>Remembers a particular mapping from input to output. Long or expensive
-expressions with no side effects can use this step to remember a
-mapping, which helps reduce load when previously processed objects are
-passed into it.
-
-</p>
-<p>For situations where memoization may consume large amounts of RAM,
-consider using an embedded key-value store like
-<a href="http://code.google.com/p/jdbm2/">JDBM</a> or some other persistent Map
-implementation.
 
 </p>
 <hr>
