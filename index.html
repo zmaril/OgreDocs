@@ -283,19 +283,11 @@
             <ul>
               
                 <li>
-                  <a href="#annotations/as">as</a>
-                </li>
-              
-                <li>
                   <a href="#annotations/back">back</a>
                 </li>
               
                 <li>
-                  <a href="#annotations/back-to">back-to</a>
-                </li>
-              
-                <li>
-                  <a href="#annotations/optional">optional</a>
+                  <a href="#annotations/as-back-to">as/back-to</a>
                 </li>
               
                 <li>
@@ -1176,26 +1168,32 @@ collection.
          <span class="list">(<span class="title">q/into-vec</span><span class="body">!</span>)</span></span>)</span>
 <span class="comment">;;[#&lt;TinkerVertex v[2]>]</span></code></pre>
 <h2 id='annotations'>Annotations</h2 id='annotations'>
-<h3 id='annotations/as'>as</h3 id='annotations/as'>
-<p>Emits input, but names the previous step.
+<p>So far, we&#39;ve had great success traversing the graph. If you&#39;ve
+understood most of everything up to this point, you know how to do
+sorts of neat things with graphs. There&#39;s another level of traversal
+that we can attain though. We can annotate and traverse the pipeline
+itself, which lets us do all sorts of fancy tricks. 
+
 
 </p>
 <h3 id='annotations/back'>back</h3 id='annotations/back'>
-<p>Go back to the results from n-steps ago or go back to the results of a
-named step.
+<p>Go back to the results from n-steps ago.
 
 </p>
-<h3 id='annotations/back-to'>back-to</h3 id='annotations/back-to'>
-<p>Go back to the results from n-steps ago or go back to the results of a
-named step.
+<pre><code><span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/find-by-id</span><span class="body"> <span class="number">1</span></span>)</span>
+         q/-->      
+         <span class="list">(<span class="title">q/back</span><span class="body"> <span class="number">1</span></span>)</span> 
+         q/into-vec!</span>)</span>
+<span class="comment">;;[#&lt;TinkerVertex v[1]>]</span></code></pre>
+<h3 id='annotations/as-back-to'>as/back-to</h3 id='annotations/as-back-to'>
+<p><code>as</code> lets you name a step that you can later return to with <code>back-to</code>. 
 
 </p>
-<h3 id='annotations/optional'>optional</h3 id='annotations/optional'>
-<p>Behaves similar to <code>back</code> except that it does not filter. It will go
-down a particular path and back up to where it left off. As such, its
-useful for yielding a sideeffect down a particular branch.
-
-</p>
+<pre><code><span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/find-by-id</span><span class="body"> <span class="number">1</span></span>)</span>
+         <span class="list">(<span class="title">q/as</span><span class="body"> <span class="string">"here"</span></span>)</span>
+         q/-->      
+         <span class="list">(<span class="title">q/back-to</span><span class="body"> <span class="string">"here"</span></span>)</span>         
+         q/into-vec!</span>)</span></code></pre>
 <h3 id='annotations/select'>select</h3 id='annotations/select'>
 <p>Select the named steps to emit after select with post-processing
 closures.
