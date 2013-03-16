@@ -1295,10 +1295,18 @@ return various data structures about the query.
 
 </p>
 <h3 id='side-effect/get-grouped-by'>get-grouped-by</h3 id='side-effect/get-grouped-by'>
-<p>Returns all of the objects grouped by 
+<p>Takes in a key function and processing function. Returns all of the
+processed objects grouped by the value of the key function.
 
 </p>
 <pre><code class="clojure"><span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/get-vertices</span><span class="body"></span>)</span>
+         <span class="list">(<span class="title">q/get-grouped-by</span><span class="body">! <span class="list">(<span class="title">q/prop</span><span class="body"> <span class="keyword">:lang</span></span>)</span>
+                            identity</span>)</span></span>)</span>
+<span class="comment">;;{nil [#&lt;TinkerVertex v[2]> #&lt;TinkerVertex v[1]> </span>
+<span class="comment">;;      #&lt;TinkerVertex v[6]> #&lt;TinkerVertex v[4]>], </span>
+<span class="comment">;;"java" [#&lt;TinkerVertex v[3]> #&lt;TinkerVertex v[5]>]}</span>
+
+<span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/get-vertices</span><span class="body"></span>)</span>
          <span class="list">(<span class="title">q/get-grouped-by</span><span class="body">! <span class="list">(<span class="title">q/prop</span><span class="body"> <span class="keyword">:lang</span></span>)</span>
                             <span class="list">(<span class="title">q/prop</span><span class="body"> <span class="keyword">:name</span></span>)</span></span>)</span></span>)</span>
 <span class="comment">;;{nil ["vadas" "marko" "peter" "josh"], "java" ["lop" "ripple"]}</span></code></pre>
