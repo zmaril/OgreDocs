@@ -1262,58 +1262,46 @@ processing again.
 <span class="comment">;;(["marko" "5"] ["marko" "3"])</span></code></pre>
 <h3 id='annotations/loop'>loop</h3 id='annotations/loop'>
 <p>Loop over a particular set of steps in the pipeline. The first
-argument is either the number of steps back in the pipeline to go or a
-named step. The second argument is a while closure evaluating the
-current object. The <code>it</code> component of the loop step closure has three
-properties that are accessible. These properties can be used to reason
-about when to break out of the loop.
+argument is the number of steps back. The second argument is a
+predicate that takes three objects: the current object, the current
+path, and the number of loops thus far. While the predicate evaluates
+true, the loop continues on it&#39;s merry way. 
 
 </p>
-<ul>
-<li><code>it.object</code>: the current object of the traverser.</li>
-<li><code>it.path</code>: the current path of the traverser.</li>
-<li><code>it.loops</code>: the number of times the traverser has looped through the
-loop section.</li>
-</ul>
-<p>The final argument is known as the &quot;emit&quot; closure. This boolean-based
-closure will determine wether the current object in the loop structure
-is emitted or not. As such, it is possible to emit intermediate
-objects, not simply those at the end of the loop.
-
-</p>
+<pre><code class="clojure"><span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/find-by-id</span><span class="body"> <span class="number">1</span></span>)</span>
+         <span class="list">(<span class="title">q/--></span><span class="body"></span>)</span>
+         <span class="list">(<span class="title">q/loop</span><span class="body"> <span class="number">1</span>
+                 <span class="list">(<span class="title">fn</span><span class="body"> [l o p] <span class="list">(<span class="title">&lt;</span><span class="body"> l <span class="number">3</span></span>)</span></span>)</span></span>)</span>
+         <span class="list">(<span class="title">q/property</span><span class="body"> <span class="keyword">:name</span></span>)</span>
+         <span class="list">(<span class="title">q/into-vec</span><span class="body">!</span>)</span></span>)</span>                           
+<span class="comment">;;["ripple" "lop"]</span></code></pre>
 <h3 id='annotations/loop-to'>loop-to</h3 id='annotations/loop-to'>
-<p>Loop over a particular set of steps in the pipeline. The first
-argument is either the number of steps back in the pipeline to go or a
-named step. The second argument is a while closure evaluating the
-current object. The <code>it</code> component of the loop step closure has three
-properties that are accessible. These properties can be used to reason
-about when to break out of the loop.
+<p><code>loop-to</code> is just like loop, but it travels back to a named step
+instead. 
 
 </p>
-<ul>
-<li><code>it.object</code>: the current object of the traverser.</li>
-<li><code>it.path</code>: the current path of the traverser.</li>
-<li><code>it.loops</code>: the number of times the traverser has looped through the
-loop section.</li>
-</ul>
-<p>The final argument is known as the &quot;emit&quot; closure. This boolean-based
-closure will determine wether the current object in the loop structure
-is emitted or not. As such, it is possible to emit intermediate
-objects, not simply those at the end of the loop.
-
-</p>
+<pre><code class="clojure"><span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/find-by-id</span><span class="body"> <span class="number">1</span></span>)</span>
+         <span class="list">(<span class="title">q/as</span><span class="body"> <span class="string">"here"</span></span>)</span>
+         <span class="list">(<span class="title">q/--></span><span class="body"></span>)</span>
+         <span class="list">(<span class="title">q/loop-to</span><span class="body"> <span class="string">"here"</span>
+                 <span class="list">(<span class="title">fn</span><span class="body"> [l o p] <span class="list">(<span class="title">&lt;</span><span class="body"> l <span class="number">3</span></span>)</span></span>)</span></span>)</span>
+         <span class="list">(<span class="title">q/property</span><span class="body"> <span class="keyword">:name</span></span>)</span>
+         <span class="list">(<span class="title">q/into-vec</span><span class="body">!</span>)</span></span>)</span>                           
+<span class="comment">;;["ripple" "lop"]</span></code></pre>
 <hr>
 <h2 id='side-effect'>Side Effect</h2 id='side-effect'>
-<p>Side Effect steps pass the object, but yield some kind of side effect
-while doing so.
+<p>As this stage in Ogre&#39;s development, side effect steps immediately
+return various data structures about the query. 
 
 </p>
 <h3 id='side-effect/get-grouped-by'>get-grouped-by</h3 id='side-effect/get-grouped-by'>
-<p>Emits input, but groups input after processing it by provided
-key-closure and value-closure. It is also possible to supply an
-optional reduce-closure.
+<p>Returns all of the objects grouped by 
 
 </p>
+<pre><code class="clojure"><span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/get-vertices</span><span class="body"></span>)</span>
+         <span class="list">(<span class="title">q/get-grouped-by</span><span class="body">! <span class="list">(<span class="title">q/prop</span><span class="body"> <span class="keyword">:lang</span></span>)</span>
+                            <span class="list">(<span class="title">q/prop</span><span class="body"> <span class="keyword">:name</span></span>)</span></span>)</span></span>)</span>
+<span class="comment">;;{nil ["vadas" "marko" "peter" "josh"], "java" ["lop" "ripple"]}</span></code></pre>
 <h3 id='side-effect/get-group-count'>get-group-count</h3 id='side-effect/get-group-count'>
 <p>Emits input, but updates a map for each input, where closures provides
 generic map update.
