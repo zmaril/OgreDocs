@@ -187,7 +187,7 @@ charming face of `#<TinkerVertex v[2]>`.
 Traversal functions allow you to explore around the graph and see how
 vertices are connected.
 
-### --> / out
+### out / -->
 
 `-->` or `out` gets the out adjacent vertices (the functions do
 exactly the same thing, one just looks cooler). 
@@ -204,7 +204,7 @@ exactly the same thing, one just looks cooler).
 ;;[#<TinkerVertex v[5]> #<TinkerVertex v[3]>]
 ```
 
-### --E> / out-edges
+### out-edges --E>
 
 Gets the outgoing edges of the vertex.
 
@@ -239,7 +239,7 @@ same as the `--E>` query except we are asking for the `out-vertex`.
 That means, by the time we are asking for the `out-vertex`, we have
 two objects "in the pipeline". Thus, we get two objects back. 
 
-### <-- / in
+### in / <--
 
 Gets the adjacent vertices to the vertex.
 
@@ -250,7 +250,7 @@ Gets the adjacent vertices to the vertex.
 ;;[#<TinkerVertex v[1]> #<TinkerVertex v[4]> #<TinkerVertex v[6]>]
 ```
 
-### <E-- / in-edges
+### in-edges / <E--
 
 Gets the incoming edges of the vertex.
 
@@ -274,7 +274,7 @@ Get incoming head vertex of the edge.
 ;;[#<TinkerVertex v[3]> #<TinkerVertex v[3]> #<TinkerVertex v[3]>]
 ```
 
-### <-> / both
+### both / <->
 
 Get both adjacent vertices of the vertex, the in and the out.
 
@@ -285,7 +285,7 @@ Get both adjacent vertices of the vertex, the in and the out.
 ;;[#<TinkerVertex v[1]> #<TinkerVertex v[5]> #<TinkerVertex v[3]>]
 ```
 
-### <E>/both-edges
+### both-edges / <E>
 
 Get both incoming and outgoing edges of the vertex.
 
