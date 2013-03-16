@@ -434,10 +434,54 @@ Gets the path through the pipeline up to this point. If functions are
 provided, they are applied round robin to each of the objects in the
 path. 
 
+``` clojure
+(q/query (g/find-by-id 1)
+         q/<->
+         q/<->
+         q/path
+         q/all-into-vecs!)
+;; ([#<TinkerVertex v[1]> #<TinkerVertex v[2]> #<TinkerVertex v[1]>] 
+;;  [#<TinkerVertex v[1]> #<TinkerVertex v[4]> #<TinkerVertex v[1]>] 
+;;  [#<TinkerVertex v[1]> #<TinkerVertex v[4]> #<TinkerVertex v[5]>] 
+;;  [#<TinkerVertex v[1]> #<TinkerVertex v[4]> #<TinkerVertex v[3]>] 
+;;  [#<TinkerVertex v[1]> #<TinkerVertex v[3]> #<TinkerVertex v[1]>] 
+;;  [#<TinkerVertex v[1]> #<TinkerVertex v[3]> #<TinkerVertex v[4]>] 
+;;  [#<TinkerVertex v[1]> #<TinkerVertex v[3]> #<TinkerVertex v[6]>])         
+
+(q/query (g/find-by-id 1)
+         q/<->
+         q/<->
+         (q/path (q/prop :name))
+         q/all-into-vecs!)
+;;(["marko" "vadas" "marko"] 
+;; ["marko" "josh" "marko"] 
+;; ["marko" "josh" "ripple"] 
+;; ["marko" "josh" "lop"] 
+;; ["marko" "lop" "marko"] 
+;; ["marko" "lop" "josh"] 
+;; ["marko" "lop" "peter"])
+
+(q/query (g/find-by-id 1)
+         q/<->
+         q/<->
+         (q/path (q/prop :name) (fn [v] (count (.getProperty v "name"))))
+         q/all-into-vecs!)
+;;(["marko" 5 "marko"] 
+;; ["marko" 4 "marko"] 
+;; ["marko" 4 "ripple"] 
+;; ["marko" 4 "lop"] 
+;; ["marko" 3 "marko"] 
+;; ["marko" 3 "josh"] 
+;; ["marko" 3 "peter"])         
+``` 
+
+Note that again we have introduced a new function `all-into-vecs!`.
+This takes in an ArrayList of ArrayLists and produces a list of
+vectors. 
 
 ### transform
 
-Transform emits the result of a closure.
+Transform emits the result of a function.
 
 ## Converters
 
