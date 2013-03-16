@@ -114,13 +114,13 @@ the JVM as a Turing machine. Poor gal.
 
 OgreDocs is organized to be read mostly linearly. That means that you
 can probably read it from start to finish and understand what is going
-on. OgreDocs starts from the basics, with traversals, maps,
+on. OgreDocs starts from the basics, with traversals, maps, query
 executions, and filters. Then it transitions into the more advanced
 topics of annotations and side effects. At the same time, OgreDocs is
-meant to serve as a reference for anyone using the library
-(ctrl+f is your friend). These examples were are developed at the
-command line or inside emacs with a REPL, so they are meant to be run
-and experimented with.
+meant to serve as a reference for anyone using the library (ctrl+f is
+your friend). These examples were are developed at the command line or
+inside emacs with a REPL, so they are meant to be run and experimented
+with.
 
 ***
 
@@ -494,7 +494,7 @@ Transform applies a function to each object.
 `first-of!` executes the query and gets the first element from the
 list. Don't shoot yourself in the foot with this. 
 
-## Executors
+## Query execution 
 
 Ogre cannot do everything for you. Specifically, it does not figure
 out the types of Java objects that are returned from some arbitrary
