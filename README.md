@@ -282,6 +282,25 @@ order.
 
 ***
 
+### gather
+
+Collect all objects up to that step and process the gathered list with
+the provided closure.
+
+[top](#)
+
+***
+
+### scatter
+
+Unroll all objects in the iterable at that step. Gather/Scatter is
+good for breadth-first traversals where the gather closure filters out
+unwanted elements at the current radius.
+
+[top](#)
+
+***
+
 ## Filter
 
 Filter steps decide whether to allow an object to pass to the next
@@ -657,25 +676,6 @@ is not supported using that step.
 ### Shortest Path
 
 Find the shortest path between two vertices:
-
-[top](#)
-
-***
-
-### gather
-
-Collect all objects up to that step and process the gathered list with
-the provided closure.
-
-[top](#)
-
-***
-
-### scatter
-
-Unroll all objects in the iterable at that step. Gather/Scatter is
-good for breadth-first traversals where the gather closure filters out
-unwanted elements at the current radius.
 
 [top](#)
 
