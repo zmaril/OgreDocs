@@ -751,66 +751,110 @@ provides them in a list.
 
 ### except
 
-Emit everything to pass except what is in the supplied collection.
+Filter out the provided objects.
+
+``` clojure
+(q/query (g/find-by-id 1)
+         q/-->
+         q/<--
+         (q/except [(g/find-by-id 1)])
+         (q/into-vec!))         
+;;[#<TinkerVertex v[4]> #<TinkerVertex v[6]>]         
+```                         
 
 ### filter
 
 Decide whether to allow an object to pass. Return true from the
 closure to allow an object to pass.
 
+
+``` clojure
+(q/query (g/get-vertices)
+         (q/filter (fn [v] (= "java" (.getProperty v "lang"))))
+         q/map
+         (q/all-into-maps!))         
+;;({:name "lop", :lang "java"} {:name "ripple", :lang "java"})         
+```                         
+
+
 ### has
 
-Allows an element if it has a particular property. Utilizes several
-options for comparisons through `T`:
+Allows an element if it has a particular property. The standard
+Clojure operations for comparisons can also be supplied:
+`>`,`>=`,`<`,`<=`,`=`,`not=`.
 
-* T.gt - greater than
-* T.gte - greater than or equal to
-* T.eq - equal to
-* T.neq - not equal to
-* T.lte - less than or equal to
-* T.lt - less than
+```clojure
+(q/query (g/get-vertices)
+         (q/has :name "marko")                    
+         (q/into-vec!))
+;;[#<TinkerVertex v[1]>]         
 
-It is worth noting that the syntax of `has` is similar to `g.V("name",
-"marko")`, which has the difference of being a
-[key index](https://github.com/tinkerpop/blueprints/wiki/Graph-Indices)
-lookup and as such will perform faster. In contrast, this line,
-`g.V.has("name", "marko")`, will iterate over all vertices checking
-the `name` property of each vertex for a match and will be
-significantly slower than the key index approach.
-
-#### See Also
+(q/query (g/get-vertices)
+         (q/has :age > (int 30))                    
+         (q/into-vec!))
+[#<TinkerVertex v[6]> #<TinkerVertex v[4]>]         
+```                      
 
 ### has-not
 
-Allows an element if it does not have a particular property. Utilizes
-several options for comparisons on through `T`:
+Allows an element if it does not have a particular property. 
 
-* T.gt - greater than
-* T.gte - greater than or equal to
-* T.eq - equal to
-* T.neq - not equal to
-* T.lte - less than or equal to
-* T.lt - less than
+```clojure
+(q/query (g/get-vertices)
+         (q/has-not :name "marko")                    
+         (q/into-vec!))
+;;[#<TinkerVertex v[3]> #<TinkerVertex v[2]> 
+;; #<TinkerVertex v[6]> #<TinkerVertex v[5]> 
+;; #<TinkerVertex v[4]>]
+
+(q/query (g/get-vertices)
+         (q/has-not :age > (int 30))                    
+         (q/into-vec!))
+;;[#<TinkerVertex v[2]> #<TinkerVertex v[1]>]         
+```                      
 
 ### interval
 
 Allow elements to pass that have their property in the provided start
 and end interval.
 
+```clojure
+(q/query (g/find-by-id 1)
+         (q/--E>)
+         (q/interval :weight 0 0.6)
+         (q/in-vertex)
+         (q/into-vec!))
+;;[#<TinkerVertex v[2]> #<TinkerVertex v[3]>]         
+```         
 ### random
 
-Emits the incoming object if biased coin toss is heads.
+Emits the incoming objects, each with the supplied chance.
 
+```clojure
+;; Results will vary
+(q/query (g/get-vertices)
+         (q/random 0.5)
+         (q/into-vec!))
+[#<TinkerVertex v[6]> #<TinkerVertex v[4]>]
+
+(q/query (g/get-vertices)
+         (q/random 0.5)
+         (q/into-vec!))
+;; Results will vary
+[#<TinkerVertex v[3]> #<TinkerVertex v[1]> #<TinkerVertex v[6]> #<TinkerVertex v[4]>]
+```
 ### retain
 
 Allow everything to pass except what is not in the supplied
 collection.
 
-### simplePath
-
-Emit the object only if the current path has no repeated elements.
-
-*** 
+```clojure
+(q/query (g/find-by-id 1)
+         (q/-->)      
+         (q/retain [(g/find-by-id 2)])
+         (q/into-vec!))
+;;[#<TinkerVertex v[2]>]         
+```
 
 ## Annotations
 
