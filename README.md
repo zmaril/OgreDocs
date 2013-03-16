@@ -75,10 +75,10 @@ Unless otherwise noted, all samples reference `ogre.tinkergraph` and `ogre.core`
 (require '[ogre.tinkergraph :as g]) 
 (require '[ogre.core :as q]) 
 
-(g/use-new-tinkergraph!)
+(g/use-new-tinker-graph!)
 ```
 
-`g/use-new-tinkergraph!` creates the following graph and secretly
+`g/use-new-tinker-graph!` creates the following graph and secretly
 squirrels it away
 [_somewhere_](https://github.com/zmaril/ogre/blob/master/src/ogre/tinkergraph.clj#L10):
 (image from
@@ -126,17 +126,60 @@ meant to be run and experimented with.
 ## Building queries 
 
 Ogre let's you build up Gremlin queries from scratch. The main method
-for doing this is `q/query`. Here is a simple query. It takes in the
-vertex with id `1`, finds the vertices that the starting vertex points
-out to, and then returns the result in a vector.  
+for doing this is `q/query`. Here is a simple query on the
+Tinkergraph. It takes in the vertex with id `1`, finds the vertices
+that the starting vertex points out to, and then returns the result in
+a vector.
+
+``` clojure
+(require '[ogre.tinkergraph :as g]) 
+(require '[ogre.core :as q]) 
+
+(g/use-new-tinker-graph!)
+
+(q/query (g/find-by-id 1)
+         q/-->
+         q/into-vec!)
+;;[#<TinkerVertex v[2]> #<TinkerVertex v[4]> #<TinkerVertex v[3]>]
+```
+
+Let's break this down: 
+* `q/query` is a macro that is
+  [just a combination](https://github.com/zmaril/ogre/blob/master/src/ogre/util.clj#L13)
+  of `->` and `(GremlinPipeline.)`. It takes in a single element or a
+  Collection and creates a new pipeline around them. 
+* `g/find-by-id` is a function that goes and asks the vertex for the
+  element of id 1. 
+* `q/-->` is a function which adds on an outwards traversal step to
+  the pipe. This means that the Gremlin query will take all the
+  vertices it is currently thinking about and then look for all the
+  vertices that the previous vertices pointed to. 
+* `q/into-vec!` executes the query and returns the results inside of a
+  vector. Up until this call, the Gremlin query hasn't actually done
+  anything yet. Only when a function that ends with a bang is passed
+  in does anything actually happen beyond just a GremlinPipeline
+  getting built up. 
+
+So far so good. But, I wonder, who is the dashing rogue behind
+`#<TinkerVertex v[2]>`?
 
 ``` clojure
 (q/query (g/find-by-id 1)
          q/-->
-         q/into-vec)
-;;[#<TinkerVertex v[2]> #<TinkerVertex v[4]> #<TinkerVertex v[3]>]
+         q/into-vec!
+         first
+         ((q/prop :name)))
+;;"vadas"
 ```
 
+`q/query` isn't just about running running Gremlin queries. Remember,
+it's really just a glorified `->` with helper functions. That means we
+can stick a `first` in there to get the first vertex of the vector.
+`(q/prop :name)` takes a property key and returns a function which
+takes a vertex and returns the given property. So `"vadas"` is the
+darling behind `#<TinkerVertex v[2]>`.
+
+***
 
 ## Traversal
 
