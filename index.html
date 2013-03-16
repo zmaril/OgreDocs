@@ -273,10 +273,6 @@
                   <a href="#filter/retain">retain</a>
                 </li>
               
-                <li>
-                  <a href="#filter/simplepath">simplePath</a>
-                </li>
-              
             </ul>
           
         </li>
@@ -1093,69 +1089,92 @@ provides them in a list.
 
 </p>
 <h3 id='filter/except'>except</h3 id='filter/except'>
-<p>Emit everything to pass except what is in the supplied collection.
+<p>Filter out the provided objects.
 
 </p>
+<pre><code class="clojure"><span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/find-by-id</span><span class="body"> <span class="number">1</span></span>)</span>
+         q/-->
+         q/&lt;--
+         <span class="list">(<span class="title">q/except</span><span class="body"> [<span class="list">(<span class="title">g/find-by-id</span><span class="body"> <span class="number">1</span></span>)</span>]</span>)</span>
+         <span class="list">(<span class="title">q/into-vec</span><span class="body">!</span>)</span></span>)</span>         
+<span class="comment">;;[#&lt;TinkerVertex v[4]> #&lt;TinkerVertex v[6]>]</span></code></pre>
 <h3 id='filter/filter'>filter</h3 id='filter/filter'>
 <p>Decide whether to allow an object to pass. Return true from the
 closure to allow an object to pass.
 
+
 </p>
+<pre><code class="clojure"><span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/get-vertices</span><span class="body"></span>)</span>
+         <span class="list">(<span class="title">q/filter</span><span class="body"> <span class="list">(<span class="title">fn</span><span class="body"> [v] <span class="list">(<span class="title">=</span><span class="body"> <span class="string">"java"</span> <span class="list">(<span class="body">.getProperty v <span class="string">"lang"</span></span>)</span></span>)</span></span>)</span></span>)</span>
+         q/map
+         <span class="list">(<span class="title">q/all-into-maps</span><span class="body">!</span>)</span></span>)</span>         
+<span class="comment">;;({:name "lop", :lang "java"} {:name "ripple", :lang "java"})</span></code></pre>
 <h3 id='filter/has'>has</h3 id='filter/has'>
-<p>Allows an element if it has a particular property. Utilizes several
-options for comparisons through <code>T</code>:
+<p>Allows an element if it has a particular property. The standard
+Clojure operations for comparisons can also be supplied:
+<code>&gt;</code>,<code>&gt;=</code>,<code>&lt;</code>,<code>&lt;=</code>,<code>=</code>,<code>not=</code>.
 
 </p>
-<ul>
-<li>T.gt - greater than</li>
-<li>T.gte - greater than or equal to</li>
-<li>T.eq - equal to</li>
-<li>T.neq - not equal to</li>
-<li>T.lte - less than or equal to</li>
-<li>T.lt - less than</li>
-</ul>
-<p>It is worth noting that the syntax of <code>has</code> is similar to <code>g.V(&quot;name&quot;,
-&quot;marko&quot;)</code>, which has the difference of being a
-<a href="https://github.com/tinkerpop/blueprints/wiki/Graph-Indices">key index</a>
-lookup and as such will perform faster. In contrast, this line,
-<code>g.V.has(&quot;name&quot;, &quot;marko&quot;)</code>, will iterate over all vertices checking
-the <code>name</code> property of each vertex for a match and will be
-significantly slower than the key index approach.
+<pre><code class="clojure">(q/query (g/get-vertices)
+         (q/has :name "marko")                    
+         (q/into-vec!))
+;;[#<span class="tag">&lt;<span class="title">TinkerVertex</span> <span class="attribute">v</span>[<span class="attribute">1</span>]></span>]         
 
-</p>
-<h4>See Also</h4>
+(q/query (g/get-vertices)
+         (q/has :age > (int 30))                    
+         (q/into-vec!))
+[#<span class="tag">&lt;<span class="title">TinkerVertex</span> <span class="attribute">v</span>[<span class="attribute">6</span>]></span> #<span class="tag">&lt;<span class="title">TinkerVertex</span> <span class="attribute">v</span>[<span class="attribute">4</span>]></span>]</code></pre>
 <h3 id='filter/has-not'>has-not</h3 id='filter/has-not'>
-<p>Allows an element if it does not have a particular property. Utilizes
-several options for comparisons on through <code>T</code>:
+<p>Allows an element if it does not have a particular property. 
 
 </p>
-<ul>
-<li>T.gt - greater than</li>
-<li>T.gte - greater than or equal to</li>
-<li>T.eq - equal to</li>
-<li>T.neq - not equal to</li>
-<li>T.lte - less than or equal to</li>
-<li>T.lt - less than</li>
-</ul>
+<pre><code class="clojure"><span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/get-vertices</span><span class="body"></span>)</span>
+         <span class="list">(<span class="title">q/has-not</span><span class="body"> <span class="keyword">:name</span> <span class="string">"marko"</span></span>)</span>                    
+         <span class="list">(<span class="title">q/into-vec</span><span class="body">!</span>)</span></span>)</span>
+<span class="comment">;;[#&lt;TinkerVertex v[3]> #&lt;TinkerVertex v[2]> </span>
+<span class="comment">;; #&lt;TinkerVertex v[6]> #&lt;TinkerVertex v[5]> </span>
+<span class="comment">;; #&lt;TinkerVertex v[4]>]</span>
+
+<span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/get-vertices</span><span class="body"></span>)</span>
+         <span class="list">(<span class="title">q/has-not</span><span class="body"> <span class="keyword">:age</span> > <span class="list">(<span class="title">int</span><span class="body"> <span class="number">30</span></span>)</span></span>)</span>                    
+         <span class="list">(<span class="title">q/into-vec</span><span class="body">!</span>)</span></span>)</span>
+<span class="comment">;;[#&lt;TinkerVertex v[2]> #&lt;TinkerVertex v[1]>]</span></code></pre>
 <h3 id='filter/interval'>interval</h3 id='filter/interval'>
 <p>Allow elements to pass that have their property in the provided start
 and end interval.
 
 </p>
+<pre><code class="clojure"><span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/find-by-id</span><span class="body"> <span class="number">1</span></span>)</span>
+         <span class="list">(<span class="title">q/--E></span><span class="body"></span>)</span>
+         <span class="list">(<span class="title">q/interval</span><span class="body"> <span class="keyword">:weight</span> <span class="number">0</span> <span class="number">0.6</span></span>)</span>
+         <span class="list">(<span class="title">q/in-vertex</span><span class="body"></span>)</span>
+         <span class="list">(<span class="title">q/into-vec</span><span class="body">!</span>)</span></span>)</span>
+<span class="comment">;;[#&lt;TinkerVertex v[2]> #&lt;TinkerVertex v[3]>]</span></code></pre>
 <h3 id='filter/random'>random</h3 id='filter/random'>
-<p>Emits the incoming object if biased coin toss is heads.
+<p>Emits the incoming objects, each with the supplied chance.
 
 </p>
+<pre><code class="clojure">;; Results will vary
+(q/query (g/get-vertices)
+         (q/random 0.5)
+         (q/into-vec!))
+[#<span class="tag">&lt;<span class="title">TinkerVertex</span> <span class="attribute">v</span>[<span class="attribute">6</span>]></span> #<span class="tag">&lt;<span class="title">TinkerVertex</span> <span class="attribute">v</span>[<span class="attribute">4</span>]></span>]
+
+(q/query (g/get-vertices)
+         (q/random 0.5)
+         (q/into-vec!))
+;; Results will vary
+[#<span class="tag">&lt;<span class="title">TinkerVertex</span> <span class="attribute">v</span>[<span class="attribute">3</span>]></span> #<span class="tag">&lt;<span class="title">TinkerVertex</span> <span class="attribute">v</span>[<span class="attribute">1</span>]></span> #<span class="tag">&lt;<span class="title">TinkerVertex</span> <span class="attribute">v</span>[<span class="attribute">6</span>]></span> #<span class="tag">&lt;<span class="title">TinkerVertex</span> <span class="attribute">v</span>[<span class="attribute">4</span>]></span>]</code></pre>
 <h3 id='filter/retain'>retain</h3 id='filter/retain'>
 <p>Allow everything to pass except what is not in the supplied
 collection.
 
 </p>
-<h3 id='filter/simplepath'>simplePath</h3 id='filter/simplepath'>
-<p>Emit the object only if the current path has no repeated elements.
-
-</p>
-<hr>
+<pre><code class="clojure"><span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/find-by-id</span><span class="body"> <span class="number">1</span></span>)</span>
+         <span class="list">(<span class="title">q/--></span><span class="body"></span>)</span>      
+         <span class="list">(<span class="title">q/retain</span><span class="body"> [<span class="list">(<span class="title">g/find-by-id</span><span class="body"> <span class="number">2</span></span>)</span>]</span>)</span>
+         <span class="list">(<span class="title">q/into-vec</span><span class="body">!</span>)</span></span>)</span>
+<span class="comment">;;[#&lt;TinkerVertex v[2]>]</span></code></pre>
 <h2 id='annotations'>Annotations</h2 id='annotations'>
 <h3 id='annotations/as'>as</h3 id='annotations/as'>
 <p>Emits input, but names the previous step.
