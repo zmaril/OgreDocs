@@ -103,23 +103,28 @@ Edges and let's you build up GremlinPipeline objects that ask
 questions about those objects in the language of traversals,
 transformations, filters, and branching on the graph. Ogre allows you
 to annotate various steps of the pipeline to allow for incredibly
-useful queries in a few lines. Ogre also carefully deals with some of
+useful queries in a few terse lines. Ogre also carefully deals with some of
 the side effects that the Gremlin library can perform. 
 
 At the lowest level, Ogre is probably equivalent to some crazy Turing
 machine. Man, I wonder if some poor grad student has ever tried to
 write the JVM as a Turing machine. Poor guy. 
 
-## Using OgreDocs
+### Using OgreDocs
 
 OgreDocs is organized to be read mostly linearly. That means that you
-can probably read it from start to finish and understand what is going on.
+can probably read it from start to finish and understand what is going
+on. That means it starts from the basics, traversals, maps,
+conversions, and filters. Then it transitions into the more advanced
+topics of annotations, side effects, branching, and recipes. At the
+same time, it is meant to serve as a complete reference for anyone
+using the library. 
 
 ## Queries and Pipes
 
 ### query
 
-Gets the out adjacent vertices to the vertex.
+
 
 [top](#)
 
@@ -127,7 +132,7 @@ Gets the out adjacent vertices to the vertex.
 
 ### new-pipe
 
-Gets the out adjacent vertices to the vertex.
+
 
 [top](#)
 
