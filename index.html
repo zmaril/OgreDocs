@@ -93,7 +93,7 @@
                 </li>
               
                 <li>
-                  <a href="#traversal/out-edges-e">out-edges --E&gt;</a>
+                  <a href="#traversal/out-edges-e">out-edges / --E&gt;</a>
                 </li>
               
                 <li>
@@ -620,12 +620,14 @@ charming face of <code>#&lt;TinkerVertex v[2]&gt;</code>.
 <hr>
 <h2 id='traversal'>Traversal</h2 id='traversal'>
 <p>Traversal functions allow you to explore around the graph and see how
-vertices are connected.
+vertices are connected. 
 
 </p>
 <h3 id='traversal/out'>out / --&gt;</h3 id='traversal/out'>
 <p><code>--&gt;</code> or <code>out</code> gets the out adjacent vertices (the functions do
-exactly the same thing, one just looks cooler). 
+exactly the same thing, one just looks cooler). Additionally, labels
+can be supplied that makes the graph only traverse edges with those
+labels (this applies to  <code>--&gt;</code>,<code>--E&gt;</code>,<code>&lt;--</code>,<code>&lt;E--</code>,<code>&lt;-&gt;</code>, and <code>&lt;E&gt;</code>).
 
 </p>
 <pre><code class="clojure"><span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/find-by-id</span><span class="body"> <span class="number">4</span></span>)</span>
@@ -636,8 +638,23 @@ exactly the same thing, one just looks cooler).
 <span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/find-by-id</span><span class="body"> <span class="number">4</span></span>)</span>
          q/out
          q/into-vec!</span>)</span>
+<span class="comment">;;[#&lt;TinkerVertex v[5]> #&lt;TinkerVertex v[3]>]</span>
+
+<span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/find-by-id</span><span class="body"> <span class="number">4</span></span>)</span>
+         <span class="list">(<span class="title">q/--></span><span class="body"> <span class="keyword">:created</span></span>)</span>
+         q/into-vec!</span>)</span>
+<span class="comment">;;[#&lt;TinkerVertex v[5]> #&lt;TinkerVertex v[3]>]</span>
+
+<span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/find-by-id</span><span class="body"> <span class="number">4</span></span>)</span>
+         <span class="list">(<span class="title">q/--></span><span class="body"> <span class="keyword">:hates</span></span>)</span>
+         q/into-vec!</span>)</span>
+<span class="comment">;;[]</span>
+
+<span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/find-by-id</span><span class="body"> <span class="number">4</span></span>)</span>
+         <span class="list">(<span class="title">q/--></span><span class="body"> <span class="keyword">:created</span> <span class="keyword">:hates</span></span>)</span>
+         q/into-vec!</span>)</span>
 <span class="comment">;;[#&lt;TinkerVertex v[5]> #&lt;TinkerVertex v[3]>]</span></code></pre>
-<h3 id='traversal/out-edges-e'>out-edges --E&gt;</h3 id='traversal/out-edges-e'>
+<h3 id='traversal/out-edges-e'>out-edges / --E&gt;</h3 id='traversal/out-edges-e'>
 <p>Gets the outgoing edges of the vertex.
 
 </p>
