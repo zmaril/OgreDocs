@@ -475,13 +475,13 @@ the JVM as a Turing machine. Poor gal.
 <h3 id='getting-started/using-ogredocs'>Using OgreDocs</h3 id='getting-started/using-ogredocs'>
 <p>OgreDocs is organized to be read mostly linearly. That means that you
 can probably read it from start to finish and understand what is going
-on. OgreDocs starts from the basics, with traversals, maps, query
-executions, and filters. Then it transitions into the more advanced
-topics of annotations and side effects. At the same time, OgreDocs is
-meant to serve as a reference for anyone using the library (ctrl+f is
-your friend). These examples were are developed at the command line or
-inside emacs with a REPL, so they are meant to be run and experimented
-with.
+on. OgreDocs starts from the basics, with traversals, transformations,
+query executions, and filters. Then it transitions into the more
+advanced topics of annotations and side effects. At the same time,
+OgreDocs is meant to serve as a reference for anyone using the library
+(ctrl+f is your friend). These examples were are developed at the
+command line or inside emacs with a REPL, so they are meant to be run
+and experimented with.
 
 </p>
 <hr>
@@ -950,8 +950,8 @@ function is provided, then a default sort order is used.
          q/into-<span class="keyword">vec</span>!)                         
 [<span class="string">"vadas"</span> <span class="string">"ripple"</span> <span class="string">"peter"</span> <span class="string">"marko"</span> <span class="string">"lop"</span> <span class="string">"josh"</span>]</code></pre>
 <h3 id='reduce-like-functions/gather'>gather</h3 id='reduce-like-functions/gather'>
-<p>Collect all objects up to that step and process the gathered list with
-the provided closure.
+<p>Collect all objects up to that step and, optionally, process the
+gathered list with the provided function.
 
 </p>
 <pre><code class="clojure"><span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/find-by-id</span><span class="body"> <span class="number">1</span></span>)</span>
@@ -969,8 +969,7 @@ the provided closure.
 <span class="comment">;;3</span></code></pre>
 <hr>
 <h2 id='filter'>Filter</h2 id='filter'>
-<p>Filter steps decide whether to allow an object to pass to the next
-step or not.
+<p>Here be functions which filter out objects.
 
 </p>
 <h3 id='filter/range'>range</h3 id='filter/range'>
@@ -1012,8 +1011,8 @@ the values that the pipeline will consider when filtering
           <span class="list">(<span class="title">q/property</span><span class="body"> <span class="keyword">:name</span></span>)</span>
           <span class="list">(<span class="title">q/into-vec</span><span class="body">!</span>)</span></span>)</span>
 <span class="comment">;;["marko" "lop"]</span></code></pre>
-<p><code>g/get-vertices</code> retrieves all of the vertices of the graph and
-provides them in a list. 
+<p>Note that <code>g/get-vertices</code> retrieves all of the vertices of the graph
+and provides them in a list.
 
 </p>
 <h3 id='filter/except'>except</h3 id='filter/except'>
@@ -1027,8 +1026,7 @@ provides them in a list.
          <span class="list">(<span class="title">q/into-vec</span><span class="body">!</span>)</span></span>)</span>         
 <span class="comment">;;[#&lt;TinkerVertex v[4]> #&lt;TinkerVertex v[6]>]</span></code></pre>
 <h3 id='filter/filter'>filter</h3 id='filter/filter'>
-<p>Decide whether to allow an object to pass. Return true from the
-closure to allow an object to pass.
+<p>Uses a predicate to decide whether an object should pass.
 
 
 </p>
@@ -1040,7 +1038,7 @@ closure to allow an object to pass.
 <h3 id='filter/has'>has</h3 id='filter/has'>
 <p>Allows an element if it has a particular property. The standard
 Clojure operations for comparisons can also be supplied:
-<code>&gt;</code>,<code>&gt;=</code>,<code>&lt;</code>,<code>&lt;=</code>,<code>=</code>,<code>not=</code>.
+<code>&gt;</code>,<code>&gt;=</code>,<code>&lt;</code>,<code>&lt;=</code>,<code>=</code>,<code>not=</code>. 
 
 </p>
 <pre><code class="clojure">(q/query (g/get-vertices)
@@ -1082,7 +1080,7 @@ and end interval.
 <p>Emits the incoming objects, each with the supplied chance.
 
 </p>
-<pre><code class="clojure">;; Results will vary
+<pre><code class="clojure">;; Results may vary
 (q/query (g/get-vertices)
          (q/random 0.5)
          (q/into-vec!))
@@ -1091,11 +1089,9 @@ and end interval.
 (q/query (g/get-vertices)
          (q/random 0.5)
          (q/into-vec!))
-;; Results will vary
 [#<span class="tag">&lt;<span class="title">TinkerVertex</span> <span class="attribute">v</span>[<span class="attribute">3</span>]></span> #<span class="tag">&lt;<span class="title">TinkerVertex</span> <span class="attribute">v</span>[<span class="attribute">1</span>]></span> #<span class="tag">&lt;<span class="title">TinkerVertex</span> <span class="attribute">v</span>[<span class="attribute">6</span>]></span> #<span class="tag">&lt;<span class="title">TinkerVertex</span> <span class="attribute">v</span>[<span class="attribute">4</span>]></span>]</code></pre>
 <h3 id='filter/retain'>retain</h3 id='filter/retain'>
-<p>Allow everything to pass except what is not in the supplied
-collection.
+<p>Only allows elements in the supplied collection to pass.
 
 </p>
 <pre><code class="clojure"><span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/find-by-id</span><span class="body"> <span class="number">1</span></span>)</span>
@@ -1106,10 +1102,9 @@ collection.
 <h2 id='annotations'>Annotations</h2 id='annotations'>
 <p>So far, we&#39;ve had great success traversing the graph. If you&#39;ve
 understood most of everything up to this point, you know how to do
-sorts of neat things with graphs. There&#39;s another level of traversal
+sorts of neat things with graphs now. There&#39;s another level of traversal
 that we can attain though. We can annotate and traverse the pipeline
 itself, which lets us do all sorts of fancy tricks. 
-
 
 </p>
 <h3 id='annotations/back'>back</h3 id='annotations/back'>
@@ -1226,7 +1221,7 @@ instead.
 <span class="comment">;;["ripple" "lop"]</span></code></pre>
 <hr>
 <h2 id='side-effect'>Side Effect</h2 id='side-effect'>
-<p>As this stage in Ogre&#39;s development, most side effect steps immediately
+<p>At this stage in Ogre&#39;s development, most side effect steps immediately
 return various data structures about the query. 
 
 </p>
@@ -1309,7 +1304,7 @@ functions can be supplied as well.
              :children [{:<span class="keyword">value</span> <span class="string">"lop"</span>} 
                         {:<span class="keyword">value</span> <span class="string">"ripple"</span>}]}]}</code></pre>
 <h3 id='side-effect/side-effect'>side-effect</h3 id='side-effect/side-effect'>
-<p>Let&#39;s you execute some side effect. 
+<p>Execute some side-effect.
 
 </p>
 <pre><code class="clojure"><span class="list">(<span class="title">let</span><span class="body"> [lst <span class="list">(<span class="title">atom</span><span class="body"> []</span>)</span>
@@ -1324,9 +1319,9 @@ functions can be supplied as well.
 <span class="comment">;; ["vadas" "josh" "lop"]]</span></code></pre>
 <hr>
 <h2 id='summary'>Summary</h2 id='summary'>
-<p>Ogre let&#39;s you effectively query graphs. It&#39;s a young library
-built on top of a solid stack. If you are looking for a way to create
-and store these graphs from within Clojure, you should check out
+<p>Ogre let&#39;s you effectively query graphs. It&#39;s a young library built on
+top of a solid stack. If you are looking for a way to create and store
+graphs from within Clojure, you should check out
 <a href="https://github.com/zmaril/hermes">Hermes</a>.
 </p>
 
