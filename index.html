@@ -642,15 +642,37 @@ exactly the same thing, one just looks cooler).
 </p>
 <hr>
 <h3 id='traversal/e-out-edges'>--E&gt; / out-edges</h3 id='traversal/e-out-edges'>
-<p>Gets the outgoing edges to the vertex.
+<p>Gets the outgoing edges of the vertex.
 
 </p>
+<pre><code class="clojure"><span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/find-by-id</span><span class="body"> <span class="number">4</span></span>)</span>
+         q/--E>
+         q/into-vec!</span>)</span>
+<span class="comment">;;[#&lt;TinkerEdge e[10][4-created->5]> #&lt;TinkerEdge e[11][4-created->3]>]</span>
+
+<span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/find-by-id</span><span class="body"> <span class="number">4</span></span>)</span>
+         q/out-edges
+         q/into-vec!</span>)</span>
+<span class="comment">;;[#&lt;TinkerEdge e[10][4-created->5]> #&lt;TinkerEdge e[11][4-created->3]>]</span></code></pre>
 <p><a href="#">top</a>
 
 </p>
 <hr>
 <h3 id='traversal/out-vertex'>out-vertex</h3 id='traversal/out-vertex'>
-<p>Get both outgoing tail vertex of the edge.
+<p>Get the outgoing tail vertex of the edge.
+
+</p>
+<pre><code class="clojure"><span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/find-by-id</span><span class="body"> <span class="number">4</span></span>)</span>
+         q/--E>
+         q/out-vertex
+         q/into-vec!</span>)</span>
+<span class="comment">;;[#&lt;TinkerVertex v[4]> #&lt;TinkerVertex v[4]>]</span></code></pre>
+<p>Conceptually, this might seem same strange at first. Why does it
+return the same vertex twice? The answer lies in the example queries
+for <code>--E&gt;</code>. Those queries return two edges. The current query is the
+same as the <code>--E&gt;</code> query except we are asking for the <code>out-vertex</code>.
+That means, by the time we are asking for the <code>out-vertex</code>, we have
+two objects &quot;in the pipeline&quot;. Thus, we get two objects back. 
 
 </p>
 <p><a href="#">top</a>
