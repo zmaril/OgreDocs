@@ -437,9 +437,9 @@ which enables <a href="http://gremlindocs.com/">all sorts of groovy operations o
 with the most current, stable release of Ogre. Please join the
 <a href="http://groups.google.com/group/gremlin-users">Gremlin users group</a>
 for any Ogre related discussions. Please use the
-<a href="https://github.com/zmaril/ogre/issues">Ogre issue page</a> for reporting
-bugs and discussing features. For any errors or corrections with
-OgreDocs, please use the
+<a href="https://github.com/zmaril/ogre/issues">Ogre issue page</a> for
+specifically reporting bugs and discussing features. For any errors or
+corrections with OgreDocs, please use the
 <a href="https://github.com/zmaril/ogredocs">OrgeDocs issue page</a>.
 
 </p>
@@ -451,8 +451,9 @@ Ogre and cross my fingers.
 </p>
 <p>Ogre currently powers
 <a href="https://github.com/zmaril/archimedes">Archimedes</a>, a Clojure library
-for blueprints, and <a href="https://github.com/zmaril/hermes">Hermes</a>, a
-Clojure library built on top of Archimedes for working with
+for <a href="https://github.com/tinkerpop/blueprints/wiki">Blueprints</a>, and
+<a href="https://github.com/zmaril/hermes">Hermes</a>, a Clojure library built on
+top of Archimedes for working with
 <a href="http://thinkaurelius.github.com/titan/">Titan</a>. Ogre, Archimedes, and
 Hermes are all open source projects maintained by
 <a href="https://twitter.com/ZackMaril">Zack Maril</a>.
@@ -461,7 +462,7 @@ Hermes are all open source projects maintained by
 <hr>
 <h2 id='getting-started'>Getting started</h2 id='getting-started'>
 <h3 id='getting-started/the-tinkerpop-stack'>The Tinkerpop stack</h3 id='getting-started/the-tinkerpop-stack'>
-<p>Before gooing down the rabbit hole, I offer the briefest of warnings:
+<p>Before going down the rabbit hole, I offer the briefest of warnings:
 the <a href="https://github.com/tinkerpop?tab=members">Tinkerpop folks</a> have
 been working on Gremlin,
 <a href="https://github.com/tinkerpop/pipes/wiki">Pipes</a>, and
@@ -469,8 +470,15 @@ been working on Gremlin,
 years now and the stack has become incredibly intertwined. Ogre and
 <a href="https://github.com/zmaril/archimedes">Archimedes</a> try to hide all of
 this from you at some hide level, but every abstraction leaks. Your
-stack traces will speak of <code>com.tinkerpop.X</code> and there is nothing I
-want to do about that. With that, let&#39;s get started! 
+stack traces will speak of <code>com.tinkerpop.blueprints.Vertex</code> and
+<code>com.tinkerpop.gremlin.GremlinPipeline</code>, and there is nothing I can
+(well, should) do about it. The Tinkerpop stack is fantastic and
+really well done, but I wanted to warn you that the following is just
+the tip of the iceberg in terms of what you will need to know what is
+really going on when you use Ogre. 
+
+</p>
+<p>With that terribly encouraging thought, let&#39;s get started!
 
 </p>
 <h3 id='getting-started/leiningen'>leiningen</h3 id='getting-started/leiningen'>
