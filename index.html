@@ -488,8 +488,9 @@ dependency for leiningen: <code>[zmaril/ogre &quot;0.2.2.0&quot;]</code>.
 <pre><code class="clojure"><span class="list">(<span class="title">use</span><span class="body"> 'ogre.tinkergraph</span>)</span> 
 
 <span class="list">(<span class="title">use-new-tinkergraph</span><span class="body">!</span>)</span></code></pre>
-<p>This produces a hardcoded representation of the following graph (taken
-from <a href="http://github.com/tinkerpop/blueprints/wiki/Property-Graph-Model">here</a>):
+<p><code>use-new-tinkergraph</code> creates the following graph and secretly
+squirrels it away somewhere: (taken from
+<a href="http://github.com/tinkerpop/blueprints/wiki/Property-Graph-Model">here</a>):
 
 </p>
 <p><img src="https://github.com/tinkerpop/blueprints/raw/master/doc/images/graph-example-1.jpg"></img>
