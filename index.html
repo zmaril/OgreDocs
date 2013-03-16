@@ -320,10 +320,6 @@
                 </li>
               
                 <li>
-                  <a href="#side-effect/get-group-count">get-group-count!</a>
-                </li>
-              
-                <li>
                   <a href="#side-effect/get-table">get-table!</a>
                 </li>
               
@@ -1283,29 +1279,39 @@ processed objects grouped by the value of the key function.
          (q/get-grouped-by! (q/prop :lang)
                             (q/prop :name)))
 ;;{nil [&quot;vadas&quot; &quot;marko&quot; &quot;peter&quot; &quot;josh&quot;], &quot;java&quot; [&quot;lop&quot; &quot;ripple&quot;]}
-</p>
-<pre><code>
-<span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/get-vertices</span><span class="body"></span>)</span>
-         <span class="list">(<span class="title">q/get-grouped-by</span><span class="body">! <span class="list">(<span class="title">q/prop</span><span class="body"> <span class="keyword">:lang</span></span>)</span>
-                            #<span class="list">(<span class="title">q/query</span><span class="body"> % q/out q/into-vec!</span>)</span></span>)</span></span>)</span>
-<span class="comment">;;{nil [[] </span>
-<span class="comment">;;      [#&lt;TinkerVertex v[2]> #&lt;TinkerVertex v[4]> #&lt;TinkerVertex v[3]>]</span>
-<span class="comment">;;      [#&lt;TinkerVertex v[3]>] </span>
-<span class="comment">;;      [#&lt;TinkerVertex v[5]> #&lt;TinkerVertex v[3]>]], </span>
-<span class="comment">;;      "java" [[] []]}</span></code></pre>
-<h3 id='side-effect/get-group-count'>get-group-count!</h3 id='side-effect/get-group-count'>
-<p>Takes in a key function, and optionally, a counting function. Returns
-the count of the objects grouped by the key function.
+
 
 </p>
-<pre><code class="clojure"><span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/get-vertices</span><span class="body"></span>)</span>
-         <span class="list">(<span class="title">q/get-group-count</span><span class="body">! <span class="list">(<span class="title">q/prop</span><span class="body"> <span class="keyword">:lang</span></span>)</span></span>)</span></span>)</span>
-<span class="comment">;;{nil 4, "java" 2}</span>
-<span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/get-vertices</span><span class="body"></span>)</span>
-         <span class="list">(<span class="title">q/get-group-count</span><span class="body">! <span class="list">(<span class="title">q/prop</span><span class="body"> <span class="keyword">:lang</span></span>)</span>
-                             <span class="list">(<span class="title">fn</span><span class="body"> [a b] <span class="list">(<span class="title">+</span><span class="body"> b <span class="list">(<span class="title">count</span><span class="body"> <span class="list">(<span class="body">.getProperty a <span class="string">"name"</span></span>)</span></span>)</span></span>)</span></span>)</span></span>)</span></span>)</span>
-<span class="comment">;;{nil 19, "java" 9}</span></code></pre>
+<p>(q/query (g/get-vertices)
+         (q/get-grouped-by! (q/prop :lang)
+</p>
+<pre><code>                        <span class="comment">#(q/query % q/out q/into-vec!)))</span></code></pre>
+<p>;;{nil [[] 
+;;      [#<TinkerVertex v[2]> #<TinkerVertex v[4]> #<TinkerVertex v[3]>]
+;;      [#<TinkerVertex v[3]>] 
+;;      [#<TinkerVertex v[5]> #<TinkerVertex v[3]>]], 
+;;      &quot;java&quot; [[] []]}
+</p>
+<pre><code>
+### <span class="keyword">get</span>-group-count!
+
+Takes <span class="keyword">in</span> a key <span class="keyword">function</span>, <span class="keyword">and</span> optionally, a counting <span class="keyword">function</span>. Returns
+the count of the objects grouped by the key <span class="keyword">function</span>.
+
+```clojure 
+(q/query (g/<span class="keyword">get</span>-vertices)
+         (q/<span class="keyword">get</span>-group-count! (q/prop :lang)))
+;;{nil <span class="number">4</span>, <span class="string">"java"</span> <span class="number">2</span>}
+(q/query (g/<span class="keyword">get</span>-vertices)
+         (q/<span class="keyword">get</span>-group-count! (q/prop :lang)
+                             (fn [a b] (+ b (count (.getProperty a <span class="string">"name"</span>))))))
+;;{nil <span class="number">19</span>, <span class="string">"java"</span> <span class="number">9</span>}</code></pre>
 <h3 id='side-effect/get-table'>get-table!</h3 id='side-effect/get-table'>
+<p>Returns a list of maps that correspond to the values of the named
+steps. Optional arguments are a list of functions that are applied
+round robin style.
+
+</p>
 <pre><code class="clojure"><span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/get-vertices</span><span class="body"></span>)</span>
          <span class="list">(<span class="title">q/property</span><span class="body"> <span class="keyword">:name</span></span>)</span>
          <span class="list">(<span class="title">q/as</span><span class="body"> <span class="string">"name"</span></span>)</span>
@@ -1328,15 +1334,32 @@ the count of the objects grouped by the key function.
 <span class="comment">;; {:name 5, :age 29} {:name 5, :age 35} </span>
 <span class="comment">;; {:name 6, :age 18} {:name 4, :age 32})</span></code></pre>
 <h3 id='side-effect/get-tree'>get-tree!</h3 id='side-effect/get-tree'>
-<p>Emit input, but stores the tree formed by the traversal as a map.
-Accepts an optional set of closures to be applied in round-robin
-fashion over each level of the tree.
+<p>Returns a tree of the objects encountered taken while executing the query. Key
+functions can be supplied as well. 
 
 </p>
+<pre><code class="clojure">(q/query (g/find-by-id <span class="number">1</span>)
+         q/-->
+         q/-->
+         (q/<span class="keyword">get</span>-tree! (q/prop :name)))
+{:<span class="keyword">value</span> <span class="string">"marko"</span>, 
+ :children [{:<span class="keyword">value</span> <span class="string">"josh"</span>, 
+             :children [{:<span class="keyword">value</span> <span class="string">"lop"</span>} 
+                        {:<span class="keyword">value</span> <span class="string">"ripple"</span>}]}]}</code></pre>
 <h3 id='side-effect/side-effect'>side-effect</h3 id='side-effect/side-effect'>
-<p>Emits input, but calls a side effect closure on each input.
+<p>Let&#39;s you execute some side effect. 
 
 </p>
+<pre><code class="clojure"><span class="list">(<span class="title">let</span><span class="body"> [lst <span class="list">(<span class="title">atom</span><span class="body"> []</span>)</span>
+      elem <span class="list">(<span class="title">g/find-by-id</span><span class="body"> <span class="number">1</span></span>)</span>
+      names <span class="list">(<span class="title">q/query</span><span class="body"> elem
+                  q/-->
+                  <span class="list">(<span class="title">q/side-effect</span><span class="body"> <span class="list">(<span class="title">partial</span><span class="body"> swap! lst conj</span>)</span></span>)</span>
+                  <span class="list">(<span class="title">q/property</span><span class="body"> <span class="keyword">:name</span></span>)</span>
+                  q/into-vec!</span>)</span>]
+      [@lst names]</span>)</span>
+<span class="comment">;;[[#&lt;TinkerVertex v[2]> #&lt;TinkerVertex v[4]> #&lt;TinkerVertex v[3]>] </span>
+<span class="comment">;; ["vadas" "josh" "lop"]]</span></code></pre>
 <hr>
 <h2 id='recipes'>Recipes</h2 id='recipes'>
 <p>Recipes are common patterns that are seen in using Gremlin.
