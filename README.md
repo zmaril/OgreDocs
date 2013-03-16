@@ -176,8 +176,8 @@ So far so good. But, I wonder, who is the dashing rogue behind
 it's really just a glorified `->` with helper functions. That means we
 can stick a `first` in there to get the first vertex of the vector.
 `(q/prop :name)` takes a property key and returns a function which
-takes a vertex and returns the given property. So `"vadas"` is the
-darling behind `#<TinkerVertex v[2]>`.
+takes a vertex and returns the given property. Thus, `"vadas"` is the
+charming face of `#<TinkerVertex v[2]>`.
 
 ***
 
