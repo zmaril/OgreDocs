@@ -887,18 +887,80 @@ Go back to the results from n-steps ago.
          q/-->      
          (q/back-to "here")         
          q/into-vec!)
+;;[#<TinkerVertex v[1]>]         
 ```
 
 
 ### select
 
-Select the named steps to emit after select with post-processing
-closures.
+Get a list of named steps, with optional functions for post processing
+round robin style. (This will be returned as a map when Pipes is
+upgraded to 2.3.0).
+
+```clojure
+(q/query (g/find-by-id 1)
+         (q/as "a")
+         (q/--> :knows)
+         (q/as "b")
+         q/select
+         q/all-into-vecs!)
+;;([#<TinkerVertex v[1]> #<TinkerVertex v[2]>] 
+;; [#<TinkerVertex v[1]> #<TinkerVertex v[4]>])         
+
+(q/query (g/find-by-id 1)
+         (q/as "a")
+         (q/--> :knows)
+         (q/as "b")
+         (q/select (q/prop :name))
+         q/all-into-vecs!)
+;;(["marko" "vadas"] ["marko" "josh"])
+
+(q/query (g/find-by-id 1)
+         (q/as "a")
+         (q/--> :knows)
+         (q/as "b")
+         (q/select (q/prop :name) g/get-id)
+         q/all-into-vecs!)
+;;(["marko" "2"] ["marko" "4"])
+```
 
 ### select-only
 
-Select the named steps to emit after select with post-processing
-closures.
+Select the named steps to emit, with round robin style function
+processing again. 
+
+```clojure
+(q/query (g/find-by-id 1)
+         (q/as "a")
+         q/-->
+         (q/as "b")
+         q/-->
+         (q/as "c")       
+         (q/select-only ["a" "b"])
+         q/all-into-vecs!)
+;;([#<TinkerVertex v[1]> #<TinkerVertex v[4]>] 
+;; [#<TinkerVertex v[1]> #<TinkerVertex v[4]>])
+
+(q/query (g/find-by-id 1)
+         (q/as "a")
+         q/-->
+         (q/as "b")
+         q/-->
+         (q/as "c")       
+         (q/select-only ["a" "c"] (q/prop :name))
+         q/all-into-vecs!)
+;;(["marko" "ripple"] ["marko" "lop"])
+
+(q/query (g/find-by-id 1)
+         (q/as "a")
+         (q/--> :knows)
+         (q/as "b")
+         q/-->
+         (q/as "c")                
+         (q/select-only ["a" "c"] (q/prop :name) g/get-id)
+         q/all-into-vecs!)
+;;(["marko" "5"] ["marko" "3"])
+```
 
 ### loop
 
