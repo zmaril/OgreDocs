@@ -96,8 +96,7 @@ It will serve as the main reference for the majority of the examples below.
 ### So what does Ogre actually do? 
 
 At a high level, Ogre let's you easily ask complex questions about
-certain types of graphs and get back answers. That's really all it
-does. 
+certain types of graphs and get back answers. That's it.
 
 At a low level, Ogre is a library that takes in Blueprint Vertices and
 Edges and let's you build up GremlinPipeline objects that ask
@@ -105,24 +104,23 @@ questions about those objects in the language of traversals,
 transformations, filters, and branching on the graph. Ogre allows you
 to annotate various steps of the pipeline to allow for incredibly
 useful queries in a few terse lines. Ogre also carefully deals with some of
-the side effects that the Gremlin library can perform. 
+the side effects that the Gremlin library can launch. 
 
 At the lowest level, Ogre is probably equivalent to some crazy Turing
-machine. Man, I wonder if some poor grad student has ever tried to
-write the JVM as a Turing machine. Poor guy. 
+machine. I wonder if some poor grad student has ever tried to write
+the JVM as a Turing machine. Poor gal.
 
 ### Using OgreDocs
 
 OgreDocs is organized to be read mostly linearly. That means that you
 can probably read it from start to finish and understand what is going
-on. That means it starts from the basics, traversals, maps,
-conversions, and filters. Then it transitions into the more advanced
-topics of annotations, side effects, branching, and recipes. At the
-same time, it is meant to serve as a complete reference for anyone
-using the library (ctrl+f is your friend). These examples were are
-developed at the command line or inside emacs with a REPL, so they are
-meant to be run and experimented with.
-
+on. OgreDocs starts from the basics, with traversals, maps,
+executions, and filters. Then it transitions into the more advanced
+topics of annotations and side effects. At the same time, OgreDocs is
+meant to serve as a reference for anyone using the library
+(ctrl+f is your friend). These examples were are developed at the
+command line or inside emacs with a REPL, so they are meant to be run
+and experimented with.
 
 ***
 
