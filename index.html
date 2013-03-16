@@ -609,7 +609,7 @@ getting built up. </li>
          first
          <span class="list">(<span class="body"><span class="list">(<span class="title">q/prop</span><span class="body"> <span class="keyword">:name</span></span>)</span></span>)</span></span>)</span>
 <span class="comment">;;"vadas"</span></code></pre>
-<p><code>q/query</code> isn&#39;t just about running running Gremlin queries. Remember,
+<p><code>q/query</code> isn&#39;t just about running Gremlin queries. Remember,
 it&#39;s really just a glorified <code>-&gt;</code> with helper functions. That means we
 can stick a <code>first</code> in there to get the first vertex of the vector.
 <code>(q/prop :name)</code> takes a property key and returns a function which
@@ -619,10 +619,24 @@ charming face of <code>#&lt;TinkerVertex v[2]&gt;</code>.
 </p>
 <hr>
 <h2 id='traversal'>Traversal</h2 id='traversal'>
-<h3 id='traversal/out'>--&gt; / out</h3 id='traversal/out'>
-<p>Gets the out adjacent vertices to the vertex.
+<p>Traversal functions allow you to explore around the graph and see how
+vertices are connected.
 
 </p>
+<h3 id='traversal/out'>--&gt; / out</h3 id='traversal/out'>
+<p><code>--&gt;</code> or <code>out</code> gets the out adjacent vertices (the functions do
+exactly the same thing, one just looks cooler). 
+
+</p>
+<pre><code class="clojure"><span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/find-by-id</span><span class="body"> <span class="number">4</span></span>)</span>
+         q/-->
+         q/into-vec!</span>)</span>
+<span class="comment">;;[#&lt;TinkerVertex v[5]> #&lt;TinkerVertex v[3]>]</span>
+
+<span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/find-by-id</span><span class="body"> <span class="number">4</span></span>)</span>
+         q/out
+         q/into-vec!</span>)</span>
+<span class="comment">;;[#&lt;TinkerVertex v[5]> #&lt;TinkerVertex v[3]>]</span></code></pre>
 <p><a href="#">top</a>
 
 </p>
