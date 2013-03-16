@@ -54,7 +54,7 @@ undergone zero major versions itself so far.
 To get started with Ogre right away, include the following
 dependency for leiningen: `[zmaril/ogre "0.2.2.0"]`.
 
-### repl
+### The TinkerGraph
 
 Unless otherwise noted, all samples rely on the TinkerPop "toy" graph.
 
