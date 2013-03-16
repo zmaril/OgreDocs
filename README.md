@@ -1,7 +1,5 @@
 <img src="ogre.png" height="200"></img>
 
-**WARNING OgreDocs is still being written.**
-
 ## Introduction
 
 [Ogre](http://github.com/zmaril/ogre) is a domain specific language
