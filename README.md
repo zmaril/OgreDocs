@@ -1,4 +1,4 @@
-<img src="ogre.png" height="250"></img>
+<img src="ogre.png" height="200"></img>
 
 **WARNING OgreDocs is still being written.**
 
