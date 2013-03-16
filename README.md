@@ -1008,7 +1008,7 @@ return various data structures about the query.
 Takes in a key function and processing function. Returns all of the
 processed objects grouped by the value of the key function.
 
-```clojure!
+```clojure
 (q/query (g/get-vertices)
          (q/get-grouped-by! (q/prop :lang)
                             identity))
