@@ -1,4 +1,4 @@
-![Ogre](ogre.png)
+<img src="ogre.png" height="250">Ogre</img>
 
 **WARNING OgreDocs is still being written.**
 
