@@ -705,7 +705,7 @@ step or not.
 
 A range filter that emits the objects within a range.
 
-```clojure 
+``` clojure 
 (q/query (g/find-by-id 1)
          (q/-->)
          (q/into-vec!))
@@ -721,6 +721,20 @@ A range filter that emits the objects within a range.
 
 ### dedup
 
+
+``` clojure
+(q/query (g/get-vertices)
+         q/<->
+         q/dedup
+         (q/property :name)
+         (q/into-vec!))
+;;["marko" "josh" "peter" "vadas" "lop" "ripple"]                         
+(q/query (g/get-vertices)
+                         q/<->
+                         (q/dedup (partial g/get-property :lang))
+                         (q/property :name)
+                         (q/into-vec))                         
+```                         
 Emit only incoming objects that have not been seen before with an
 optional closure being the object to check on.
 
