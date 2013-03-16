@@ -146,10 +146,10 @@ a vector.
 
 Let's break this down: 
 
-* `q/query` is a macro that is
-  [just a combination](https://github.com/zmaril/ogre/blob/master/src/ogre/util.clj#L13)
+* `q/query` is a
+  [simple macro combining](https://github.com/zmaril/ogre/blob/master/src/ogre/util.clj#L13)
   of `->` and `(GremlinPipeline.)`. It takes in a single element or a
-  Collection and creates a new pipeline around them. 
+  Collection and creates a new pipeline around them.
 * `g/find-by-id` is a function that goes and asks the vertex for the
   element of id 1. 
 * `q/-->` is a function which adds on an outwards traversal step to
