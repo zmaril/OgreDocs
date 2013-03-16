@@ -27,7 +27,7 @@ for [Blueprints](https://github.com/tinkerpop/blueprints/wiki), and
 [Hermes](https://github.com/zmaril/hermes), a Clojure library built on
 top of Archimedes for working with
 [Titan](http://thinkaurelius.github.com/titan/). Ogre, Archimedes, and
-Hermes are all open source projects maintained by
+Hermes are all open source projects developed and maintained by
 [Zack Maril](https://twitter.com/ZackMaril).
 
 ***
@@ -94,7 +94,26 @@ It will serve as the main reference for the majority of the examples below.
 
 ### So what does Ogre actually do? 
 
-At a high level, Ogre let's you query graphs 
+At a high level, Ogre let's you easily ask complex questions about
+certain types of graphs and get back answers. That's really all it
+does. 
+
+At a low level, Ogre is a library that takes in Blueprint Vertices and
+Edges and let's you build up GremlinPipeline objects that ask
+questions about those objects in the language of traversals,
+transformations, filters, and branching on the graph. Ogre allows you
+to annotate various steps of the pipeline to allow for incredibly
+useful queries in a few lines. Ogre also carefully deals with some of
+the side effects that the Gremlin library can perform. 
+
+At the lowest level, Ogre is probably equivalent to some crazy Turing
+machine. Man, I wonder if some poor grad student has ever tried to
+write the JVM as a Turing machine. Poor guy. 
+
+## Using OgreDocs
+
+OgreDocs is organized to be read mostly linearly. That means that you
+can probably read it from start to finish and understand what is going on.
 
 ## Queries and Pipes
 
