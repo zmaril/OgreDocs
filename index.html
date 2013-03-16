@@ -55,7 +55,7 @@
             <ul>
               
                 <li>
-                  <a href="#getting-started/the-stack">The stack</a>
+                  <a href="#getting-started/the-tinkerpop-stack">The Tinkerpop stack</a>
                 </li>
               
                 <li>
@@ -450,7 +450,19 @@ Clojure library built on top of Archimedes for working with
 </p>
 <hr>
 <h2 id='getting-started'>Getting started</h2 id='getting-started'>
-<h3 id='getting-started/the-stack'>The stack</h3 id='getting-started/the-stack'>
+<h3 id='getting-started/the-tinkerpop-stack'>The Tinkerpop stack</h3 id='getting-started/the-tinkerpop-stack'>
+<p>Before gooing down the rabbit hole, I offer the briefest of warnings:
+the <a href="https://github.com/tinkerpop?tab=members">Tinkerpop folks</a> have
+been working on Gremlin,
+<a href="https://github.com/tinkerpop/pipes/wiki">Pipes</a>, and
+<a href="https://github.com/tinkerpop/blueprints/wiki">Blueprints</a> for a few
+years now and the stack has become incredibly intertwined. Ogre and
+<a href="https://github.com/zmaril/archimedes">Archimedes</a> try to hide all of
+this from you at some hide level, but every abstraction leaks. Your
+stack traces will speak of <code>com.tinkerpop.X</code> and there is nothing I
+want to do about that. With that, let&#39;s get started! 
+
+</p>
 <h3 id='getting-started/leiningen'>leiningen</h3 id='getting-started/leiningen'>
 <p>The version scheme for Ogre is as follows:
 <code>[Full Gremlin version].[Ogre major version]</code>. Philosophically, the
