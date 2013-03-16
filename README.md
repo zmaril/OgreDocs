@@ -79,7 +79,9 @@ Unless otherwise noted, all samples reference `ogre.tinkergraph` and `ogre.core`
 ```
 
 `g/use-new-tinkergraph!` creates the following graph and secretly
-squirrels it away _somewhere_: (image from
+squirrels it away
+[_somewhere_](https://github.com/zmaril/ogre/blob/master/src/ogre/tinkergraph.clj#L10):
+(image from
 [here](http://github.com/tinkerpop/blueprints/wiki/Property-Graph-Model)):
 
 <img src="https://github.com/tinkerpop/blueprints/raw/master/doc/images/graph-example-1.jpg"></img>
