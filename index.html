@@ -79,19 +79,7 @@
         </li>
       
         <li>
-          <a href="#queries-and-pipes">Queries and Pipes</a>
-          
-            <ul>
-              
-                <li>
-                  <a href="#queries-and-pipes/query">query</a>
-                </li>
-              
-                <li>
-                  <a href="#queries-and-pipes/new-pipe">new-pipe</a>
-                </li>
-              
-            </ul>
+          <a href="#building-queries">Building queries</a>
           
         </li>
       
@@ -567,24 +555,24 @@ on. That means it starts from the basics, traversals, maps,
 conversions, and filters. Then it transitions into the more advanced
 topics of annotations, side effects, branching, and recipes. At the
 same time, it is meant to serve as a complete reference for anyone
-using the library. These examples were are developed at the command
-line or inside emacs with a REPL, so they are meant to be run and
-experimented with. 
+using the library (ctrl+f is your friend). These examples were are
+developed at the command line or inside emacs with a REPL, so they are
+meant to be run and experimented with.
 
 
 </p>
 <hr>
-<h2 id='queries-and-pipes'>Queries and Pipes</h2 id='queries-and-pipes'>
-<h3 id='queries-and-pipes/query'>query</h3 id='queries-and-pipes/query'>
-<p><a href="#">top</a>
+<h2 id='building-queries'>Building queries</h2 id='building-queries'>
+<p>Ogre let&#39;s you build up Gremlin queries from scratch. The main method
+for doing this is <code>q/query</code>. Here is a simple query. It takes in the
+vertex with id <code>1</code>, finds the vertices that the starting vertex points
+out to, and then returns the result in a vector.  
 
 </p>
-<hr>
-<h3 id='queries-and-pipes/new-pipe'>new-pipe</h3 id='queries-and-pipes/new-pipe'>
-<p><a href="#">top</a>
-
-</p>
-<hr>
+<pre><code class="clojure">(q/query (g/find-by-id 1)
+         q/-->
+         q/into-vec)
+;;[#<span class="tag">&lt;<span class="title">TinkerVertex</span> <span class="attribute">v</span>[<span class="attribute">2</span>]></span> #<span class="tag">&lt;<span class="title">TinkerVertex</span> <span class="attribute">v</span>[<span class="attribute">4</span>]></span> #<span class="tag">&lt;<span class="title">TinkerVertex</span> <span class="attribute">v</span>[<span class="attribute">3</span>]></span>]</code></pre>
 <h2 id='traversal'>Traversal</h2 id='traversal'>
 <h3 id='traversal/out'>--&gt; / out</h3 id='traversal/out'>
 <p>Gets the out adjacent vertices to the vertex.
