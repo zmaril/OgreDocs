@@ -5,24 +5,28 @@
 [Ogre](http://github.com/zmaril/ogre) is a domain specific language
 for traversing property graphs in [Clojure](http://clojure.org/). Ogre
 wraps [Gremlin](https://github.com/tinkerpop/gremlin/wiki), a library
-which enables all sorts of neat operations on graphs. Ogre is an open
-source project maintained by [Zack Maril](http://zacharymaril.com).
-Please join the
-[Gremlin users group](http://groups.google.com/group/gremlin-users)
-for any Ogre or Gremlin related discussions.
+which enables all sorts of neat operations on graphs. 
 
 The documentation and samples presented here attempt to stay current
-with the most current, stable release of Ogre. Please note that this
-is the *official* Ogre documentation. This page is a fork of
-[GremlinDocs](http://gremlindocs.com/). OgreDocs is a
-[GitHub repository](https://github.com/spmallette/OgreDocs). Pull
-requests will be celebrated.
+with the most current, stable release of Ogre. Please join the
+[Gremlin users group](http://groups.google.com/group/gremlin-users)
+for any Ogre related discussions. Please use the
+[Github issue page](https://github.com/zmaril/ogre/issues) for
+reporting bugs and discussing features.
+
+Pull requests will be celebrated, scrutinized, and hopefully accepted.
+If the pull request is really solid, then I'll probably [give you commit
+access](http://felixge.de/2013/03/11/the-pull-request-hack.html) to
+Ogre and cross my fingers. 
 
 Ogre currently powers
 [Archimedes](https://github.com/zmaril/archimedes), a Clojure library
 for blueprints, and [Hermes](https://github.com/zmaril/hermes), a
 Clojure library built on top of Archimedes for working with
 [Titan](http://thinkaurelius.github.com/titan/).
+
+Ogre is an open source project maintained by
+[Zack Maril](http://zacharymaril.com). 
 
 ***
 
@@ -65,7 +69,7 @@ Unless otherwise noted, all samples rely on the TinkerPop "toy" graph.
 ```
 
 `use-new-tinkergraph` creates the following graph and secretly
-squirrels it away somewhere: (taken from
+squirrels it away somewhere: (image from
 [here](http://github.com/tinkerpop/blueprints/wiki/Property-Graph-Model)):
 
 <img src="https://github.com/tinkerpop/blueprints/raw/master/doc/images/graph-example-1.jpg"></img>
@@ -78,7 +82,8 @@ It will serve as the main reference for the majority of the examples below.
 
 ### So what does Ogre actually do? 
 
-
+The one question every library hates. It does so much! Look at all the
+neat features in here! Look at this, 
 
 ## Traversal
 
