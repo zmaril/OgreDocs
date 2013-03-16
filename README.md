@@ -476,12 +476,29 @@ path.
 ``` 
 
 Note that again we have introduced a new function `all-into-vecs!`.
-This takes in an ArrayList of ArrayLists and produces a list of
-vectors. 
+This function takes in an ArrayList of ArrayLists and produces a list
+of vectors.
 
 ### transform
 
-Transform emits the result of a function.
+Transform applies a function to each object. 
+
+``` clojure
+(q/query (g/find-by-id 1)
+         (q/transform (q/prop :name))
+         q/first-of!)
+;;"marko"         
+
+(q/query (g/find-by-id 1)
+          q/--E>
+          q/label
+          (q/transform count)
+          q/into-vec!)         
+;;[5 5 7]          
+``` 
+
+`first-of!` executes the query gets the first element from the list.
+Don't shoot yourself in the foot.
 
 ## Converters
 
