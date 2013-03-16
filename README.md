@@ -116,30 +116,26 @@ on. That means it starts from the basics, traversals, maps,
 conversions, and filters. Then it transitions into the more advanced
 topics of annotations, side effects, branching, and recipes. At the
 same time, it is meant to serve as a complete reference for anyone
-using the library. These examples were are developed at the command
-line or inside emacs with a REPL, so they are meant to be run and
-experimented with. 
+using the library (ctrl+f is your friend). These examples were are
+developed at the command line or inside emacs with a REPL, so they are
+meant to be run and experimented with.
 
 
 ***
 
-## Queries and Pipes
+## Building queries 
 
-### query
+Ogre let's you build up Gremlin queries from scratch. The main method
+for doing this is `q/query`. Here is a simple query. It takes in the
+vertex with id `1`, finds the vertices that the starting vertex points
+out to, and then returns the result in a vector.  
 
-
-
-[top](#)
-
-***
-
-### new-pipe
-
-
-
-[top](#)
-
-***
+``` clojure
+(q/query (g/find-by-id 1)
+         q/-->
+         q/into-vec)
+;;[#<TinkerVertex v[2]> #<TinkerVertex v[4]> #<TinkerVertex v[3]>]
+```
 
 
 ## Traversal
