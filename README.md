@@ -78,7 +78,7 @@ Unless otherwise noted, all samples reference the TinkeGraph.
 ```
 
 `use-new-tinkergraph` creates the following graph and secretly
-squirrels it away somewhere: (image from
+squirrels it away _somewhere_: (image from
 [here](http://github.com/tinkerpop/blueprints/wiki/Property-Graph-Model)):
 
 <img src="https://github.com/tinkerpop/blueprints/raw/master/doc/images/graph-example-1.jpg"></img>
@@ -91,8 +91,26 @@ It will serve as the main reference for the majority of the examples below.
 
 ### So what does Ogre actually do? 
 
-The one question every library hates. It does so much! Look at all the
-neat features in here! Look at this, 
+At a high level, Ogre let's you query graphs 
+
+## Queries and Pipes
+
+### query
+
+Gets the out adjacent vertices to the vertex.
+
+[top](#)
+
+***
+
+### new-pipe
+
+Gets the out adjacent vertices to the vertex.
+
+[top](#)
+
+***
+
 
 ## Traversal
 
