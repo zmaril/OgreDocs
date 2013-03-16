@@ -18,25 +18,29 @@ is the *official* Ogre documentation. This page is a fork of
 [GitHub repository](https://github.com/spmallette/OgreDocs). Pull
 requests will be celebrated.
 
-## Getting started 
+***
 
-### leiningen 
+## Getting started
+
+### leiningen
 
 versioning ideas
 
-### git clone 
+### git clone
 
 ### repl
 
-Unless otherwise noted, all samples are derived from the TinkerPop "toy" graph generated with: 
+Unless otherwise noted, all samples are derived from the TinkerPop
+"toy" graph generated with:
 
-```clojure
-(use 'ogre.tinkergraph)
-```
+```clojure (use 'ogre.tinkergraph) ```
 
-This produces a hardcoded representation of the graph diagrammed [here](http://github.com/tinkerpop/blueprints/wiki/Property-Graph-Model).  
+This produces a hardcoded representation of the graph diagrammed
+[here](http://github.com/tinkerpop/blueprints/wiki/Property-Graph-Model).
 
-## Traversal 
+***
+
+## Traversal
 
 ### --> / out
 
@@ -114,11 +118,11 @@ Get both incoming and outgoing vertices of the edge.
 
 Transform steps take an object and emit a transformation of it.
 
-*** 
+***
 
 ### id
 
-Gets the unique identifier of the element.  
+Gets the unique identifier of the element.
 
 [top](#)
 
@@ -126,7 +130,11 @@ Gets the unique identifier of the element.
 
 ### property
 
-Get the property value of an element.  The property value can be obtained by simply appending the name to the end of the element or by referencing it as a Groovy map element with square brackets.  For best performance, drop down to the Blueprints API and use `getProperty(key)`.
+Get the property value of an element. The property value can be
+obtained by simply appending the name to the end of the element or by
+referencing it as a Groovy map element with square brackets. For best
+performance, drop down to the Blueprints API and use
+`getProperty(key)`.
 
 [top](#)
 
@@ -150,7 +158,8 @@ Gets the property map of the graph element.
 
 ### select
 
-Select the named steps to emit after select with post-processing closures.
+Select the named steps to emit after select with post-processing
+closures.
 
 [top](#)
 
@@ -158,7 +167,8 @@ Select the named steps to emit after select with post-processing closures.
 
 ### select-only
 
-Select the named steps to emit after select with post-processing closures.
+Select the named steps to emit after select with post-processing
+closures.
 
 [top](#)
 
@@ -167,15 +177,27 @@ Select the named steps to emit after select with post-processing closures.
 
 ### path
 
-Gets the path through the pipeline up to this point, where closures are post-processing for each object in the path.  If the path step is provided closures then, in a round robin fashion, the closures are evaluated over each object of the path and that post-processed path is returned.
+Gets the path through the pipeline up to this point, where closures
+are post-processing for each object in the path. If the path step is
+provided closures then, in a round robin fashion, the closures are
+evaluated over each object of the path and that post-processed path is
+returned.
 
 [top](#)
 
 ***
 
-## Converters 
+### transform
 
-Ogre cannot do everything for you. You still have to ask to do things. 
+Transform emits the result of a closure.
+
+[top](#)
+
+***
+
+## Converters
+
+Ogre cannot do everything for you. You still have to ask to do things.
 
 ### to-list
 
@@ -238,35 +260,23 @@ Ogre cannot do everything for you. You still have to ask to do things.
 
 ***
 
-## Reduce 
+## Reduce
 
-These functions act like reduce. 
+These functions act like reduce.
 
 ### order
 
-Order the items in the stream according to the closure if provided.  If no closure is provided, then a default sort order is used.
+Order the items in the stream according to the closure if provided. If
+no closure is provided, then a default sort order is used.
 
 [top](#)
-
-***
 
 ***
 
 ### shuffle
 
-Collect all objects up to that step into a list and randomize their order.
-
-#### See Also
-
-* [random](#filter/random)
-
-[top](#)
-
-***
-
-### transform
-
-Transform emits the result of a closure.
+Collect all objects up to that step into a list and randomize their
+order.
 
 [top](#)
 
@@ -274,7 +284,8 @@ Transform emits the result of a closure.
 
 ## Filter
 
-Filter steps decide whether to allow an object to pass to the next step or not.
+Filter steps decide whether to allow an object to pass to the next
+step or not.
 
 
 ### range
@@ -287,7 +298,8 @@ A range filter that emits the objects within a range.
 
 ### dedup
 
-Emit only incoming objects that have not been seen before with an optional closure being the object to check on.
+Emit only incoming objects that have not been seen before with an
+optional closure being the object to check on.
 
 [top](#)
 
@@ -307,7 +319,8 @@ Emit everything to pass except what is in the supplied collection.
 
 ### filter
 
-Decide whether to allow an object to pass.  Return true from the closure to allow an object to pass.
+Decide whether to allow an object to pass. Return true from the
+closure to allow an object to pass.
 
 [top](#)
 
@@ -315,16 +328,23 @@ Decide whether to allow an object to pass.  Return true from the closure to allo
 
 ### has
 
-Allows an element if it has a particular property.  Utilizes several options for comparisons through `T`:
+Allows an element if it has a particular property. Utilizes several
+options for comparisons through `T`:
 
-* T.gt - greater than 
+* T.gt - greater than
 * T.gte - greater than or equal to
 * T.eq - equal to
 * T.neq - not equal to
 * T.lte - less than or equal to
 * T.lt - less than
 
-It is worth noting that the syntax of `has` is similar to `g.V("name", "marko")`, which has the difference of being a [key index](https://github.com/tinkerpop/blueprints/wiki/Graph-Indices) lookup and as such will perform faster. In contrast, this line, `g.V.has("name", "marko")`, will iterate over all vertices checking the `name` property of each vertex for a match and will be significantly slower than the key index approach.
+It is worth noting that the syntax of `has` is similar to `g.V("name",
+"marko")`, which has the difference of being a
+[key index](https://github.com/tinkerpop/blueprints/wiki/Graph-Indices)
+lookup and as such will perform faster. In contrast, this line,
+`g.V.has("name", "marko")`, will iterate over all vertices checking
+the `name` property of each vertex for a match and will be
+significantly slower than the key index approach.
 
 #### See Also
 
@@ -334,11 +354,12 @@ It is worth noting that the syntax of `has` is similar to `g.V("name", "marko")`
 
 ***
 
-### hasNot
+### has-not
 
-Allows an element if it does not have a particular property.  Utilizes several options for comparisons on through `T`:
+Allows an element if it does not have a particular property. Utilizes
+several options for comparisons on through `T`:
 
-* T.gt - greater than 
+* T.gt - greater than
 * T.gte - greater than or equal to
 * T.eq - equal to
 * T.neq - not equal to
@@ -351,7 +372,8 @@ Allows an element if it does not have a particular property.  Utilizes several o
 
 ### interval
 
-Allow elements to pass that have their property in the provided start and end interval.
+Allow elements to pass that have their property in the provided start
+and end interval.
 
 #### See Also
 
@@ -371,11 +393,8 @@ Emits the incoming object if biased coin toss is heads.
 
 ### retain
 
-Allow everything to pass except what is not in the supplied collection.
-
-#### See Also
-
-* [except](#filter/except)
+Allow everything to pass except what is not in the supplied
+collection.
 
 [top](#)
 
@@ -389,7 +408,7 @@ Emit the object only if the current path has no repeated elements.
 
 ***
 
-## Annotations 
+## Annotations
 
 ### as
 
@@ -401,7 +420,8 @@ Emits input, but names the previous step.
 
 ### back
 
-Go back to the results from n-steps ago or go back to the results of a named step.
+Go back to the results from n-steps ago or go back to the results of a
+named step.
 
 [top](#)
 
@@ -409,7 +429,8 @@ Go back to the results from n-steps ago or go back to the results of a named ste
 
 ### back-to
 
-Go back to the results from n-steps ago or go back to the results of a named step.
+Go back to the results from n-steps ago or go back to the results of a
+named step.
 
 [top](#)
 
@@ -425,7 +446,7 @@ useful for yielding a sideeffect down a particular branch.
 
 ***
 
-### loop 
+### loop
 
 Loop over a particular set of steps in the pipeline. The first
 argument is either the number of steps back in the pipeline to go or a
@@ -436,15 +457,19 @@ about when to break out of the loop.
 
 * `it.object`: the current object of the traverser.
 * `it.path`: the current path of the traverser.
-* `it.loops`: the number of times the traverser has looped through the loop section.
+* `it.loops`: the number of times the traverser has looped through the
+  loop section.
 
-The final argument is known as the "emit" closure. This boolean-based closure will determine wether the current object in the loop structure is emitted or not. As such, it is possible to emit intermediate objects, not simply those at the end of the loop.
+The final argument is known as the "emit" closure. This boolean-based
+closure will determine wether the current object in the loop structure
+is emitted or not. As such, it is possible to emit intermediate
+objects, not simply those at the end of the loop.
 
 [top](#)
 
 ***
 
-### loop-to 
+### loop-to
 
 Loop over a particular set of steps in the pipeline. The first
 argument is either the number of steps back in the pipeline to go or a
@@ -455,9 +480,13 @@ about when to break out of the loop.
 
 * `it.object`: the current object of the traverser.
 * `it.path`: the current path of the traverser.
-* `it.loops`: the number of times the traverser has looped through the loop section.
+* `it.loops`: the number of times the traverser has looped through the
+  loop section.
 
-The final argument is known as the "emit" closure. This boolean-based closure will determine wether the current object in the loop structure is emitted or not. As such, it is possible to emit intermediate objects, not simply those at the end of the loop.
+The final argument is known as the "emit" closure. This boolean-based
+closure will determine wether the current object in the loop structure
+is emitted or not. As such, it is possible to emit intermediate
+objects, not simply those at the end of the loop.
 
 [top](#)
 
@@ -471,7 +500,9 @@ while doing so.
 
 ### get-grouped-by
 
-Emits input, but groups input after processing it by provided key-closure and value-closure.  It is also possible to supply an optional reduce-closure.  
+Emits input, but groups input after processing it by provided
+key-closure and value-closure. It is also possible to supply an
+optional reduce-closure.
 
 [top](#)
 
@@ -479,7 +510,8 @@ Emits input, but groups input after processing it by provided key-closure and va
 
 ### get-group-count
 
-Emits input, but updates a map for each input, where closures provides generic map update.
+Emits input, but updates a map for each input, where closures provides
+generic map update.
 
 [top](#)
 
@@ -487,7 +519,8 @@ Emits input, but updates a map for each input, where closures provides generic m
 
 ### cap
 
-Gets the side-effect of the pipe prior.  In other words, it emits the value of the previous step and not the values that flow through it.
+Gets the side-effect of the pipe prior. In other words, it emits the
+value of the previous step and not the values that flow through it.
 
 [top](#)
 
@@ -504,7 +537,9 @@ Emits input, but calls a side effect closure on each input.
 
 ### get-table
 
-Emits input, but stores row of as values (constrained by column names if provided) in a table.  Accepts an optional set of closures that are applied in round-robin fashion to each column of the table.
+Emits input, but stores row of as values (constrained by column names
+if provided) in a table. Accepts an optional set of closures that are
+applied in round-robin fashion to each column of the table.
 
 ### get-tree
 
@@ -512,7 +547,9 @@ Emits input, but stores row of as values (constrained by column names if provide
 
 ***
 
-Emit input, but stores the tree formed by the traversal as a map.  Accepts an optional set of closures to be applied in round-robin fashion over each level of the tree.
+Emit input, but stores the tree formed by the traversal as a map.
+Accepts an optional set of closures to be applied in round-robin
+fashion over each level of the tree.
 
 ## Branch
 
@@ -526,13 +563,16 @@ Copies incoming object to internal pipes.
 
 ### exhaust-merge
 
-Used in combination with a `copySplit`, merging the parallel traversals by exhaustively getting the objects of the first, then the second, etc.
+Used in combination with a `copySplit`, merging the parallel
+traversals by exhaustively getting the objects of the first, then the
+second, etc.
 
 ***
 
 ### fair-merge
 
-Used in combination with a `copySplit`, merging the parallel traversals in a round-robin fashion.
+Used in combination with a `copySplit`, merging the parallel
+traversals in a round-robin fashion.
 
 ***
 
@@ -546,9 +586,15 @@ Allows for if-then-else conditional logic.
 
 ### memoize
 
-Remembers a particular mapping from input to output.  Long or expensive expressions with no side effects can use this step to remember a mapping, which helps reduce load when previously processed objects are passed into it.
+Remembers a particular mapping from input to output. Long or expensive
+expressions with no side effects can use this step to remember a
+mapping, which helps reduce load when previously processed objects are
+passed into it.
 
-For situations where memoization may consume large amounts of RAM, consider using an embedded key-value store like [JDBM](http://code.google.com/p/jdbm2/) or some other persistent Map implementation.
+For situations where memoization may consume large amounts of RAM,
+consider using an embedded key-value store like
+[JDBM](http://code.google.com/p/jdbm2/) or some other persistent Map
+implementation.
 
 [top](#)
 
@@ -560,7 +606,8 @@ Recipes are common patterns that are seen in using Gremlin.
 
 ### Duplicate Edges
 
-Strictly speaking, you cannot have duplicated egdes with the same id.  This example finds edges with same `outV/inV/label` properties.
+Strictly speaking, you cannot have duplicated egdes with the same id.
+This example finds edges with same `outV/inV/label` properties.
 
 [top](#)
 
@@ -568,7 +615,8 @@ Strictly speaking, you cannot have duplicated egdes with the same id.  This exam
 
 ### Paging Results
 
-It is sometimes desireable to not return an entire results set.  Results can be paged or limited as follows:
+It is sometimes desireable to not return an entire results set.
+Results can be paged or limited as follows:
 
 [top](#)
 
@@ -588,7 +636,8 @@ Use the value of `it.loops<=3`to control the depth of the traversal:
 
 ### Reading From a File
 
-Reading data from an edge file formatted as CSV is easy to do with Gremlin.
+Reading data from an edge file formatted as CSV is easy to do with
+Gremlin.
 
 [top](#)
 
@@ -596,7 +645,10 @@ Reading data from an edge file formatted as CSV is easy to do with Gremlin.
 
 ### Sampling
 
-It is sometimes useful to grab a random sample of the items in a collection.  That can be done to some degree with the [random](#filter.random) step, but getting an explicit number of items is not supported using that step.
+It is sometimes useful to grab a random sample of the items in a
+collection. That can be done to some degree with the
+[random](#filter.random) step, but getting an explicit number of items
+is not supported using that step.
 
 [top](#)
 
@@ -612,11 +664,8 @@ Find the shortest path between two vertices:
 
 ### gather
 
-Collect all objects up to that step and process the gathered list with the provided closure.
-
-#### See Also
-
-* [scatter](#transform/scatter)
+Collect all objects up to that step and process the gathered list with
+the provided closure.
 
 [top](#)
 
@@ -624,11 +673,9 @@ Collect all objects up to that step and process the gathered list with the provi
 
 ### scatter
 
-Unroll all objects in the iterable at that step. Gather/Scatter is good for breadth-first traversals where the gather closure filters out unwanted elements at the current radius.
-
-#### See Also
-
-* [gather](#transform/gather)
+Unroll all objects in the iterable at that step. Gather/Scatter is
+good for breadth-first traversals where the gather closure filters out
+unwanted elements at the current radius.
 
 [top](#)
 

@@ -148,6 +148,10 @@
                   <a href="#map/path">path</a>
                 </li>
               
+                <li>
+                  <a href="#map/transform">transform</a>
+                </li>
+              
             </ul>
           
         </li>
@@ -214,10 +218,6 @@
                   <a href="#reduce/shuffle">shuffle</a>
                 </li>
               
-                <li>
-                  <a href="#reduce/transform">transform</a>
-                </li>
-              
             </ul>
           
         </li>
@@ -248,7 +248,7 @@
                 </li>
               
                 <li>
-                  <a href="#filter/hasnot">hasNot</a>
+                  <a href="#filter/has-not">has-not</a>
                 </li>
               
                 <li>
@@ -441,6 +441,7 @@ is the <em>official</em> Ogre documentation. This page is a fork of
 requests will be celebrated.
 
 </p>
+<hr>
 <h2 id='getting-started'>Getting started</h2 id='getting-started'>
 <h3 id='getting-started/leiningen'>leiningen</h3 id='getting-started/leiningen'>
 <p>versioning ideas
@@ -448,13 +449,18 @@ requests will be celebrated.
 </p>
 <h3 id='getting-started/git-clone'>git clone</h3 id='getting-started/git-clone'>
 <h3 id='getting-started/repl'>repl</h3 id='getting-started/repl'>
-<p>Unless otherwise noted, all samples are derived from the TinkerPop &quot;toy&quot; graph generated with: 
+<p>Unless otherwise noted, all samples are derived from the TinkerPop
+&quot;toy&quot; graph generated with:
 
 </p>
-<pre><code class="clojure"><span class="list">(<span class="title">use</span><span class="body"> 'ogre.tinkergraph</span>)</span></code></pre>
-<p>This produces a hardcoded representation of the graph diagrammed <a href="http://github.com/tinkerpop/blueprints/wiki/Property-Graph-Model">here</a>.  
+<p><code>clojure (use &#39;ogre.tinkergraph) </code>
 
 </p>
+<p>This produces a hardcoded representation of the graph diagrammed
+<a href="http://github.com/tinkerpop/blueprints/wiki/Property-Graph-Model">here</a>.
+
+</p>
+<hr>
 <h2 id='traversal'>Traversal</h2 id='traversal'>
 <h3 id='traversal/out'>--&gt; / out</h3 id='traversal/out'>
 <p>Gets the out adjacent vertices to the vertex.
@@ -534,7 +540,7 @@ requests will be celebrated.
 </p>
 <hr>
 <h3 id='map/id'>id</h3 id='map/id'>
-<p>Gets the unique identifier of the element.  
+<p>Gets the unique identifier of the element.
 
 </p>
 <p><a href="#">top</a>
@@ -542,7 +548,11 @@ requests will be celebrated.
 </p>
 <hr>
 <h3 id='map/property'>property</h3 id='map/property'>
-<p>Get the property value of an element.  The property value can be obtained by simply appending the name to the end of the element or by referencing it as a Groovy map element with square brackets.  For best performance, drop down to the Blueprints API and use <code>getProperty(key)</code>.
+<p>Get the property value of an element. The property value can be
+obtained by simply appending the name to the end of the element or by
+referencing it as a Groovy map element with square brackets. For best
+performance, drop down to the Blueprints API and use
+<code>getProperty(key)</code>.
 
 </p>
 <p><a href="#">top</a>
@@ -566,7 +576,8 @@ requests will be celebrated.
 </p>
 <hr>
 <h3 id='map/select'>select</h3 id='map/select'>
-<p>Select the named steps to emit after select with post-processing closures.
+<p>Select the named steps to emit after select with post-processing
+closures.
 
 </p>
 <p><a href="#">top</a>
@@ -574,7 +585,8 @@ requests will be celebrated.
 </p>
 <hr>
 <h3 id='map/select-only'>select-only</h3 id='map/select-only'>
-<p>Select the named steps to emit after select with post-processing closures.
+<p>Select the named steps to emit after select with post-processing
+closures.
 
 </p>
 <p><a href="#">top</a>
@@ -582,7 +594,19 @@ requests will be celebrated.
 </p>
 <hr>
 <h3 id='map/path'>path</h3 id='map/path'>
-<p>Gets the path through the pipeline up to this point, where closures are post-processing for each object in the path.  If the path step is provided closures then, in a round robin fashion, the closures are evaluated over each object of the path and that post-processed path is returned.
+<p>Gets the path through the pipeline up to this point, where closures
+are post-processing for each object in the path. If the path step is
+provided closures then, in a round robin fashion, the closures are
+evaluated over each object of the path and that post-processed path is
+returned.
+
+</p>
+<p><a href="#">top</a>
+
+</p>
+<hr>
+<h3 id='map/transform'>transform</h3 id='map/transform'>
+<p>Transform emits the result of a closure.
 
 </p>
 <p><a href="#">top</a>
@@ -590,7 +614,7 @@ requests will be celebrated.
 </p>
 <hr>
 <h2 id='converters'>Converters</h2 id='converters'>
-<p>Ogre cannot do everything for you. You still have to ask to do things. 
+<p>Ogre cannot do everything for you. You still have to ask to do things.
 
 </p>
 <h3 id='converters/to-list'>to-list</h3 id='converters/to-list'>
@@ -644,32 +668,21 @@ requests will be celebrated.
 </p>
 <hr>
 <h2 id='reduce'>Reduce</h2 id='reduce'>
-<p>These functions act like reduce. 
+<p>These functions act like reduce.
 
 </p>
 <h3 id='reduce/order'>order</h3 id='reduce/order'>
-<p>Order the items in the stream according to the closure if provided.  If no closure is provided, then a default sort order is used.
+<p>Order the items in the stream according to the closure if provided. If
+no closure is provided, then a default sort order is used.
 
 </p>
 <p><a href="#">top</a>
 
 </p>
-<hr>
 <hr>
 <h3 id='reduce/shuffle'>shuffle</h3 id='reduce/shuffle'>
-<p>Collect all objects up to that step into a list and randomize their order.
-
-</p>
-<h4>See Also</h4>
-<ul>
-<li><a href="#filter/random">random</a></li>
-</ul>
-<p><a href="#">top</a>
-
-</p>
-<hr>
-<h3 id='reduce/transform'>transform</h3 id='reduce/transform'>
-<p>Transform emits the result of a closure.
+<p>Collect all objects up to that step into a list and randomize their
+order.
 
 </p>
 <p><a href="#">top</a>
@@ -677,7 +690,8 @@ requests will be celebrated.
 </p>
 <hr>
 <h2 id='filter'>Filter</h2 id='filter'>
-<p>Filter steps decide whether to allow an object to pass to the next step or not.
+<p>Filter steps decide whether to allow an object to pass to the next
+step or not.
 
 
 </p>
@@ -690,7 +704,8 @@ requests will be celebrated.
 </p>
 <hr>
 <h3 id='filter/dedup'>dedup</h3 id='filter/dedup'>
-<p>Emit only incoming objects that have not been seen before with an optional closure being the object to check on.
+<p>Emit only incoming objects that have not been seen before with an
+optional closure being the object to check on.
 
 </p>
 <p><a href="#">top</a>
@@ -710,7 +725,8 @@ requests will be celebrated.
 </p>
 <hr>
 <h3 id='filter/filter'>filter</h3 id='filter/filter'>
-<p>Decide whether to allow an object to pass.  Return true from the closure to allow an object to pass.
+<p>Decide whether to allow an object to pass. Return true from the
+closure to allow an object to pass.
 
 </p>
 <p><a href="#">top</a>
@@ -718,18 +734,25 @@ requests will be celebrated.
 </p>
 <hr>
 <h3 id='filter/has'>has</h3 id='filter/has'>
-<p>Allows an element if it has a particular property.  Utilizes several options for comparisons through <code>T</code>:
+<p>Allows an element if it has a particular property. Utilizes several
+options for comparisons through <code>T</code>:
 
 </p>
 <ul>
-<li>T.gt - greater than </li>
+<li>T.gt - greater than</li>
 <li>T.gte - greater than or equal to</li>
 <li>T.eq - equal to</li>
 <li>T.neq - not equal to</li>
 <li>T.lte - less than or equal to</li>
 <li>T.lt - less than</li>
 </ul>
-<p>It is worth noting that the syntax of <code>has</code> is similar to <code>g.V(&quot;name&quot;, &quot;marko&quot;)</code>, which has the difference of being a <a href="https://github.com/tinkerpop/blueprints/wiki/Graph-Indices">key index</a> lookup and as such will perform faster. In contrast, this line, <code>g.V.has(&quot;name&quot;, &quot;marko&quot;)</code>, will iterate over all vertices checking the <code>name</code> property of each vertex for a match and will be significantly slower than the key index approach.
+<p>It is worth noting that the syntax of <code>has</code> is similar to <code>g.V(&quot;name&quot;,
+&quot;marko&quot;)</code>, which has the difference of being a
+<a href="https://github.com/tinkerpop/blueprints/wiki/Graph-Indices">key index</a>
+lookup and as such will perform faster. In contrast, this line,
+<code>g.V.has(&quot;name&quot;, &quot;marko&quot;)</code>, will iterate over all vertices checking
+the <code>name</code> property of each vertex for a match and will be
+significantly slower than the key index approach.
 
 </p>
 <h4>See Also</h4>
@@ -740,12 +763,13 @@ requests will be celebrated.
 
 </p>
 <hr>
-<h3 id='filter/hasnot'>hasNot</h3 id='filter/hasnot'>
-<p>Allows an element if it does not have a particular property.  Utilizes several options for comparisons on through <code>T</code>:
+<h3 id='filter/has-not'>has-not</h3 id='filter/has-not'>
+<p>Allows an element if it does not have a particular property. Utilizes
+several options for comparisons on through <code>T</code>:
 
 </p>
 <ul>
-<li>T.gt - greater than </li>
+<li>T.gt - greater than</li>
 <li>T.gte - greater than or equal to</li>
 <li>T.eq - equal to</li>
 <li>T.neq - not equal to</li>
@@ -757,7 +781,8 @@ requests will be celebrated.
 </p>
 <hr>
 <h3 id='filter/interval'>interval</h3 id='filter/interval'>
-<p>Allow elements to pass that have their property in the provided start and end interval.
+<p>Allow elements to pass that have their property in the provided start
+and end interval.
 
 </p>
 <h4>See Also</h4>
@@ -777,13 +802,10 @@ requests will be celebrated.
 </p>
 <hr>
 <h3 id='filter/retain'>retain</h3 id='filter/retain'>
-<p>Allow everything to pass except what is not in the supplied collection.
+<p>Allow everything to pass except what is not in the supplied
+collection.
 
 </p>
-<h4>See Also</h4>
-<ul>
-<li><a href="#filter/except">except</a></li>
-</ul>
 <p><a href="#">top</a>
 
 </p>
@@ -806,7 +828,8 @@ requests will be celebrated.
 </p>
 <hr>
 <h3 id='annotations/back'>back</h3 id='annotations/back'>
-<p>Go back to the results from n-steps ago or go back to the results of a named step.
+<p>Go back to the results from n-steps ago or go back to the results of a
+named step.
 
 </p>
 <p><a href="#">top</a>
@@ -814,7 +837,8 @@ requests will be celebrated.
 </p>
 <hr>
 <h3 id='annotations/back-to'>back-to</h3 id='annotations/back-to'>
-<p>Go back to the results from n-steps ago or go back to the results of a named step.
+<p>Go back to the results from n-steps ago or go back to the results of a
+named step.
 
 </p>
 <p><a href="#">top</a>
@@ -843,9 +867,13 @@ about when to break out of the loop.
 <ul>
 <li><code>it.object</code>: the current object of the traverser.</li>
 <li><code>it.path</code>: the current path of the traverser.</li>
-<li><code>it.loops</code>: the number of times the traverser has looped through the loop section.</li>
+<li><code>it.loops</code>: the number of times the traverser has looped through the
+loop section.</li>
 </ul>
-<p>The final argument is known as the &quot;emit&quot; closure. This boolean-based closure will determine wether the current object in the loop structure is emitted or not. As such, it is possible to emit intermediate objects, not simply those at the end of the loop.
+<p>The final argument is known as the &quot;emit&quot; closure. This boolean-based
+closure will determine wether the current object in the loop structure
+is emitted or not. As such, it is possible to emit intermediate
+objects, not simply those at the end of the loop.
 
 </p>
 <p><a href="#">top</a>
@@ -864,9 +892,13 @@ about when to break out of the loop.
 <ul>
 <li><code>it.object</code>: the current object of the traverser.</li>
 <li><code>it.path</code>: the current path of the traverser.</li>
-<li><code>it.loops</code>: the number of times the traverser has looped through the loop section.</li>
+<li><code>it.loops</code>: the number of times the traverser has looped through the
+loop section.</li>
 </ul>
-<p>The final argument is known as the &quot;emit&quot; closure. This boolean-based closure will determine wether the current object in the loop structure is emitted or not. As such, it is possible to emit intermediate objects, not simply those at the end of the loop.
+<p>The final argument is known as the &quot;emit&quot; closure. This boolean-based
+closure will determine wether the current object in the loop structure
+is emitted or not. As such, it is possible to emit intermediate
+objects, not simply those at the end of the loop.
 
 </p>
 <p><a href="#">top</a>
@@ -879,7 +911,9 @@ while doing so.
 
 </p>
 <h3 id='side-effect/get-grouped-by'>get-grouped-by</h3 id='side-effect/get-grouped-by'>
-<p>Emits input, but groups input after processing it by provided key-closure and value-closure.  It is also possible to supply an optional reduce-closure.  
+<p>Emits input, but groups input after processing it by provided
+key-closure and value-closure. It is also possible to supply an
+optional reduce-closure.
 
 </p>
 <p><a href="#">top</a>
@@ -887,7 +921,8 @@ while doing so.
 </p>
 <hr>
 <h3 id='side-effect/get-group-count'>get-group-count</h3 id='side-effect/get-group-count'>
-<p>Emits input, but updates a map for each input, where closures provides generic map update.
+<p>Emits input, but updates a map for each input, where closures provides
+generic map update.
 
 </p>
 <p><a href="#">top</a>
@@ -895,7 +930,8 @@ while doing so.
 </p>
 <hr>
 <h3 id='side-effect/cap'>cap</h3 id='side-effect/cap'>
-<p>Gets the side-effect of the pipe prior.  In other words, it emits the value of the previous step and not the values that flow through it.
+<p>Gets the side-effect of the pipe prior. In other words, it emits the
+value of the previous step and not the values that flow through it.
 
 </p>
 <p><a href="#">top</a>
@@ -911,7 +947,9 @@ while doing so.
 </p>
 <hr>
 <h3 id='side-effect/get-table'>get-table</h3 id='side-effect/get-table'>
-<p>Emits input, but stores row of as values (constrained by column names if provided) in a table.  Accepts an optional set of closures that are applied in round-robin fashion to each column of the table.
+<p>Emits input, but stores row of as values (constrained by column names
+if provided) in a table. Accepts an optional set of closures that are
+applied in round-robin fashion to each column of the table.
 
 </p>
 <h3 id='side-effect/get-tree'>get-tree</h3 id='side-effect/get-tree'>
@@ -919,7 +957,9 @@ while doing so.
 
 </p>
 <hr>
-<p>Emit input, but stores the tree formed by the traversal as a map.  Accepts an optional set of closures to be applied in round-robin fashion over each level of the tree.
+<p>Emit input, but stores the tree formed by the traversal as a map.
+Accepts an optional set of closures to be applied in round-robin
+fashion over each level of the tree.
 
 </p>
 <h2 id='branch'>Branch</h2 id='branch'>
@@ -932,12 +972,15 @@ while doing so.
 </p>
 <hr>
 <h3 id='branch/exhaust-merge'>exhaust-merge</h3 id='branch/exhaust-merge'>
-<p>Used in combination with a <code>copySplit</code>, merging the parallel traversals by exhaustively getting the objects of the first, then the second, etc.
+<p>Used in combination with a <code>copySplit</code>, merging the parallel
+traversals by exhaustively getting the objects of the first, then the
+second, etc.
 
 </p>
 <hr>
 <h3 id='branch/fair-merge'>fair-merge</h3 id='branch/fair-merge'>
-<p>Used in combination with a <code>copySplit</code>, merging the parallel traversals in a round-robin fashion.
+<p>Used in combination with a <code>copySplit</code>, merging the parallel
+traversals in a round-robin fashion.
 
 </p>
 <hr>
@@ -950,10 +993,16 @@ while doing so.
 </p>
 <hr>
 <h3 id='branch/memoize'>memoize</h3 id='branch/memoize'>
-<p>Remembers a particular mapping from input to output.  Long or expensive expressions with no side effects can use this step to remember a mapping, which helps reduce load when previously processed objects are passed into it.
+<p>Remembers a particular mapping from input to output. Long or expensive
+expressions with no side effects can use this step to remember a
+mapping, which helps reduce load when previously processed objects are
+passed into it.
 
 </p>
-<p>For situations where memoization may consume large amounts of RAM, consider using an embedded key-value store like <a href="http://code.google.com/p/jdbm2/">JDBM</a> or some other persistent Map implementation.
+<p>For situations where memoization may consume large amounts of RAM,
+consider using an embedded key-value store like
+<a href="http://code.google.com/p/jdbm2/">JDBM</a> or some other persistent Map
+implementation.
 
 </p>
 <p><a href="#">top</a>
@@ -965,7 +1014,8 @@ while doing so.
 
 </p>
 <h3 id='recipes/duplicate-edges'>Duplicate Edges</h3 id='recipes/duplicate-edges'>
-<p>Strictly speaking, you cannot have duplicated egdes with the same id.  This example finds edges with same <code>outV/inV/label</code> properties.
+<p>Strictly speaking, you cannot have duplicated egdes with the same id.
+This example finds edges with same <code>outV/inV/label</code> properties.
 
 </p>
 <p><a href="#">top</a>
@@ -973,7 +1023,8 @@ while doing so.
 </p>
 <hr>
 <h3 id='recipes/paging-results'>Paging Results</h3 id='recipes/paging-results'>
-<p>It is sometimes desireable to not return an entire results set.  Results can be paged or limited as follows:
+<p>It is sometimes desireable to not return an entire results set.
+Results can be paged or limited as follows:
 
 </p>
 <p><a href="#">top</a>
@@ -995,7 +1046,8 @@ while doing so.
 </p>
 <hr>
 <h3 id='recipes/reading-from-a-file'>Reading From a File</h3 id='recipes/reading-from-a-file'>
-<p>Reading data from an edge file formatted as CSV is easy to do with Gremlin.
+<p>Reading data from an edge file formatted as CSV is easy to do with
+Gremlin.
 
 </p>
 <p><a href="#">top</a>
@@ -1003,7 +1055,10 @@ while doing so.
 </p>
 <hr>
 <h3 id='recipes/sampling'>Sampling</h3 id='recipes/sampling'>
-<p>It is sometimes useful to grab a random sample of the items in a collection.  That can be done to some degree with the <a href="#filter.random">random</a> step, but getting an explicit number of items is not supported using that step.
+<p>It is sometimes useful to grab a random sample of the items in a
+collection. That can be done to some degree with the
+<a href="#filter.random">random</a> step, but getting an explicit number of items
+is not supported using that step.
 
 </p>
 <p><a href="#">top</a>
@@ -1019,25 +1074,20 @@ while doing so.
 </p>
 <hr>
 <h3 id='recipes/gather'>gather</h3 id='recipes/gather'>
-<p>Collect all objects up to that step and process the gathered list with the provided closure.
+<p>Collect all objects up to that step and process the gathered list with
+the provided closure.
 
 </p>
-<h4>See Also</h4>
-<ul>
-<li><a href="#transform/scatter">scatter</a></li>
-</ul>
 <p><a href="#">top</a>
 
 </p>
 <hr>
 <h3 id='recipes/scatter'>scatter</h3 id='recipes/scatter'>
-<p>Unroll all objects in the iterable at that step. Gather/Scatter is good for breadth-first traversals where the gather closure filters out unwanted elements at the current radius.
+<p>Unroll all objects in the iterable at that step. Gather/Scatter is
+good for breadth-first traversals where the gather closure filters out
+unwanted elements at the current radius.
 
 </p>
-<h4>See Also</h4>
-<ul>
-<li><a href="#transform/gather">gather</a></li>
-</ul>
 <p><a href="#">top</a>
 
 </p>
