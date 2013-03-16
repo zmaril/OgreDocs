@@ -134,32 +134,32 @@
         </li>
       
         <li>
-          <a href="#map">Map</a>
+          <a href="#map-like-functions">Map-like functions</a>
           
             <ul>
               
                 <li>
-                  <a href="#map/id">id</a>
+                  <a href="#map-like-functions/id">id</a>
                 </li>
               
                 <li>
-                  <a href="#map/property">property</a>
+                  <a href="#map-like-functions/property">property</a>
                 </li>
               
                 <li>
-                  <a href="#map/label">label</a>
+                  <a href="#map-like-functions/label">label</a>
                 </li>
               
                 <li>
-                  <a href="#map/map">map</a>
+                  <a href="#map-like-functions/map">map</a>
                 </li>
               
                 <li>
-                  <a href="#map/path">path</a>
+                  <a href="#map-like-functions/path">path</a>
                 </li>
               
                 <li>
-                  <a href="#map/transform">transform</a>
+                  <a href="#map-like-functions/transform">transform</a>
                 </li>
               
             </ul>
@@ -514,10 +514,10 @@ Collection and creates a new pipeline around them.</li>
 element of id 1. </li>
 <li><code>q/--&gt;</code> is a function which adds on an outwards traversal step to
 the pipe. This means that the Gremlin query will take all the
-vertices it is currently thinking about and then look for all the
-vertices that the previous vertices pointed to. </li>
+vertices it is currently thinking about and then think about all the
+vertices that the vertices in it&#39;s mind pointed to.</li>
 <li><code>q/into-vec!</code> executes the query and returns the results inside of a
-vector. Up until this call, the Gremlin query hasn&#39;t actually done
+vector. Before this call, the Gremlin query hasn&#39;t actually done
 anything yet. Only when a function that ends with a bang is passed
 in does anything actually happen beyond just a GremlinPipeline
 getting built up. </li>
@@ -532,12 +532,13 @@ getting built up. </li>
          first
          <span class="list">(<span class="body"><span class="list">(<span class="title">q/prop</span><span class="body"> <span class="keyword">:name</span></span>)</span></span>)</span></span>)</span>
 <span class="comment">;;"vadas"</span></code></pre>
-<p><code>q/query</code> isn&#39;t just about running Gremlin queries. Remember,
-it&#39;s really just a glorified <code>-&gt;</code> with helper functions. That means we
-can stick a <code>first</code> in there to get the first vertex of the vector.
-<code>(q/prop :name)</code> takes a property key and returns a function which
-takes a vertex and returns the given property. Thus, <code>&quot;vadas&quot;</code> is the
-charming face of <code>#&lt;TinkerVertex v[2]&gt;</code>.
+<p><code>q/query</code> isn&#39;t just about running Gremlin queries. Remember, it&#39;s
+really just a glorified <code>-&gt;</code>, and a bunch of provided helper
+functions. That means we can stick a <code>first</code> in there to get the first
+vertex of the vector. <code>(q/prop :name)</code> takes a property key and
+returns a function which takes a vertex and returns the given
+property. Thus, <code>&quot;vadas&quot;</code> is the charming face of <code>#&lt;TinkerVertex
+v[2]&gt;</code>.
 
 </p>
 <hr>
@@ -549,7 +550,7 @@ vertices are connected.
 <h3 id='traversal/out'>out / --&gt;</h3 id='traversal/out'>
 <p><code>--&gt;</code> or <code>out</code> gets the out adjacent vertices (the functions do
 exactly the same thing, one just looks cooler). Additionally, labels
-can be supplied that makes the graph only traverse edges with those
+can be supplied that so that the query only traverse edges with those
 labels. This also applies to the other traversal functions where it
 makes sense (any function that is named with arrows).
 
@@ -579,7 +580,7 @@ makes sense (any function that is named with arrows).
          q/into-vec!</span>)</span>
 <span class="comment">;;[#&lt;TinkerVertex v[5]> #&lt;TinkerVertex v[3]>]</span></code></pre>
 <h3 id='traversal/out-edges-e'>out-edges / --E&gt;</h3 id='traversal/out-edges-e'>
-<p>Gets the outgoing edges of the vertex.
+<p>Get the outgoing edges of the vertex.
 
 </p>
 <pre><code class="clojure"><span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/find-by-id</span><span class="body"> <span class="number">4</span></span>)</span>
@@ -609,7 +610,7 @@ two objects &quot;in the pipeline&quot;. Thus, we get two objects back.
 
 </p>
 <h3 id='traversal/in'>in / &lt;--</h3 id='traversal/in'>
-<p>Gets the adjacent vertices to the vertex.
+<p>Get the adjacent vertices pointing to the vertex.
 
 </p>
 <pre><code class="clojure">(q/query (g/find-by-id 3)
@@ -617,7 +618,7 @@ two objects &quot;in the pipeline&quot;. Thus, we get two objects back.
 </span>         <span class="attribute">q</span>/<span class="attribute">into-vec</span>!)
 ;;[#&lt;<span class="attribute">TinkerVertex</span> <span class="attribute">v</span>[<span class="attribute">1</span>]></span> #<span class="tag">&lt;<span class="title">TinkerVertex</span> <span class="attribute">v</span>[<span class="attribute">4</span>]></span> #<span class="tag">&lt;<span class="title">TinkerVertex</span> <span class="attribute">v</span>[<span class="attribute">6</span>]></span>]</code></pre>
 <h3 id='traversal/in-edges-e'>in-edges / &lt;E--</h3 id='traversal/in-edges-e'>
-<p>Gets the incoming edges of the vertex.
+<p>Get the incoming edges of the vertex.
 
 </p>
 <pre><code class="clojure"><span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/find-by-id</span><span class="body"> <span class="number">3</span></span>)</span>
@@ -635,7 +636,7 @@ two objects &quot;in the pipeline&quot;. Thus, we get two objects back.
          <span class="attribute">q</span>/<span class="attribute">into-vec</span>!)
 ;;[#&lt;<span class="attribute">TinkerVertex</span> <span class="attribute">v</span>[<span class="attribute">3</span>]></span> #<span class="tag">&lt;<span class="title">TinkerVertex</span> <span class="attribute">v</span>[<span class="attribute">3</span>]></span> #<span class="tag">&lt;<span class="title">TinkerVertex</span> <span class="attribute">v</span>[<span class="attribute">3</span>]></span>]</code></pre>
 <h3 id='traversal/both'>both / &lt;-&gt;</h3 id='traversal/both'>
-<p>Get both adjacent vertices of the vertex, the in and the out.
+<p>Get any vertices that are connected to the given vertex. 
 
 </p>
 <pre><code class="clojure">(q/query (g/find-by-id 4)
@@ -663,13 +664,13 @@ two objects &quot;in the pipeline&quot;. Thus, we get two objects back.
 ;; #<span class="tag">&lt;<span class="title">TinkerVertex</span> <span class="attribute">v</span>[<span class="attribute">4</span>]></span> #<span class="tag">&lt;<span class="title">TinkerVertex</span> <span class="attribute">v</span>[<span class="attribute">5</span>]></span> 
 ;; #<span class="tag">&lt;<span class="title">TinkerVertex</span> <span class="attribute">v</span>[<span class="attribute">4</span>]></span> #<span class="tag">&lt;<span class="title">TinkerVertex</span> <span class="attribute">v</span>[<span class="attribute">3</span>]></span>]</code></pre>
 <hr>
-<h2 id='map'>Map</h2 id='map'>
+<h2 id='map-like-functions'>Map-like functions</h2 id='map-like-functions'>
 <p>The following functions are conceptually similar in scope to
-<code>clojure.core/map</code> and so are grouped together. They all take in a
-function and perform some transformation on it. 
+<code>clojure.core/map</code> and so are grouped together. They all take in some
+object and perform a transformation on it.
 
 </p>
-<h3 id='map/id'>id</h3 id='map/id'>
+<h3 id='map-like-functions/id'>id</h3 id='map-like-functions/id'>
 <p>Gets the unique identifier of the element.
 
 </p>
@@ -691,7 +692,7 @@ function and perform some transformation on it.
 <span class="comment">;;ClassCastException java.lang.String cannot be cast to  com.tinkerpop.blueprints.Vertex  </span>
 <span class="comment">;;com.tinkerpop.gremlin.pipes.transform.VerticesVerticesPipe.processNextStart </span>
 <span class="comment">;;(VerticesVerticesPipe.java:37)</span></code></pre>
-<h3 id='map/property'>property</h3 id='map/property'>
+<h3 id='map-like-functions/property'>property</h3 id='map-like-functions/property'>
 <p>Get the property value of an element. 
 
 </p>
@@ -705,22 +706,17 @@ function and perform some transformation on it.
          <span class="list">(<span class="title">q/property</span><span class="body"> <span class="keyword">:name</span></span>)</span>
          q/into-vec!</span>)</span>
 <span class="comment">;;["vadas" "josh" "lop"]</span></code></pre>
-<h3 id='map/label'>label</h3 id='map/label'>
-<p>Gets the label of an edge.
+<h3 id='map-like-functions/label'>label</h3 id='map-like-functions/label'>
+<p>Get the label of an edge.
 
 </p>
 <pre><code class="clojure"><span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/find-by-id</span><span class="body"> <span class="number">1</span></span>)</span>
-         <span class="list">(<span class="title">q/property</span><span class="body"> <span class="keyword">:name</span></span>)</span>
+         q/--E>
+         q/label
          q/into-vec!</span>)</span>
-<span class="comment">;;["marko"]</span>
-
-<span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/find-by-id</span><span class="body"> <span class="number">1</span></span>)</span>
-         q/-->
-         <span class="list">(<span class="title">q/property</span><span class="body"> <span class="keyword">:name</span></span>)</span>
-         q/into-vec!</span>)</span>
-<span class="comment">;;["vadas" "josh" "lop"]</span></code></pre>
-<h3 id='map/map'>map</h3 id='map/map'>
-<p>Gets the property map of the graph element.
+<span class="comment">;;["knows" "knows" "created"]</span></code></pre>
+<h3 id='map-like-functions/map'>map</h3 id='map-like-functions/map'>
+<p>Get the property map of the graph element.
 
 </p>
 <pre><code class="clojure"><span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/find-by-id</span><span class="body"> <span class="number">1</span></span>)</span>
@@ -739,13 +735,13 @@ function and perform some transformation on it.
          q/all-into-maps!</span>)</span>
 <span class="comment">;;({:name "vadas", :age 27} {:name "josh", :age 32} {:name "lop", :lang "java"})</span></code></pre>
 <p>We now see two new functions in addition to <code>q/map</code>: <code>first-into-map!</code>
-and <code>all-into-maps!</code>. As you see, Gremlin doesn&#39;t return Clojure data
-structures. The new functions execute the Gremlin query and then call
-the correct conversion methods to ensure that you can work with the
-returned objects without too much hassle. 
+and <code>all-into-maps!</code>. As you see in the first example, Gremlin doesn&#39;t
+return Clojure data structures. The new functions execute the Gremlin
+query and then call the correct conversion methods to ensure that you
+can work with the returned objects without too much hassle.
 
 </p>
-<h3 id='map/path'>path</h3 id='map/path'>
+<h3 id='map-like-functions/path'>path</h3 id='map-like-functions/path'>
 <p>Gets the path through the pipeline up to this point. If functions are
 provided, they are applied round robin to each of the objects in the
 path. 
@@ -794,7 +790,7 @@ This function takes in an ArrayList of ArrayLists and produces a list
 of vectors.
 
 </p>
-<h3 id='map/transform'>transform</h3 id='map/transform'>
+<h3 id='map-like-functions/transform'>transform</h3 id='map-like-functions/transform'>
 <p>Transform applies a function to each object. 
 
 </p>
@@ -810,16 +806,16 @@ of vectors.
           q/into-vec!</span>)</span>         
 <span class="comment">;;[5 5 7]</span></code></pre>
 <p><code>first-of!</code> executes the query and gets the first element from the
-list. Don&#39;t shoot yourself in the foot.
+list. Don&#39;t shoot yourself in the foot with this. 
 
 </p>
 <h2 id='executors'>Executors</h2 id='executors'>
 <p>Ogre cannot do everything for you. Specifically, it does not figure
-out the sorts of Java objects that are returned from some arbitrary
+out the types of Java objects that are returned from some arbitrary
 query and convert them automatically into Clojure objects. So, with
 that in mind, Ogre includes several functions that execute the
-pipeline and then do conversions into Clojure data structures.
-
+pipeline and then do conversions into specific Clojure data
+structures.
 
 </p>
 <h3 id='executors/to-list'>to-list!</h3 id='executors/to-list'>
