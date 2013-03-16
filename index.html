@@ -874,12 +874,27 @@ path.
 ;; ["marko" 3 "josh"] 
 ;; ["marko" 3 "peter"])</code></pre>
 <p>Note that again we have introduced a new function <code>all-into-vecs!</code>.
-This takes in an ArrayList of ArrayLists and produces a list of
-vectors. 
+This function takes in an ArrayList of ArrayLists and produces a list
+of vectors.
 
 </p>
 <h3 id='map/transform'>transform</h3 id='map/transform'>
-<p>Transform emits the result of a function.
+<p>Transform applies a function to each object. 
+
+</p>
+<pre><code class="clojure"><span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/find-by-id</span><span class="body"> <span class="number">1</span></span>)</span>
+         <span class="list">(<span class="title">q/transform</span><span class="body"> <span class="list">(<span class="title">q/prop</span><span class="body"> <span class="keyword">:name</span></span>)</span></span>)</span>
+         q/first-of!</span>)</span>
+<span class="comment">;;"marko"         </span>
+
+<span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/find-by-id</span><span class="body"> <span class="number">1</span></span>)</span>
+          q/--E>
+          q/label
+          <span class="list">(<span class="title">q/transform</span><span class="body"> count</span>)</span>
+          q/into-vec!</span>)</span>         
+<span class="comment">;;[5 5 7]</span></code></pre>
+<p><code>first-of!</code> executes the query gets the first element from the list.
+Don&#39;t shoot yourself in the foot.
 
 </p>
 <h2 id='converters'>Converters</h2 id='converters'>
