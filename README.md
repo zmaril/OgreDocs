@@ -647,58 +647,77 @@ objects.
 ***
 ## Reduce
 
-These functions sort of act like reduce.
+These functions sort of act like `clojure.core/reduce`.
 
 ### order
 
-Order the items in the stream according to the closure if provided. If
-no closure is provided, then a default sort order is used.
+Order the items in the stream according to the provided function. If no
+function is provided, then a default sort order is used.
 
-[top](#)
+```clojure
+(q/query (g/get-vertices)
+         (q/property :name)
+         q/into-vec!)                         
+;;["lop" "vadas" "marko" "peter" "ripple" "josh"]
 
-***
+(q/query (g/get-vertices)
+         (q/property :name)
+         q/order
+         q/into-vec!)                         
+;;["josh" "lop" "marko" "peter" "ripple" "vadas"]         
 
-### shuffle
-
-Collect all objects up to that step into a list and randomize their
-order.
-
-[top](#)
-
-***
+(q/query (g/get-vertices)
+         (q/property :name)
+         (q/order (fn [a b] (compare b a)))
+         q/into-vec!)                         
+["vadas" "ripple" "peter" "marko" "lop" "josh"]
+```
 
 ### gather
 
 Collect all objects up to that step and process the gathered list with
 the provided closure.
 
-[top](#)
+``` clojure
+(q/query (g/find-by-id 1)
+         q/-->
+         q/id
+         q/gather
+         q/first-into-vec!)
+;;["2" "3" "4"]         
 
-***
+(q/query (g/find-by-id 1)
+         q/-->
+         q/id
+         (q/gather count)
+         q/into-vec!)
+;;3
+```
 
-### scatter
-
-Unroll all objects in the iterable at that step. Gather/Scatter is
-good for breadth-first traversals where the gather closure filters out
-unwanted elements at the current radius.
-
-[top](#)
-
-***
+*** 
 
 ## Filter
 
 Filter steps decide whether to allow an object to pass to the next
 step or not.
 
-
 ### range
 
 A range filter that emits the objects within a range.
 
-[top](#)
+```clojure 
+(q/query (g/find-by-id 1)
+         (q/-->)
+         (q/into-vec!))
+;;[#<TinkerVertex v[2]> #<TinkerVertex v[4]> #<TinkerVertex v[3]>]         
 
-***
+
+(q/query (g/find-by-id 1)
+         (q/-->)
+         (q/range 0 1)
+         (q/into-vec!))
+;;[#<TinkerVertex v[2]> #<TinkerVertex v[4]>]         
+```
 
 ### dedup
 
