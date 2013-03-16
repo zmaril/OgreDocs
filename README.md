@@ -51,20 +51,33 @@ version scheme acknowledges that directly. Thus, the first and current
 release is `0.2.2.0`, meaning that Ogre uses Gremlin `0.2.2` and has
 undergone zero major versions itself so far. 
 
-To get started with Ogre write away, include the following
+To get started with Ogre right away, include the following
 dependency for leiningen: `[zmaril/ogre "0.2.2.0"]`.
 
 ### repl
 
-Unless otherwise noted, all samples are derived from the TinkerPop
-"toy" graph generated with:
+Unless otherwise noted, all samples rely on the TinkerPop "toy" graph.
 
-```clojure (use 'ogre.tinkergraph) ```
+```clojure 
+(use 'ogre.tinkergraph) 
 
-This produces a hardcoded representation of the graph diagrammed
-[here](http://github.com/tinkerpop/blueprints/wiki/Property-Graph-Model).
+(use-new-tinkergraph!)
+```
+
+This produces a hardcoded representation of the following graph (taken
+from [here](http://github.com/tinkerpop/blueprints/wiki/Property-Graph-Model)):
+
+<img src="https://github.com/tinkerpop/blueprints/raw/master/doc/images/graph-example-1.jpg"></img>
+
+I recommend that you open this image up into a
+[new tab](https://github.com/tinkerpop/blueprints/raw/master/doc/images/graph-example-1.jpg).
+It will serve as the main reference for the majority of the examples below. 
 
 ***
+
+### So what does Ogre actually do? 
+
+
 
 ## Traversal
 
