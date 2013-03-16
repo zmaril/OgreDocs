@@ -1112,40 +1112,9 @@ Let's you execute some side effect.
 
 *** 
 
-## Recipes
+## Summary
 
-Recipes are common patterns that are seen in using Gremlin.
-
-### Duplicate Edges
-
-Strictly speaking, you cannot have duplicated egdes with the same id.
-This example finds edges with same `outV/inV/label` properties.
-
-### Paging Results
-
-It is sometimes desireable to not return an entire results set.
-Results can be paged or limited as follows:
-
-### Paths Between Two Vertices
-
-First, paths for a directed graph:
-
-Then, undirected:
-
-Use the value of `it.loops<=3`to control the depth of the traversal:
-
-### Reading From a File
-
-Reading data from an edge file formatted as CSV is easy to do with
-Gremlin.
-
-### Sampling
-
-It is sometimes useful to grab a random sample of the items in a
-collection. That can be done to some degree with the
-[random](#filter.random) step, but getting an explicit number of items
-is not supported using that step.
-
-### Shortest Path
-
-Find the shortest path between two vertices:
+Ogre let's you effectively query graphs. It's a young library
+built on top of a solid stack. If you are looking for a way to create
+and store these graphs from within Clojure, you should check out
+[Hermes](https://github.com/zmaril/hermes).
