@@ -66,6 +66,10 @@
                   <a href="#getting-started/repl">repl</a>
                 </li>
               
+                <li>
+                  <a href="#getting-started/so-what-does-ogre-actually-do">So what does Ogre actually do?</a>
+                </li>
+              
             </ul>
           
         </li>
@@ -473,23 +477,31 @@ release is <code>0.2.2.0</code>, meaning that Ogre uses Gremlin <code>0.2.2</cod
 undergone zero major versions itself so far. 
 
 </p>
-<p>To get started with Ogre write away, include the following
+<p>To get started with Ogre right away, include the following
 dependency for leiningen: <code>[zmaril/ogre &quot;0.2.2.0&quot;]</code>.
 
 </p>
 <h3 id='getting-started/repl'>repl</h3 id='getting-started/repl'>
-<p>Unless otherwise noted, all samples are derived from the TinkerPop
-&quot;toy&quot; graph generated with:
+<p>Unless otherwise noted, all samples rely on the TinkerPop &quot;toy&quot; graph.
 
 </p>
-<p><code>clojure (use &#39;ogre.tinkergraph) </code>
+<pre><code class="clojure"><span class="list">(<span class="title">use</span><span class="body"> 'ogre.tinkergraph</span>)</span> 
+
+<span class="list">(<span class="title">use-new-tinkergraph</span><span class="body">!</span>)</span></code></pre>
+<p>This produces a hardcoded representation of the following graph (taken
+from <a href="http://github.com/tinkerpop/blueprints/wiki/Property-Graph-Model">here</a>):
 
 </p>
-<p>This produces a hardcoded representation of the graph diagrammed
-<a href="http://github.com/tinkerpop/blueprints/wiki/Property-Graph-Model">here</a>.
+<p><img src="https://github.com/tinkerpop/blueprints/raw/master/doc/images/graph-example-1.jpg"></img>
+
+</p>
+<p>I recommend that you open this image up into a
+<a href="https://github.com/tinkerpop/blueprints/raw/master/doc/images/graph-example-1.jpg">new tab</a>.
+It will serve as the main reference for the majority of the examples below. 
 
 </p>
 <hr>
+<h3 id='getting-started/so-what-does-ogre-actually-do'>So what does Ogre actually do?</h3 id='getting-started/so-what-does-ogre-actually-do'>
 <h2 id='traversal'>Traversal</h2 id='traversal'>
 <h3 id='traversal/out'>--&gt; / out</h3 id='traversal/out'>
 <p>Gets the out adjacent vertices to the vertex.
