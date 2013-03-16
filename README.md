@@ -285,7 +285,7 @@ Get both adjacent vertices of the vertex, the in and the out.
 ;;[#<TinkerVertex v[1]> #<TinkerVertex v[5]> #<TinkerVertex v[3]>]
 ```
 
-### both-edges / <E>
+### both-edges / `<E>`
 
 Get both incoming and outgoing edges of the vertex.
 
