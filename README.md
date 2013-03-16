@@ -586,7 +586,7 @@ Gets the first object of the returned list and puts it into a set.
 ``` clojure
 (q/query (g/find-by-id 1)
           q/map
-          q/first-into-map)
+          q/first-into-map!)
 ;;{:name "marko", :age 29}
 ```
 
@@ -639,7 +639,8 @@ objects.
 ```                        
 
 ***
-## Reduce
+
+## Reduce-like functions
 
 These functions sort of act like `clojure.core/reduce`.
 
