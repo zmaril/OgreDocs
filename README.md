@@ -173,7 +173,7 @@ So far so good. But, I wonder, who is the dashing rogue behind
 ;;"vadas"
 ```
 
-`q/query` isn't just about running running Gremlin queries. Remember,
+`q/query` isn't just about running Gremlin queries. Remember,
 it's really just a glorified `->` with helper functions. That means we
 can stick a `first` in there to get the first vertex of the vector.
 `(q/prop :name)` takes a property key and returns a function which
@@ -184,9 +184,25 @@ charming face of `#<TinkerVertex v[2]>`.
 
 ## Traversal
 
+Traversal functions allow you to explore around the graph and see how
+vertices are connected.
+
 ### --> / out
 
-Gets the out adjacent vertices to the vertex.
+`-->` or `out` gets the out adjacent vertices (the functions do
+exactly the same thing, one just looks cooler). 
+
+``` clojure
+(q/query (g/find-by-id 4)
+         q/-->
+         q/into-vec!)
+;;[#<TinkerVertex v[5]> #<TinkerVertex v[3]>]
+
+(q/query (g/find-by-id 4)
+         q/out
+         q/into-vec!)
+;;[#<TinkerVertex v[5]> #<TinkerVertex v[3]>]
+```
 
 [top](#)
 
