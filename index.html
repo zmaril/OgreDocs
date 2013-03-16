@@ -55,6 +55,10 @@
             <ul>
               
                 <li>
+                  <a href="#getting-started/the-stack">The stack</a>
+                </li>
+              
+                <li>
                   <a href="#getting-started/leiningen">leiningen</a>
                 </li>
               
@@ -424,13 +428,13 @@
 
 </p>
 <p><a href="http://github.com/zmaril/ogre">Ogre</a> is a domain specific language
-for traversing property graphs in Clojure. Ogre wraps
+for traversing property graphs in <a href="http://clojure.org/">Clojure</a>. Ogre wraps
 <a href="https://github.com/tinkerpop/gremlin/wiki">Gremlin</a>, a library which
-enables all sorts of fast and easy operations on graphs. Ogre is an
-open source project maintained by
-<a href="http://zacharymaril.com">Zack Maril</a>. Please join the Gremlin users
-group at <a href="http://groups.google.com/group/gremlin-users">http://groups.google.com/group/gremlin-users</a> for any Ogre or
-Gremlin related discussions.
+enables all sorts of neat operations on graphs. Ogre is an open source
+project maintained by <a href="http://zacharymaril.com">Zack Maril</a>. Please
+join the Gremlin users group at
+<a href="http://groups.google.com/group/gremlin-users">http://groups.google.com/group/gremlin-users</a> for any Ogre or Gremlin
+related discussions.
 
 </p>
 <p>The documentation and samples presented here attempt to stay current
@@ -441,10 +445,30 @@ is the <em>official</em> Ogre documentation. This page is a fork of
 requests will be celebrated.
 
 </p>
+<p>Ogre currently powers
+<a href="https://github.com/zmaril/archimedes">Archimedes</a>, a Clojure library
+for blueprints, and <a href="https://github.com/zmaril/hermes">Hermes</a>, a
+Clojure library for working with
+<a href="http://thinkaurelius.github.com/titan/">Titan</a> (built on top of
+Archimedes). 
+
+</p>
 <hr>
 <h2 id='getting-started'>Getting started</h2 id='getting-started'>
+<h3 id='getting-started/the-stack'>The stack</h3 id='getting-started/the-stack'>
 <h3 id='getting-started/leiningen'>leiningen</h3 id='getting-started/leiningen'>
-<p>versioning ideas
+<p>The version scheme for Ogre is as follows:
+<code>[Full Gremlin version].[Ogre major version]</code>. Philosophically, the
+authors of Gremlin are the ones who will be causing most of the
+changes to Ogre. Ogre is a mere wrapper around their work and the
+version scheme acknowledges that directly. Thus, the first and current
+release is <code>0.2.2.0</code>, meaning that Ogre uses Gremlin <code>0.2.2</code> and has
+undergone zero major versions itself so far. 
+
+</p>
+<p>To get started with Ogre write away, include the following
+dependency for leiningen: <code>[zmaril/ogre &quot;0.2.2.0&quot;]</code>.
+
 
 </p>
 <h3 id='getting-started/git-clone'>git clone</h3 id='getting-started/git-clone'>
