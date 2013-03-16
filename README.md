@@ -1,4 +1,4 @@
-![Gremlin](https://github.com/tinkerpop/gremlin/raw/master/doc/images/gremlin-logo.png)
+![Ogre](https://ogredocs.com/ogre.png)
 
 **WARNING OgreDocs is still being written.**
 
