@@ -1069,6 +1069,17 @@ step or not.
          <span class="list">(<span class="title">q/into-vec</span><span class="body">!</span>)</span></span>)</span>
 <span class="comment">;;[#&lt;TinkerVertex v[2]> #&lt;TinkerVertex v[4]>]</span></code></pre>
 <h3 id='filter/dedup'>dedup</h3 id='filter/dedup'>
+<pre><code class="clojure"><span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/get-vertices</span><span class="body"></span>)</span>
+         q/&lt;->
+         q/dedup
+         <span class="list">(<span class="title">q/property</span><span class="body"> <span class="keyword">:name</span></span>)</span>
+         <span class="list">(<span class="title">q/into-vec</span><span class="body">!</span>)</span></span>)</span>
+<span class="comment">;;["marko" "josh" "peter" "vadas" "lop" "ripple"]                         </span>
+<span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/get-vertices</span><span class="body"></span>)</span>
+                         q/&lt;->
+                         <span class="list">(<span class="title">q/dedup</span><span class="body"> <span class="list">(<span class="title">partial</span><span class="body"> g/get-property <span class="keyword">:lang</span></span>)</span></span>)</span>
+                         <span class="list">(<span class="title">q/property</span><span class="body"> <span class="keyword">:name</span></span>)</span>
+                         <span class="list">(<span class="title">q/into-vec</span><span class="body"></span>)</span></span>)</span></code></pre>
 <p>Emit only incoming objects that have not been seen before with an
 optional closure being the object to check on.
 
