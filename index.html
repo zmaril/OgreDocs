@@ -340,35 +340,7 @@
         </li>
       
         <li>
-          <a href="#recipes">Recipes</a>
-          
-            <ul>
-              
-                <li>
-                  <a href="#recipes/duplicate-edges">Duplicate Edges</a>
-                </li>
-              
-                <li>
-                  <a href="#recipes/paging-results">Paging Results</a>
-                </li>
-              
-                <li>
-                  <a href="#recipes/paths-between-two-vertices">Paths Between Two Vertices</a>
-                </li>
-              
-                <li>
-                  <a href="#recipes/reading-from-a-file">Reading From a File</a>
-                </li>
-              
-                <li>
-                  <a href="#recipes/sampling">Sampling</a>
-                </li>
-              
-                <li>
-                  <a href="#recipes/shortest-path">Shortest Path</a>
-                </li>
-              
-            </ul>
+          <a href="#summary">Summary</a>
           
         </li>
       
@@ -1358,44 +1330,11 @@ functions can be supplied as well.
 <span class="comment">;;[[#&lt;TinkerVertex v[2]> #&lt;TinkerVertex v[4]> #&lt;TinkerVertex v[3]>] </span>
 <span class="comment">;; ["vadas" "josh" "lop"]]</span></code></pre>
 <hr>
-<h2 id='recipes'>Recipes</h2 id='recipes'>
-<p>Recipes are common patterns that are seen in using Gremlin.
-
-</p>
-<h3 id='recipes/duplicate-edges'>Duplicate Edges</h3 id='recipes/duplicate-edges'>
-<p>Strictly speaking, you cannot have duplicated egdes with the same id.
-This example finds edges with same <code>outV/inV/label</code> properties.
-
-</p>
-<h3 id='recipes/paging-results'>Paging Results</h3 id='recipes/paging-results'>
-<p>It is sometimes desireable to not return an entire results set.
-Results can be paged or limited as follows:
-
-</p>
-<h3 id='recipes/paths-between-two-vertices'>Paths Between Two Vertices</h3 id='recipes/paths-between-two-vertices'>
-<p>First, paths for a directed graph:
-
-</p>
-<p>Then, undirected:
-
-</p>
-<p>Use the value of <code>it.loops&lt;=3</code>to control the depth of the traversal:
-
-</p>
-<h3 id='recipes/reading-from-a-file'>Reading From a File</h3 id='recipes/reading-from-a-file'>
-<p>Reading data from an edge file formatted as CSV is easy to do with
-Gremlin.
-
-</p>
-<h3 id='recipes/sampling'>Sampling</h3 id='recipes/sampling'>
-<p>It is sometimes useful to grab a random sample of the items in a
-collection. That can be done to some degree with the
-<a href="#filter.random">random</a> step, but getting an explicit number of items
-is not supported using that step.
-
-</p>
-<h3 id='recipes/shortest-path'>Shortest Path</h3 id='recipes/shortest-path'>
-<p>Find the shortest path between two vertices:
+<h2 id='summary'>Summary</h2 id='summary'>
+<p>Ogre let&#39;s you effectively query graphs. It&#39;s a young library
+built on top of a solid stack. If you are looking for a way to create
+and store these graphs from within Clojure, you should check out
+<a href="https://github.com/zmaril/hermes">Hermes</a>.
 </p>
 
   </div>
