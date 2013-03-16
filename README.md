@@ -64,8 +64,9 @@ Unless otherwise noted, all samples rely on the TinkerPop "toy" graph.
 (use-new-tinkergraph!)
 ```
 
-This produces a hardcoded representation of the following graph (taken
-from [here](http://github.com/tinkerpop/blueprints/wiki/Property-Graph-Model)):
+`use-new-tinkergraph` creates the following graph and secretly
+squirrels it away somewhere: (taken from
+[here](http://github.com/tinkerpop/blueprints/wiki/Property-Graph-Model)):
 
 <img src="https://github.com/tinkerpop/blueprints/raw/master/doc/images/graph-example-1.jpg"></img>
 
