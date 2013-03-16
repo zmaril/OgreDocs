@@ -455,7 +455,8 @@ for any Ogre related discussions. Please use the
 <a href="https://github.com/zmaril/ogre/issues">Ogre issue page</a> for
 specifically reporting bugs and discussing features. For any errors or
 corrections with OgreDocs, please use the
-<a href="https://github.com/zmaril/ogredocs">OrgeDocs issue page</a>.
+<a href="https://github.com/zmaril/ogredocs">OrgeDocs issue page</a>. This page
+is a fork of <a href="http://gremlindocs.com/">GremlinDocs</a>.
 
 </p>
 <p>Pull requests will be celebrated, scrutinized, and hopefully accepted.
@@ -633,7 +634,8 @@ vertices are connected.
 <p><code>--&gt;</code> or <code>out</code> gets the out adjacent vertices (the functions do
 exactly the same thing, one just looks cooler). Additionally, labels
 can be supplied that makes the graph only traverse edges with those
-labels (this applies to  <code>--&gt;</code>,<code>--E&gt;</code>,<code>&lt;--</code>,<code>&lt;E--</code>,<code>&lt;-&gt;</code>, and <code>&lt;E&gt;</code>).
+labels. This also applies to the other traversal functions where it
+makes sense (any function that is named with arrows).
 
 </p>
 <pre><code class="clojure"><span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/find-by-id</span><span class="body"> <span class="number">4</span></span>)</span>
@@ -746,64 +748,100 @@ two objects &quot;in the pipeline&quot;. Thus, we get two objects back.
 ;; #<span class="tag">&lt;<span class="title">TinkerVertex</span> <span class="attribute">v</span>[<span class="attribute">4</span>]></span> #<span class="tag">&lt;<span class="title">TinkerVertex</span> <span class="attribute">v</span>[<span class="attribute">3</span>]></span>]</code></pre>
 <hr>
 <h2 id='map'>Map</h2 id='map'>
-<p>Transform steps take an object and emit a transformation of it.
+<p>The following functions are conceptually similar in scope to
+<code>clojure.core/map</code> and so are grouped together. They all take in a
+function and perform some transformation on it. 
 
 </p>
-<hr>
 <h3 id='map/id'>id</h3 id='map/id'>
 <p>Gets the unique identifier of the element.
 
 </p>
-<p><a href="#">top</a>
+<pre><code class="clojure"><span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/find-by-id</span><span class="body"> <span class="number">1</span></span>)</span>
+         q/id
+         q/into-vec!</span>)</span>
+<span class="comment">;;["1"]</span>
 
-</p>
-<hr>
+<span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/find-by-id</span><span class="body"> <span class="number">1</span></span>)</span>
+         q/-->
+         q/id
+         q/into-vec!</span>)</span>
+<span class="comment">;;["2" "4" "3"]</span>
+
+<span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/find-by-id</span><span class="body"> <span class="number">1</span></span>)</span>
+         q/id
+         q/-->         
+         q/into-vec!</span>)</span>
+<span class="comment">;;ClassCastException java.lang.String cannot be cast to  com.tinkerpop.blueprints.Vertex  </span>
+<span class="comment">;;com.tinkerpop.gremlin.pipes.transform.VerticesVerticesPipe.processNextStart </span>
+<span class="comment">;;(VerticesVerticesPipe.java:37)</span></code></pre>
 <h3 id='map/property'>property</h3 id='map/property'>
-<p>Get the property value of an element. The property value can be
-obtained by simply appending the name to the end of the element or by
-referencing it as a Groovy map element with square brackets. For best
-performance, drop down to the Blueprints API and use
-<code>getProperty(key)</code>.
+<p>Get the property value of an element. 
 
 </p>
-<p><a href="#">top</a>
+<pre><code class="clojure"><span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/find-by-id</span><span class="body"> <span class="number">1</span></span>)</span>
+         <span class="list">(<span class="title">q/property</span><span class="body"> <span class="keyword">:name</span></span>)</span>
+         q/into-vec!</span>)</span>
+<span class="comment">;;["marko"]</span>
 
-</p>
-<hr>
+<span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/find-by-id</span><span class="body"> <span class="number">1</span></span>)</span>
+         q/-->
+         <span class="list">(<span class="title">q/property</span><span class="body"> <span class="keyword">:name</span></span>)</span>
+         q/into-vec!</span>)</span>
+<span class="comment">;;["vadas" "josh" "lop"]</span></code></pre>
 <h3 id='map/label'>label</h3 id='map/label'>
 <p>Gets the label of an edge.
 
 </p>
-<p><a href="#">top</a>
+<pre><code class="clojure"><span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/find-by-id</span><span class="body"> <span class="number">1</span></span>)</span>
+         <span class="list">(<span class="title">q/property</span><span class="body"> <span class="keyword">:name</span></span>)</span>
+         q/into-vec!</span>)</span>
+<span class="comment">;;["marko"]</span>
 
-</p>
-<hr>
+<span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/find-by-id</span><span class="body"> <span class="number">1</span></span>)</span>
+         q/-->
+         <span class="list">(<span class="title">q/property</span><span class="body"> <span class="keyword">:name</span></span>)</span>
+         q/into-vec!</span>)</span>
+<span class="comment">;;["vadas" "josh" "lop"]</span></code></pre>
 <h3 id='map/map'>map</h3 id='map/map'>
 <p>Gets the property map of the graph element.
 
 </p>
-<p><a href="#">top</a>
+<pre><code class="clojure"><span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/find-by-id</span><span class="body"> <span class="number">1</span></span>)</span>
+         q/map
+         q/into-vec!</span>)</span>
+<span class="comment">;;[#&lt;HashMap {name=marko, age=29}>]</span>
+
+<span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/find-by-id</span><span class="body"> <span class="number">1</span></span>)</span>
+         q/map
+         q/first-into-map!</span>)</span>
+<span class="comment">;;{:name "marko", :age 29}</span>
+
+<span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/find-by-id</span><span class="body"> <span class="number">1</span></span>)</span>
+         q/-->
+         q/map
+         q/all-into-maps!</span>)</span>
+<span class="comment">;;({:name "vadas", :age 27} {:name "josh", :age 32} {:name "lop", :lang "java"})</span></code></pre>
+<p>We now see two new functions in addition to <code>q/map</code>: <code>first-into-map!</code>
+and <code>all-into-maps!</code>. As you see, Gremlin doesn&#39;t return Clojure data
+structures. The new functions execute the Gremlin query and then call
+the correct conversion methods to ensure that you can work with the
+returned objects without too much hassle. 
 
 </p>
-<hr>
 <h3 id='map/select'>select</h3 id='map/select'>
 <p>Select the named steps to emit after select with post-processing
 closures.
 
-</p>
-<p><a href="#">top</a>
+
 
 </p>
-<hr>
 <h3 id='map/select-only'>select-only</h3 id='map/select-only'>
 <p>Select the named steps to emit after select with post-processing
 closures.
 
-</p>
-<p><a href="#">top</a>
 
 </p>
-<hr>
 <h3 id='map/path'>path</h3 id='map/path'>
 <p>Gets the path through the pipeline up to this point, where closures
 are post-processing for each object in the path. If the path step is
