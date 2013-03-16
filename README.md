@@ -16,7 +16,8 @@ for any Ogre related discussions. Please use the
 [Ogre issue page](https://github.com/zmaril/ogre/issues) for
 specifically reporting bugs and discussing features. For any errors or
 corrections with OgreDocs, please use the
-[OrgeDocs issue page](https://github.com/zmaril/ogredocs).
+[OrgeDocs issue page](https://github.com/zmaril/ogredocs). This page
+is a fork of [GremlinDocs](http://gremlindocs.com/).
 
 Pull requests will be celebrated, scrutinized, and hopefully accepted.
 If the pull request is really solid, then I'll probably [give you commit
@@ -194,7 +195,8 @@ vertices are connected.
 `-->` or `out` gets the out adjacent vertices (the functions do
 exactly the same thing, one just looks cooler). Additionally, labels
 can be supplied that makes the graph only traverse edges with those
-labels (this applies to  `-->`,`--E>`,`<--`,`<E--`,`<->`, and `<E>`).
+labels. This also applies to the other traversal functions where it
+makes sense (any function that is named with arrows).
 
 ``` clojure
 (q/query (g/find-by-id 4)
@@ -334,63 +336,109 @@ Get both incoming and outgoing vertices of the edge.
 
 ## Map
 
-Transform steps take an object and emit a transformation of it.
-
-***
+The following functions are conceptually similar in scope to
+`clojure.core/map` and so are grouped together. They all take in a
+function and perform some transformation on it. 
 
 ### id
 
 Gets the unique identifier of the element.
 
-[top](#)
+``` clojure
+(q/query (g/find-by-id 1)
+         q/id
+         q/into-vec!)
+;;["1"]
 
-***
+(q/query (g/find-by-id 1)
+         q/-->
+         q/id
+         q/into-vec!)
+;;["2" "4" "3"]
+
+(q/query (g/find-by-id 1)
+         q/id
+         q/-->         
+         q/into-vec!)
+;;ClassCastException java.lang.String cannot be cast to  com.tinkerpop.blueprints.Vertex  
+;;com.tinkerpop.gremlin.pipes.transform.VerticesVerticesPipe.processNextStart 
+;;(VerticesVerticesPipe.java:37)
+```
 
 ### property
 
-Get the property value of an element. The property value can be
-obtained by simply appending the name to the end of the element or by
-referencing it as a Groovy map element with square brackets. For best
-performance, drop down to the Blueprints API and use
-`getProperty(key)`.
+Get the property value of an element. 
 
-[top](#)
+``` clojure
+(q/query (g/find-by-id 1)
+         (q/property :name)
+         q/into-vec!)
+;;["marko"]
 
-***
+(q/query (g/find-by-id 1)
+         q/-->
+         (q/property :name)
+         q/into-vec!)
+;;["vadas" "josh" "lop"]
+```
+
 
 ### label
 
 Gets the label of an edge.
 
-[top](#)
+``` clojure
+(q/query (g/find-by-id 1)
+         (q/property :name)
+         q/into-vec!)
+;;["marko"]
 
-***
+(q/query (g/find-by-id 1)
+         q/-->
+         (q/property :name)
+         q/into-vec!)
+;;["vadas" "josh" "lop"]
+``` 
 
 ### map
 
 Gets the property map of the graph element.
 
-[top](#)
+``` clojure
+(q/query (g/find-by-id 1)
+         q/map
+         q/into-vec!)
+;;[#<HashMap {name=marko, age=29}>]
 
-***
+(q/query (g/find-by-id 1)
+         q/map
+         q/first-into-map!)
+;;{:name "marko", :age 29}
+
+(q/query (g/find-by-id 1)
+         q/-->
+         q/map
+         q/all-into-maps!)
+;;({:name "vadas", :age 27} {:name "josh", :age 32} {:name "lop", :lang "java"})
+``` 
+
+We now see two new functions in addition to `q/map`: `first-into-map!`
+and `all-into-maps!`. As you see, Gremlin doesn't return Clojure data
+structures. The new functions execute the Gremlin query and then call
+the correct conversion methods to ensure that you can work with the
+returned objects without too much hassle. 
 
 ### select
 
 Select the named steps to emit after select with post-processing
 closures.
 
-[top](#)
 
-***
 
 ### select-only
 
 Select the named steps to emit after select with post-processing
 closures.
-
-[top](#)
-
-***
 
 
 ### path
