@@ -225,15 +225,7 @@
                 </li>
               
                 <li>
-                  <a href="#reduce/shuffle">shuffle</a>
-                </li>
-              
-                <li>
                   <a href="#reduce/gather">gather</a>
-                </li>
-              
-                <li>
-                  <a href="#reduce/scatter">scatter</a>
                 </li>
               
             </ul>
@@ -1013,60 +1005,69 @@ objects.
 <span class="comment">;;  {:name "peter", :age 35})</span></code></pre>
 <hr>
 <h2 id='reduce'>Reduce</h2 id='reduce'>
-<p>These functions sort of act like reduce.
+<p>These functions sort of act like <code>clojure.core/reduce</code>.
 
 </p>
 <h3 id='reduce/order'>order</h3 id='reduce/order'>
-<p>Order the items in the stream according to the closure if provided. If
-no closure is provided, then a default sort order is used.
+<p>Order the items in the stream according to the provided function. If no
+function is provided, then a default sort order is used.
 
 </p>
-<p><a href="#">top</a>
+<pre><code class="clojure">(q/query (g/get-vertices)
+         (q/property :name)
+         q/into-<span class="keyword">vec</span>!)                         
+;;[<span class="string">"lop"</span> <span class="string">"vadas"</span> <span class="string">"marko"</span> <span class="string">"peter"</span> <span class="string">"ripple"</span> <span class="string">"josh"</span>]
 
-</p>
-<hr>
-<h3 id='reduce/shuffle'>shuffle</h3 id='reduce/shuffle'>
-<p>Collect all objects up to that step into a list and randomize their
-order.
+(q/query (g/get-vertices)
+         (q/property :name)
+         q/order
+         q/into-<span class="keyword">vec</span>!)                         
+;;[<span class="string">"josh"</span> <span class="string">"lop"</span> <span class="string">"marko"</span> <span class="string">"peter"</span> <span class="string">"ripple"</span> <span class="string">"vadas"</span>]         
 
-</p>
-<p><a href="#">top</a>
-
-</p>
-<hr>
+(q/query (g/get-vertices)
+         (q/property :name)
+         (q/order (<span class="function"><span class="keyword">fn</span> [<span class="title">a</span> <span class="title">b</span>] (</span>compare b a)))
+         q/into-<span class="keyword">vec</span>!)                         
+[<span class="string">"vadas"</span> <span class="string">"ripple"</span> <span class="string">"peter"</span> <span class="string">"marko"</span> <span class="string">"lop"</span> <span class="string">"josh"</span>]</code></pre>
 <h3 id='reduce/gather'>gather</h3 id='reduce/gather'>
 <p>Collect all objects up to that step and process the gathered list with
 the provided closure.
 
 </p>
-<p><a href="#">top</a>
+<pre><code class="clojure"><span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/find-by-id</span><span class="body"> <span class="number">1</span></span>)</span>
+         q/-->
+         q/id
+         q/gather
+         q/first-into-vec!</span>)</span>
+<span class="comment">;;["2" "3" "4"]         </span>
 
-</p>
-<hr>
-<h3 id='reduce/scatter'>scatter</h3 id='reduce/scatter'>
-<p>Unroll all objects in the iterable at that step. Gather/Scatter is
-good for breadth-first traversals where the gather closure filters out
-unwanted elements at the current radius.
-
-</p>
-<p><a href="#">top</a>
-
-</p>
+<span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/find-by-id</span><span class="body"> <span class="number">1</span></span>)</span>
+         q/-->
+         q/id
+         <span class="list">(<span class="title">q/gather</span><span class="body"> count</span>)</span>
+         q/into-vec!</span>)</span>
+<span class="comment">;;3</span></code></pre>
 <hr>
 <h2 id='filter'>Filter</h2 id='filter'>
 <p>Filter steps decide whether to allow an object to pass to the next
 step or not.
-
 
 </p>
 <h3 id='filter/range'>range</h3 id='filter/range'>
 <p>A range filter that emits the objects within a range.
 
 </p>
-<p><a href="#">top</a>
+<pre><code class="clojure"><span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/find-by-id</span><span class="body"> <span class="number">1</span></span>)</span>
+         <span class="list">(<span class="title">q/--></span><span class="body"></span>)</span>
+         <span class="list">(<span class="title">q/into-vec</span><span class="body">!</span>)</span></span>)</span>
+<span class="comment">;;[#&lt;TinkerVertex v[2]> #&lt;TinkerVertex v[4]> #&lt;TinkerVertex v[3]>]         </span>
 
-</p>
-<hr>
+
+<span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/find-by-id</span><span class="body"> <span class="number">1</span></span>)</span>
+         <span class="list">(<span class="title">q/--></span><span class="body"></span>)</span>
+         <span class="list">(<span class="title">q/range</span><span class="body"> <span class="number">0</span> <span class="number">1</span></span>)</span>
+         <span class="list">(<span class="title">q/into-vec</span><span class="body">!</span>)</span></span>)</span>
+<span class="comment">;;[#&lt;TinkerVertex v[2]> #&lt;TinkerVertex v[4]>]</span></code></pre>
 <h3 id='filter/dedup'>dedup</h3 id='filter/dedup'>
 <p>Emit only incoming objects that have not been seen before with an
 optional closure being the object to check on.
