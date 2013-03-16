@@ -144,6 +144,7 @@ a vector.
 ```
 
 Let's break this down: 
+
 * `q/query` is a macro that is
   [just a combination](https://github.com/zmaril/ogre/blob/master/src/ogre/util.clj#L13)
   of `->` and `(GremlinPipeline.)`. It takes in a single element or a
