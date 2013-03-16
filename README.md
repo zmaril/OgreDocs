@@ -1020,7 +1020,7 @@ processed objects grouped by the value of the key function.
          (q/get-grouped-by! (q/prop :lang)
                             (q/prop :name)))
 ;;{nil ["vadas" "marko" "peter" "josh"], "java" ["lop" "ripple"]}
-```
+
 
 (q/query (g/get-vertices)
          (q/get-grouped-by! (q/prop :lang)
@@ -1049,6 +1049,10 @@ the count of the objects grouped by the key function.
 
 ### get-table!
 
+Returns a list of maps that correspond to the values of the named
+steps. Optional arguments are a list of functions that are applied
+round robin style.
+
 ```clojure 
 (q/query (g/get-vertices)
          (q/property :name)
@@ -1075,13 +1079,36 @@ the count of the objects grouped by the key function.
 
 ### get-tree!
 
-Emit input, but stores the tree formed by the traversal as a map.
-Accepts an optional set of closures to be applied in round-robin
-fashion over each level of the tree.
+Returns a tree of the objects encountered taken while executing the query. Key
+functions can be supplied as well. 
+
+```clojure
+(q/query (g/find-by-id 1)
+         q/-->
+         q/-->
+         (q/get-tree! (q/prop :name)))
+{:value "marko", 
+ :children [{:value "josh", 
+             :children [{:value "lop"} 
+                        {:value "ripple"}]}]}         
+```
 
 ### side-effect
 
-Emits input, but calls a side effect closure on each input.
+Let's you execute some side effect. 
+
+```clojure
+(let [lst (atom [])
+      elem (g/find-by-id 1)
+      names (q/query elem
+                  q/-->
+                  (q/side-effect (partial swap! lst conj))
+                  (q/property :name)
+                  q/into-vec!)]
+      [@lst names])
+;;[[#<TinkerVertex v[2]> #<TinkerVertex v[4]> #<TinkerVertex v[3]>] 
+;; ["vadas" "josh" "lop"]]      
+```
 
 *** 
 
