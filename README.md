@@ -858,25 +858,37 @@ collection.
 
 ## Annotations
 
-### as
+So far, we've had great success traversing the graph. If you've
+understood most of everything up to this point, you know how to do
+sorts of neat things with graphs. There's another level of traversal
+that we can attain though. We can annotate and traverse the pipeline
+itself, which lets us do all sorts of fancy tricks. 
 
-Emits input, but names the previous step.
 
 ### back
 
-Go back to the results from n-steps ago or go back to the results of a
-named step.
+Go back to the results from n-steps ago.
 
-### back-to
+```
+(q/query (g/find-by-id 1)
+         q/-->      
+         (q/back 1) 
+         q/into-vec!)
+;;[#<TinkerVertex v[1]>]
+```
 
-Go back to the results from n-steps ago or go back to the results of a
-named step.
+### as/back-to
 
-### optional
+`as` lets you name a step that you can later return to with `back-to`. 
 
-Behaves similar to `back` except that it does not filter. It will go
-down a particular path and back up to where it left off. As such, its
-useful for yielding a sideeffect down a particular branch.
+```
+(q/query (g/find-by-id 1)
+         (q/as "here")
+         q/-->      
+         (q/back-to "here")         
+         q/into-vec!)
+```
+
 
 ### select
 
