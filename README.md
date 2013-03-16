@@ -2,6 +2,8 @@
 
 **WARNING OgreDocs is still being written.**
 
+## Introduction
+
 [Ogre](http://github.com/zmaril/ogre) is a domain specific language
 for traversing property graphs in [Clojure](http://clojure.org/). Ogre
 wraps [Gremlin](https://github.com/tinkerpop/gremlin/wiki), a library
