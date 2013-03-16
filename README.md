@@ -1005,9 +1005,17 @@ return various data structures about the query.
 
 ### get-grouped-by
 
-Returns all of the objects grouped by 
+Takes in a key function and processing function. Returns all of the
+processed objects grouped by the value of the key function.
 
 ```clojure
+(q/query (g/get-vertices)
+         (q/get-grouped-by! (q/prop :lang)
+                            identity))
+;;{nil [#<TinkerVertex v[2]> #<TinkerVertex v[1]> 
+;;      #<TinkerVertex v[6]> #<TinkerVertex v[4]>], 
+;;"java" [#<TinkerVertex v[3]> #<TinkerVertex v[5]>]}
+
 (q/query (g/get-vertices)
          (q/get-grouped-by! (q/prop :lang)
                             (q/prop :name)))
