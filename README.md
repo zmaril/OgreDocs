@@ -185,12 +185,14 @@ charming face of `#<TinkerVertex v[2]>`.
 ## Traversal
 
 Traversal functions allow you to explore around the graph and see how
-vertices are connected.
+vertices are connected. 
 
 ### out / -->
 
 `-->` or `out` gets the out adjacent vertices (the functions do
-exactly the same thing, one just looks cooler). 
+exactly the same thing, one just looks cooler). Additionally, labels
+can be supplied that makes the graph only traverse edges with those
+labels (this applies to  `-->`,`--E>`,`<--`,`<E--`,`<->`, and `<E>`).
 
 ``` clojure
 (q/query (g/find-by-id 4)
@@ -202,9 +204,24 @@ exactly the same thing, one just looks cooler).
          q/out
          q/into-vec!)
 ;;[#<TinkerVertex v[5]> #<TinkerVertex v[3]>]
+
+(q/query (g/find-by-id 4)
+         (q/--> :created)
+         q/into-vec!)
+;;[#<TinkerVertex v[5]> #<TinkerVertex v[3]>]
+
+(q/query (g/find-by-id 4)
+         (q/--> :hates)
+         q/into-vec!)
+;;[]
+
+(q/query (g/find-by-id 4)
+         (q/--> :created :hates)
+         q/into-vec!)
+;;[#<TinkerVertex v[5]> #<TinkerVertex v[3]>]
 ```
 
-### out-edges --E>
+### out-edges / --E>
 
 Gets the outgoing edges of the vertex.
 
