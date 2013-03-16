@@ -218,6 +218,14 @@
                   <a href="#reduce/shuffle">shuffle</a>
                 </li>
               
+                <li>
+                  <a href="#reduce/gather">gather</a>
+                </li>
+              
+                <li>
+                  <a href="#reduce/scatter">scatter</a>
+                </li>
+              
             </ul>
           
         </li>
@@ -393,14 +401,6 @@
               
                 <li>
                   <a href="#recipes/shortest-path">Shortest Path</a>
-                </li>
-              
-                <li>
-                  <a href="#recipes/gather">gather</a>
-                </li>
-              
-                <li>
-                  <a href="#recipes/scatter">scatter</a>
                 </li>
               
             </ul>
@@ -683,6 +683,25 @@ no closure is provided, then a default sort order is used.
 <h3 id='reduce/shuffle'>shuffle</h3 id='reduce/shuffle'>
 <p>Collect all objects up to that step into a list and randomize their
 order.
+
+</p>
+<p><a href="#">top</a>
+
+</p>
+<hr>
+<h3 id='reduce/gather'>gather</h3 id='reduce/gather'>
+<p>Collect all objects up to that step and process the gathered list with
+the provided closure.
+
+</p>
+<p><a href="#">top</a>
+
+</p>
+<hr>
+<h3 id='reduce/scatter'>scatter</h3 id='reduce/scatter'>
+<p>Unroll all objects in the iterable at that step. Gather/Scatter is
+good for breadth-first traversals where the gather closure filters out
+unwanted elements at the current radius.
 
 </p>
 <p><a href="#">top</a>
@@ -1067,25 +1086,6 @@ is not supported using that step.
 <hr>
 <h3 id='recipes/shortest-path'>Shortest Path</h3 id='recipes/shortest-path'>
 <p>Find the shortest path between two vertices:
-
-</p>
-<p><a href="#">top</a>
-
-</p>
-<hr>
-<h3 id='recipes/gather'>gather</h3 id='recipes/gather'>
-<p>Collect all objects up to that step and process the gathered list with
-the provided closure.
-
-</p>
-<p><a href="#">top</a>
-
-</p>
-<hr>
-<h3 id='recipes/scatter'>scatter</h3 id='recipes/scatter'>
-<p>Unroll all objects in the iterable at that step. Gather/Scatter is
-good for breadth-first traversals where the gather closure filters out
-unwanted elements at the current radius.
 
 </p>
 <p><a href="#">top</a>
