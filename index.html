@@ -105,7 +105,7 @@
                 </li>
               
                 <li>
-                  <a href="#traversal/e-in-vertices">&lt;E-- / in-vertices</a>
+                  <a href="#traversal/e-in-edges">&lt;E-- / in-edges</a>
                 </li>
               
                 <li>
@@ -117,7 +117,7 @@
                 </li>
               
                 <li>
-                  <a href="#traversal/e-both-edges">&lt;E&gt;/both-edges</a>
+                  <a href="#traversal/e-both-edges">`&lt;E&gt;`/both-edges</a>
                 </li>
               
                 <li>
@@ -679,14 +679,16 @@ two objects &quot;in the pipeline&quot;. Thus, we get two objects back.
 </span>         <span class="attribute">q</span>/<span class="attribute">into-vec</span>!)
 ;;[#&lt;<span class="attribute">TinkerVertex</span> <span class="attribute">v</span>[<span class="attribute">1</span>]></span> #<span class="tag">&lt;<span class="title">TinkerVertex</span> <span class="attribute">v</span>[<span class="attribute">4</span>]></span> #<span class="tag">&lt;<span class="title">TinkerVertex</span> <span class="attribute">v</span>[<span class="attribute">6</span>]></span>]</code></pre>
 <hr>
-<h3 id='traversal/e-in-vertices'>&lt;E-- / in-vertices</h3 id='traversal/e-in-vertices'>
+<h3 id='traversal/e-in-edges'>&lt;E-- / in-edges</h3 id='traversal/e-in-edges'>
 <p>Gets the incoming edges of the vertex.
 
 </p>
-<pre><code class="clojure">(q/query (g/find-by-id 3)
-         q/<span class="tag">&lt;<span class="title">E--
-</span>         <span class="attribute">q</span>/<span class="attribute">into-vec</span>!)
-;;[#&lt;<span class="attribute">TinkerEdge</span> <span class="attribute">e</span>[<span class="attribute">9</span>][<span class="attribute">1-created-</span>></span>3]> #<span class="tag">&lt;<span class="title">TinkerEdge</span> <span class="attribute">e</span>[<span class="attribute">11</span>][<span class="attribute">4-created-</span>></span>3]> #<span class="tag">&lt;<span class="title">TinkerEdge</span> <span class="attribute">e</span>[<span class="attribute">12</span>][<span class="attribute">6-created-</span>></span>3]>]</code></pre>
+<pre><code class="clojure"><span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/find-by-id</span><span class="body"> <span class="number">3</span></span>)</span>
+         q/&lt;E--
+         q/into-vec!</span>)</span>
+<span class="comment">;;[#&lt;TinkerEdge e[9][1-created->3]> </span>
+<span class="comment">;; #&lt;TinkerEdge e[11][4-created->3]> </span>
+<span class="comment">;; #&lt;TinkerEdge e[12][6-created->3]>]</span></code></pre>
 <hr>
 <h3 id='traversal/in-vertex'>in-vertex</h3 id='traversal/in-vertex'>
 <p>Get incoming head vertex of the edge.
@@ -706,14 +708,16 @@ two objects &quot;in the pipeline&quot;. Thus, we get two objects back.
          q/into-vec!)
 ;;[#<span class="tag">&lt;<span class="title">TinkerVertex</span> <span class="attribute">v</span>[<span class="attribute">1</span>]></span> #<span class="tag">&lt;<span class="title">TinkerVertex</span> <span class="attribute">v</span>[<span class="attribute">5</span>]></span> #<span class="tag">&lt;<span class="title">TinkerVertex</span> <span class="attribute">v</span>[<span class="attribute">3</span>]></span>]</code></pre>
 <hr>
-<h3 id='traversal/e-both-edges'><E>/both-edges</h3 id='traversal/e-both-edges'>
+<h3 id='traversal/e-both-edges'><code>&lt;E&gt;</code>/both-edges</h3 id='traversal/e-both-edges'>
 <p>Get both incoming and outgoing edges of the vertex.
 
 </p>
 <pre><code class="clojure">(q/query (g/find-by-id 4)
          q/<span class="tag">&lt;<span class="title">E</span>></span>
          q/into-vec!)
-;;[#<span class="tag">&lt;<span class="title">TinkerEdge</span> <span class="attribute">e</span>[<span class="attribute">8</span>][<span class="attribute">1-knows-</span>></span>4]> #<span class="tag">&lt;<span class="title">TinkerEdge</span> <span class="attribute">e</span>[<span class="attribute">10</span>][<span class="attribute">4-created-</span>></span>5]> #<span class="tag">&lt;<span class="title">TinkerEdge</span> <span class="attribute">e</span>[<span class="attribute">11</span>][<span class="attribute">4-created-</span>></span>3]>]</code></pre>
+;;[#<span class="tag">&lt;<span class="title">TinkerEdge</span> <span class="attribute">e</span>[<span class="attribute">8</span>][<span class="attribute">1-knows-</span>></span>4]> 
+;; #<span class="tag">&lt;<span class="title">TinkerEdge</span> <span class="attribute">e</span>[<span class="attribute">10</span>][<span class="attribute">4-created-</span>></span>5]> 
+;; #<span class="tag">&lt;<span class="title">TinkerEdge</span> <span class="attribute">e</span>[<span class="attribute">11</span>][<span class="attribute">4-created-</span>></span>3]>]</code></pre>
 <hr>
 <h3 id='traversal/both-vertices'>both-vertices</h3 id='traversal/both-vertices'>
 <p>Get both incoming and outgoing vertices of the edge.
