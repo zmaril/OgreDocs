@@ -75,6 +75,11 @@
         </li>
       
         <li>
+          <a href="#using-ogredocs">Using OgreDocs</a>
+          
+        </li>
+      
+        <li>
           <a href="#queries-and-pipes">Queries and Pipes</a>
           
             <ul>
@@ -472,7 +477,7 @@ for <a href="https://github.com/tinkerpop/blueprints/wiki">Blueprints</a>, and
 <a href="https://github.com/zmaril/hermes">Hermes</a>, a Clojure library built on
 top of Archimedes for working with
 <a href="http://thinkaurelius.github.com/titan/">Titan</a>. Ogre, Archimedes, and
-Hermes are all open source projects maintained by
+Hermes are all open source projects developed and maintained by
 <a href="https://twitter.com/ZackMaril">Zack Maril</a>.
 
 </p>
@@ -538,7 +543,28 @@ It will serve as the main reference for the majority of the examples below.
 </p>
 <hr>
 <h3 id='getting-started/so-what-does-ogre-actually-do'>So what does Ogre actually do?</h3 id='getting-started/so-what-does-ogre-actually-do'>
-<p>At a high level, Ogre let&#39;s you query graphs 
+<p>At a high level, Ogre let&#39;s you easily ask complex questions about
+certain types of graphs and get back answers. That&#39;s really all it
+does. 
+
+</p>
+<p>At a low level, Ogre is a library that takes in Blueprint Vertices and
+Edges and let&#39;s you build up GremlinPipeline objects that ask
+questions about those objects in the language of traversals,
+transformations, filters, and branching on the graph. Ogre allows you
+to annotate various steps of the pipeline to allow for incredibly
+useful queries in a few lines. Ogre also carefully deals with some of
+the side effects that the Gremlin library can perform. 
+
+</p>
+<p>At the lowest level, Ogre is probably equivalent to some crazy Turing
+machine. Man, I wonder if some poor grad student has ever tried to
+write the JVM as a Turing machine. Poor guy. 
+
+</p>
+<h2 id='using-ogredocs'>Using OgreDocs</h2 id='using-ogredocs'>
+<p>OgreDocs is organized to be read mostly linearly. That means that you
+can probably read it from start to finish and understand what is going on.
 
 </p>
 <h2 id='queries-and-pipes'>Queries and Pipes</h2 id='queries-and-pipes'>
