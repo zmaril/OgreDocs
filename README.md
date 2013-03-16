@@ -210,7 +210,19 @@ exactly the same thing, one just looks cooler).
 
 ### --E> / out-edges
 
-Gets the outgoing edges to the vertex.
+Gets the outgoing edges of the vertex.
+
+``` clojure
+(q/query (g/find-by-id 4)
+         q/--E>
+         q/into-vec!)
+;;[#<TinkerEdge e[10][4-created->5]> #<TinkerEdge e[11][4-created->3]>]
+
+(q/query (g/find-by-id 4)
+         q/out-edges
+         q/into-vec!)
+;;[#<TinkerEdge e[10][4-created->5]> #<TinkerEdge e[11][4-created->3]>]
+```
 
 [top](#)
 
@@ -218,7 +230,22 @@ Gets the outgoing edges to the vertex.
 
 ### out-vertex
 
-Get both outgoing tail vertex of the edge.
+Get the outgoing tail vertex of the edge.
+
+``` clojure
+(q/query (g/find-by-id 4)
+         q/--E>
+         q/out-vertex
+         q/into-vec!)
+;;[#<TinkerVertex v[4]> #<TinkerVertex v[4]>]
+```
+
+Conceptually, this might seem same strange at first. Why does it
+return the same vertex twice? The answer lies in the example queries
+for `--E>`. Those queries return two edges. The current query is the
+same as the `--E>` query except we are asking for the `out-vertex`.
+That means, by the time we are asking for the `out-vertex`, we have
+two objects "in the pipeline". Thus, we get two objects back. 
 
 [top](#)
 
