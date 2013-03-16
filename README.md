@@ -721,47 +721,42 @@ A range filter that emits the objects within a range.
 
 ### dedup
 
+Filter out repeated objects. A function can be supplied that provides
+the values that the pipeline will consider when filtering 
 
 ``` clojure
+(q/query (g/get-vertices)
+         q/<->
+         (q/property :name)
+         (q/into-vec!))         
+;;["marko" "josh" "peter" "marko" "vadas" "josh" "lop" "lop" "josh" "marko" "ripple" "lop"]
+
 (q/query (g/get-vertices)
          q/<->
          q/dedup
          (q/property :name)
          (q/into-vec!))
 ;;["marko" "josh" "peter" "vadas" "lop" "ripple"]                         
+
 (q/query (g/get-vertices)
-                         q/<->
-                         (q/dedup (partial g/get-property :lang))
-                         (q/property :name)
-                         (q/into-vec))                         
+          q/<->
+          (q/dedup (partial g/get-property :lang))
+          (q/property :name)
+          (q/into-vec!))
+;;["marko" "lop"]          
 ```                         
-Emit only incoming objects that have not been seen before with an
-optional closure being the object to check on.
 
-[top](#)
-
-***
+`g/get-vertices` retrieves all of the vertices of the graph and
+provides them in a list. 
 
 ### except
 
 Emit everything to pass except what is in the supplied collection.
 
-#### See Also
-
-* [retain](#filter/retain)
-
-[top](#)
-
-***
-
 ### filter
 
 Decide whether to allow an object to pass. Return true from the
 closure to allow an object to pass.
-
-[top](#)
-
-***
 
 ### has
 
@@ -785,12 +780,6 @@ significantly slower than the key index approach.
 
 #### See Also
 
-* [hasNot](#filter/hasnot)
-
-[top](#)
-
-***
-
 ### has-not
 
 Allows an element if it does not have a particular property. Utilizes
@@ -803,47 +792,25 @@ several options for comparisons on through `T`:
 * T.lte - less than or equal to
 * T.lt - less than
 
-[top](#)
-
-***
-
 ### interval
 
 Allow elements to pass that have their property in the provided start
 and end interval.
 
-#### See Also
-
-* [has](#filter/has)
-
-[top](#)
-
-***
-
 ### random
 
 Emits the incoming object if biased coin toss is heads.
-
-[top](#)
-
-***
 
 ### retain
 
 Allow everything to pass except what is not in the supplied
 collection.
 
-[top](#)
-
-***
-
 ### simplePath
 
 Emit the object only if the current path has no repeated elements.
 
-[top](#)
-
-***
+*** 
 
 ## Annotations
 
@@ -851,27 +818,15 @@ Emit the object only if the current path has no repeated elements.
 
 Emits input, but names the previous step.
 
-[top](#)
-
-***
-
 ### back
 
 Go back to the results from n-steps ago or go back to the results of a
 named step.
 
-[top](#)
-
-***
-
 ### back-to
 
 Go back to the results from n-steps ago or go back to the results of a
 named step.
-
-[top](#)
-
-***
 
 ### optional
 
@@ -879,16 +834,10 @@ Behaves similar to `back` except that it does not filter. It will go
 down a particular path and back up to where it left off. As such, its
 useful for yielding a sideeffect down a particular branch.
 
-[top](#)
-
-***
-
 ### select
 
 Select the named steps to emit after select with post-processing
 closures.
-
-
 
 ### select-only
 
@@ -914,10 +863,6 @@ closure will determine wether the current object in the loop structure
 is emitted or not. As such, it is possible to emit intermediate
 objects, not simply those at the end of the loop.
 
-[top](#)
-
-***
-
 ### loop-to
 
 Loop over a particular set of steps in the pipeline. The first
@@ -937,10 +882,7 @@ closure will determine wether the current object in the loop structure
 is emitted or not. As such, it is possible to emit intermediate
 objects, not simply those at the end of the loop.
 
-[top](#)
-
-***
-
+*** 
 
 ## Side Effect
 
@@ -953,36 +895,10 @@ Emits input, but groups input after processing it by provided
 key-closure and value-closure. It is also possible to supply an
 optional reduce-closure.
 
-[top](#)
-
-***
-
 ### get-group-count
 
 Emits input, but updates a map for each input, where closures provides
 generic map update.
-
-[top](#)
-
-***
-
-### cap
-
-Gets the side-effect of the pipe prior. In other words, it emits the
-value of the previous step and not the values that flow through it.
-
-[top](#)
-
-***
-
-
-### side-effect
-
-Emits input, but calls a side effect closure on each input.
-
-[top](#)
-
-***
 
 ### get-table
 
@@ -992,13 +908,15 @@ applied in round-robin fashion to each column of the table.
 
 ### get-tree
 
-[top](#)
-
-***
-
 Emit input, but stores the tree formed by the traversal as a map.
 Accepts an optional set of closures to be applied in round-robin
 fashion over each level of the tree.
+
+### side-effect
+
+Emits input, but calls a side effect closure on each input.
+
+*** 
 
 ## Branch
 
@@ -1008,30 +926,20 @@ Branch steps decide which step to take.
 
 Copies incoming object to internal pipes.
 
-***
-
 ### exhaust-merge
 
 Used in combination with a `copySplit`, merging the parallel
 traversals by exhaustively getting the objects of the first, then the
 second, etc.
 
-***
-
 ### fair-merge
 
 Used in combination with a `copySplit`, merging the parallel
 traversals in a round-robin fashion.
 
-***
-
 ### if-then-else
 
 Allows for if-then-else conditional logic.
-
-[top](#)
-
-***
 
 ### memoize
 
@@ -1045,9 +953,7 @@ consider using an embedded key-value store like
 [JDBM](http://code.google.com/p/jdbm2/) or some other persistent Map
 implementation.
 
-[top](#)
-
-***
+*** 
 
 ## Recipes
 
@@ -1058,18 +964,10 @@ Recipes are common patterns that are seen in using Gremlin.
 Strictly speaking, you cannot have duplicated egdes with the same id.
 This example finds edges with same `outV/inV/label` properties.
 
-[top](#)
-
-***
-
 ### Paging Results
 
 It is sometimes desireable to not return an entire results set.
 Results can be paged or limited as follows:
-
-[top](#)
-
-***
 
 ### Paths Between Two Vertices
 
@@ -1079,18 +977,10 @@ Then, undirected:
 
 Use the value of `it.loops<=3`to control the depth of the traversal:
 
-[top](#)
-
-***
-
 ### Reading From a File
 
 Reading data from an edge file formatted as CSV is easy to do with
 Gremlin.
-
-[top](#)
-
-***
 
 ### Sampling
 
@@ -1099,14 +989,6 @@ collection. That can be done to some degree with the
 [random](#filter.random) step, but getting an explicit number of items
 is not supported using that step.
 
-[top](#)
-
-***
-
 ### Shortest Path
 
 Find the shortest path between two vertices:
-
-[top](#)
-
-***
