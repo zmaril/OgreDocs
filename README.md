@@ -1000,7 +1000,7 @@ instead.
 
 ## Side Effect
 
-As this stage in Ogre's development, side effect steps immediately
+As this stage in Ogre's development, most side effect steps immediately
 return various data structures about the query. 
 
 ### get-grouped-by
@@ -1022,18 +1022,58 @@ processed objects grouped by the value of the key function.
 ;;{nil ["vadas" "marko" "peter" "josh"], "java" ["lop" "ripple"]}
 ```
 
-### get-group-count
+(q/query (g/get-vertices)
+         (q/get-grouped-by! (q/prop :lang)
+                            #(q/query % q/out q/into-vec!)))
+;;{nil [[] 
+;;      [#<TinkerVertex v[2]> #<TinkerVertex v[4]> #<TinkerVertex v[3]>]
+;;      [#<TinkerVertex v[3]>] 
+;;      [#<TinkerVertex v[5]> #<TinkerVertex v[3]>]], 
+;;      "java" [[] []]}
+```
 
-Emits input, but updates a map for each input, where closures provides
-generic map update.
+### get-group-count!
 
-### get-table
+Takes in a key function, and optionally, a counting function. Returns
+the count of the objects grouped by the key function.
 
-Emits input, but stores row of as values (constrained by column names
-if provided) in a table. Accepts an optional set of closures that are
-applied in round-robin fashion to each column of the table.
+```clojure 
+(q/query (g/get-vertices)
+         (q/get-group-count! (q/prop :lang)))
+;;{nil 4, "java" 2}
+(q/query (g/get-vertices)
+         (q/get-group-count! (q/prop :lang)
+                             (fn [a b] (+ b (count (.getProperty a "name"))))))
+;;{nil 19, "java" 9}
+```
 
-### get-tree
+### get-table!
+
+```clojure 
+(q/query (g/get-vertices)
+         (q/property :name)
+         (q/as "name")
+         (q/back 1)
+         (q/property :age)
+         (q/as "age")
+         (q/get-table!))
+;;({:name "lop", :age nil} {:name "vadas", :age 27} 
+;; {:name "marko", :age 29} {:name "peter", :age 35} 
+;; {:name "ripple", :age nil} {:name "josh", :age 32})         
+
+(q/query (g/get-vertices)
+         (q/property :name)
+         (q/as "name")
+         (q/back 1)
+         (q/property :age)
+         (q/as "age")
+         (q/get-table! count #(or % 18)))
+;;({:name 3, :age 18} {:name 5, :age 27} 
+;; {:name 5, :age 29} {:name 5, :age 35} 
+;; {:name 6, :age 18} {:name 4, :age 32})
+```
+
+### get-tree!
 
 Emit input, but stores the tree formed by the traversal as a map.
 Accepts an optional set of closures to be applied in round-robin
@@ -1042,43 +1082,6 @@ fashion over each level of the tree.
 ### side-effect
 
 Emits input, but calls a side effect closure on each input.
-
-*** 
-
-## Branch
-
-Branch steps decide which step to take.
-
-### copy-split
-
-Copies incoming object to internal pipes.
-
-### exhaust-merge
-
-Used in combination with a `copySplit`, merging the parallel
-traversals by exhaustively getting the objects of the first, then the
-second, etc.
-
-### fair-merge
-
-Used in combination with a `copySplit`, merging the parallel
-traversals in a round-robin fashion.
-
-### if-then-else
-
-Allows for if-then-else conditional logic.
-
-### memoize
-
-Remembers a particular mapping from input to output. Long or expensive
-expressions with no side effects can use this step to remember a
-mapping, which helps reduce load when previously processed objects are
-passed into it.
-
-For situations where memoization may consume large amounts of RAM,
-consider using an embedded key-value store like
-[JDBM](http://code.google.com/p/jdbm2/) or some other persistent Map
-implementation.
 
 *** 
 
