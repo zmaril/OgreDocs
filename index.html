@@ -336,19 +336,15 @@
                 </li>
               
                 <li>
-                  <a href="#side-effect/cap">cap</a>
-                </li>
-              
-                <li>
-                  <a href="#side-effect/side-effect">side-effect</a>
-                </li>
-              
-                <li>
                   <a href="#side-effect/get-table">get-table</a>
                 </li>
               
                 <li>
                   <a href="#side-effect/get-tree">get-tree</a>
+                </li>
+              
+                <li>
+                  <a href="#side-effect/side-effect">side-effect</a>
                 </li>
               
             </ul>
@@ -1069,46 +1065,42 @@ step or not.
          <span class="list">(<span class="title">q/into-vec</span><span class="body">!</span>)</span></span>)</span>
 <span class="comment">;;[#&lt;TinkerVertex v[2]> #&lt;TinkerVertex v[4]>]</span></code></pre>
 <h3 id='filter/dedup'>dedup</h3 id='filter/dedup'>
+<p>Filter out repeated objects. A function can be supplied that provides
+the values that the pipeline will consider when filtering 
+
+</p>
 <pre><code class="clojure"><span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/get-vertices</span><span class="body"></span>)</span>
+         q/&lt;->
+         <span class="list">(<span class="title">q/property</span><span class="body"> <span class="keyword">:name</span></span>)</span>
+         <span class="list">(<span class="title">q/into-vec</span><span class="body">!</span>)</span></span>)</span>         
+<span class="comment">;;["marko" "josh" "peter" "marko" "vadas" "josh" "lop" "lop" "josh" "marko" "ripple" "lop"]</span>
+
+<span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/get-vertices</span><span class="body"></span>)</span>
          q/&lt;->
          q/dedup
          <span class="list">(<span class="title">q/property</span><span class="body"> <span class="keyword">:name</span></span>)</span>
          <span class="list">(<span class="title">q/into-vec</span><span class="body">!</span>)</span></span>)</span>
 <span class="comment">;;["marko" "josh" "peter" "vadas" "lop" "ripple"]                         </span>
+
 <span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/get-vertices</span><span class="body"></span>)</span>
-                         q/&lt;->
-                         <span class="list">(<span class="title">q/dedup</span><span class="body"> <span class="list">(<span class="title">partial</span><span class="body"> g/get-property <span class="keyword">:lang</span></span>)</span></span>)</span>
-                         <span class="list">(<span class="title">q/property</span><span class="body"> <span class="keyword">:name</span></span>)</span>
-                         <span class="list">(<span class="title">q/into-vec</span><span class="body"></span>)</span></span>)</span></code></pre>
-<p>Emit only incoming objects that have not been seen before with an
-optional closure being the object to check on.
+          q/&lt;->
+          <span class="list">(<span class="title">q/dedup</span><span class="body"> <span class="list">(<span class="title">partial</span><span class="body"> g/get-property <span class="keyword">:lang</span></span>)</span></span>)</span>
+          <span class="list">(<span class="title">q/property</span><span class="body"> <span class="keyword">:name</span></span>)</span>
+          <span class="list">(<span class="title">q/into-vec</span><span class="body">!</span>)</span></span>)</span>
+<span class="comment">;;["marko" "lop"]</span></code></pre>
+<p><code>g/get-vertices</code> retrieves all of the vertices of the graph and
+provides them in a list. 
 
 </p>
-<p><a href="#">top</a>
-
-</p>
-<hr>
 <h3 id='filter/except'>except</h3 id='filter/except'>
 <p>Emit everything to pass except what is in the supplied collection.
 
 </p>
-<h4>See Also</h4>
-<ul>
-<li><a href="#filter/retain">retain</a></li>
-</ul>
-<p><a href="#">top</a>
-
-</p>
-<hr>
 <h3 id='filter/filter'>filter</h3 id='filter/filter'>
 <p>Decide whether to allow an object to pass. Return true from the
 closure to allow an object to pass.
 
 </p>
-<p><a href="#">top</a>
-
-</p>
-<hr>
 <h3 id='filter/has'>has</h3 id='filter/has'>
 <p>Allows an element if it has a particular property. Utilizes several
 options for comparisons through <code>T</code>:
@@ -1132,13 +1124,6 @@ significantly slower than the key index approach.
 
 </p>
 <h4>See Also</h4>
-<ul>
-<li><a href="#filter/hasnot">hasNot</a></li>
-</ul>
-<p><a href="#">top</a>
-
-</p>
-<hr>
 <h3 id='filter/has-not'>has-not</h3 id='filter/has-not'>
 <p>Allows an element if it does not have a particular property. Utilizes
 several options for comparisons on through <code>T</code>:
@@ -1152,45 +1137,22 @@ several options for comparisons on through <code>T</code>:
 <li>T.lte - less than or equal to</li>
 <li>T.lt - less than</li>
 </ul>
-<p><a href="#">top</a>
-
-</p>
-<hr>
 <h3 id='filter/interval'>interval</h3 id='filter/interval'>
 <p>Allow elements to pass that have their property in the provided start
 and end interval.
 
 </p>
-<h4>See Also</h4>
-<ul>
-<li><a href="#filter/has">has</a></li>
-</ul>
-<p><a href="#">top</a>
-
-</p>
-<hr>
 <h3 id='filter/random'>random</h3 id='filter/random'>
 <p>Emits the incoming object if biased coin toss is heads.
 
 </p>
-<p><a href="#">top</a>
-
-</p>
-<hr>
 <h3 id='filter/retain'>retain</h3 id='filter/retain'>
 <p>Allow everything to pass except what is not in the supplied
 collection.
 
 </p>
-<p><a href="#">top</a>
-
-</p>
-<hr>
 <h3 id='filter/simplepath'>simplePath</h3 id='filter/simplepath'>
 <p>Emit the object only if the current path has no repeated elements.
-
-</p>
-<p><a href="#">top</a>
 
 </p>
 <hr>
@@ -1199,43 +1161,25 @@ collection.
 <p>Emits input, but names the previous step.
 
 </p>
-<p><a href="#">top</a>
-
-</p>
-<hr>
 <h3 id='annotations/back'>back</h3 id='annotations/back'>
 <p>Go back to the results from n-steps ago or go back to the results of a
 named step.
 
 </p>
-<p><a href="#">top</a>
-
-</p>
-<hr>
 <h3 id='annotations/back-to'>back-to</h3 id='annotations/back-to'>
 <p>Go back to the results from n-steps ago or go back to the results of a
 named step.
 
 </p>
-<p><a href="#">top</a>
-
-</p>
-<hr>
 <h3 id='annotations/optional'>optional</h3 id='annotations/optional'>
 <p>Behaves similar to <code>back</code> except that it does not filter. It will go
 down a particular path and back up to where it left off. As such, its
 useful for yielding a sideeffect down a particular branch.
 
 </p>
-<p><a href="#">top</a>
-
-</p>
-<hr>
 <h3 id='annotations/select'>select</h3 id='annotations/select'>
 <p>Select the named steps to emit after select with post-processing
 closures.
-
-
 
 </p>
 <h3 id='annotations/select-only'>select-only</h3 id='annotations/select-only'>
@@ -1264,10 +1208,6 @@ is emitted or not. As such, it is possible to emit intermediate
 objects, not simply those at the end of the loop.
 
 </p>
-<p><a href="#">top</a>
-
-</p>
-<hr>
 <h3 id='annotations/loop-to'>loop-to</h3 id='annotations/loop-to'>
 <p>Loop over a particular set of steps in the pipeline. The first
 argument is either the number of steps back in the pipeline to go or a
@@ -1289,9 +1229,6 @@ is emitted or not. As such, it is possible to emit intermediate
 objects, not simply those at the end of the loop.
 
 </p>
-<p><a href="#">top</a>
-
-</p>
 <hr>
 <h2 id='side-effect'>Side Effect</h2 id='side-effect'>
 <p>Side Effect steps pass the object, but yield some kind of side effect
@@ -1304,36 +1241,11 @@ key-closure and value-closure. It is also possible to supply an
 optional reduce-closure.
 
 </p>
-<p><a href="#">top</a>
-
-</p>
-<hr>
 <h3 id='side-effect/get-group-count'>get-group-count</h3 id='side-effect/get-group-count'>
 <p>Emits input, but updates a map for each input, where closures provides
 generic map update.
 
 </p>
-<p><a href="#">top</a>
-
-</p>
-<hr>
-<h3 id='side-effect/cap'>cap</h3 id='side-effect/cap'>
-<p>Gets the side-effect of the pipe prior. In other words, it emits the
-value of the previous step and not the values that flow through it.
-
-</p>
-<p><a href="#">top</a>
-
-</p>
-<hr>
-<h3 id='side-effect/side-effect'>side-effect</h3 id='side-effect/side-effect'>
-<p>Emits input, but calls a side effect closure on each input.
-
-</p>
-<p><a href="#">top</a>
-
-</p>
-<hr>
 <h3 id='side-effect/get-table'>get-table</h3 id='side-effect/get-table'>
 <p>Emits input, but stores row of as values (constrained by column names
 if provided) in a table. Accepts an optional set of closures that are
@@ -1341,15 +1253,16 @@ applied in round-robin fashion to each column of the table.
 
 </p>
 <h3 id='side-effect/get-tree'>get-tree</h3 id='side-effect/get-tree'>
-<p><a href="#">top</a>
-
-</p>
-<hr>
 <p>Emit input, but stores the tree formed by the traversal as a map.
 Accepts an optional set of closures to be applied in round-robin
 fashion over each level of the tree.
 
 </p>
+<h3 id='side-effect/side-effect'>side-effect</h3 id='side-effect/side-effect'>
+<p>Emits input, but calls a side effect closure on each input.
+
+</p>
+<hr>
 <h2 id='branch'>Branch</h2 id='branch'>
 <p>Branch steps decide which step to take.
 
@@ -1358,28 +1271,21 @@ fashion over each level of the tree.
 <p>Copies incoming object to internal pipes.
 
 </p>
-<hr>
 <h3 id='branch/exhaust-merge'>exhaust-merge</h3 id='branch/exhaust-merge'>
 <p>Used in combination with a <code>copySplit</code>, merging the parallel
 traversals by exhaustively getting the objects of the first, then the
 second, etc.
 
 </p>
-<hr>
 <h3 id='branch/fair-merge'>fair-merge</h3 id='branch/fair-merge'>
 <p>Used in combination with a <code>copySplit</code>, merging the parallel
 traversals in a round-robin fashion.
 
 </p>
-<hr>
 <h3 id='branch/if-then-else'>if-then-else</h3 id='branch/if-then-else'>
 <p>Allows for if-then-else conditional logic.
 
 </p>
-<p><a href="#">top</a>
-
-</p>
-<hr>
 <h3 id='branch/memoize'>memoize</h3 id='branch/memoize'>
 <p>Remembers a particular mapping from input to output. Long or expensive
 expressions with no side effects can use this step to remember a
@@ -1393,9 +1299,6 @@ consider using an embedded key-value store like
 implementation.
 
 </p>
-<p><a href="#">top</a>
-
-</p>
 <hr>
 <h2 id='recipes'>Recipes</h2 id='recipes'>
 <p>Recipes are common patterns that are seen in using Gremlin.
@@ -1406,19 +1309,11 @@ implementation.
 This example finds edges with same <code>outV/inV/label</code> properties.
 
 </p>
-<p><a href="#">top</a>
-
-</p>
-<hr>
 <h3 id='recipes/paging-results'>Paging Results</h3 id='recipes/paging-results'>
 <p>It is sometimes desireable to not return an entire results set.
 Results can be paged or limited as follows:
 
 </p>
-<p><a href="#">top</a>
-
-</p>
-<hr>
 <h3 id='recipes/paths-between-two-vertices'>Paths Between Two Vertices</h3 id='recipes/paths-between-two-vertices'>
 <p>First, paths for a directed graph:
 
@@ -1429,19 +1324,11 @@ Results can be paged or limited as follows:
 <p>Use the value of <code>it.loops&lt;=3</code>to control the depth of the traversal:
 
 </p>
-<p><a href="#">top</a>
-
-</p>
-<hr>
 <h3 id='recipes/reading-from-a-file'>Reading From a File</h3 id='recipes/reading-from-a-file'>
 <p>Reading data from an edge file formatted as CSV is easy to do with
 Gremlin.
 
 </p>
-<p><a href="#">top</a>
-
-</p>
-<hr>
 <h3 id='recipes/sampling'>Sampling</h3 id='recipes/sampling'>
 <p>It is sometimes useful to grab a random sample of the items in a
 collection. That can be done to some degree with the
@@ -1449,18 +1336,9 @@ collection. That can be done to some degree with the
 is not supported using that step.
 
 </p>
-<p><a href="#">top</a>
-
-</p>
-<hr>
 <h3 id='recipes/shortest-path'>Shortest Path</h3 id='recipes/shortest-path'>
 <p>Find the shortest path between two vertices:
-
 </p>
-<p><a href="#">top</a>
-
-</p>
-<hr>
 
   </div>
 </div></body>
