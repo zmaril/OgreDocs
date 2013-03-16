@@ -258,7 +258,7 @@ Gets the adjacent vertices to the vertex.
 
 ***
 
-### <E-- / in-vertices
+### <E-- / in-edges
 
 Gets the incoming edges of the vertex.
 
@@ -266,7 +266,9 @@ Gets the incoming edges of the vertex.
 (q/query (g/find-by-id 3)
          q/<E--
          q/into-vec!)
-;;[#<TinkerEdge e[9][1-created->3]> #<TinkerEdge e[11][4-created->3]> #<TinkerEdge e[12][6-created->3]>]
+;;[#<TinkerEdge e[9][1-created->3]> 
+;; #<TinkerEdge e[11][4-created->3]> 
+;; #<TinkerEdge e[12][6-created->3]>]
 ```
 
 ***
@@ -297,7 +299,7 @@ Get both adjacent vertices of the vertex, the in and the out.
 
 ***
 
-### <E>/both-edges
+### `<E>`/both-edges
 
 Get both incoming and outgoing edges of the vertex.
 
@@ -305,7 +307,9 @@ Get both incoming and outgoing edges of the vertex.
 (q/query (g/find-by-id 4)
          q/<E>
          q/into-vec!)
-;;[#<TinkerEdge e[8][1-knows->4]> #<TinkerEdge e[10][4-created->5]> #<TinkerEdge e[11][4-created->3]>]
+;;[#<TinkerEdge e[8][1-knows->4]> 
+;; #<TinkerEdge e[10][4-created->5]> 
+;; #<TinkerEdge e[11][4-created->3]>]
 ```
 
 
