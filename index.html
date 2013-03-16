@@ -216,16 +216,16 @@
         </li>
       
         <li>
-          <a href="#reduce">Reduce</a>
+          <a href="#reduce-like-functions">Reduce-like functions</a>
           
             <ul>
               
                 <li>
-                  <a href="#reduce/order">order</a>
+                  <a href="#reduce-like-functions/order">order</a>
                 </li>
               
                 <li>
-                  <a href="#reduce/gather">gather</a>
+                  <a href="#reduce-like-functions/gather">gather</a>
                 </li>
               
             </ul>
@@ -882,7 +882,7 @@ don&#39;t want to use this directly.
 </p>
 <pre><code class="clojure"><span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/find-by-id</span><span class="body"> <span class="number">1</span></span>)</span>
           q/map
-          q/first-into-map</span>)</span>
+          q/first-into-map!</span>)</span>
 <span class="comment">;;{:name "marko", :age 29}</span></code></pre>
 <h3 id='executors/all-into-vecs'>all-into-vecs!</h3 id='executors/all-into-vecs'>
 <p>Gets the list of returned objects and maps vec across all of the
@@ -924,11 +924,11 @@ objects.
 <span class="comment">;;  {:name "josh", :age 32} </span>
 <span class="comment">;;  {:name "peter", :age 35})</span></code></pre>
 <hr>
-<h2 id='reduce'>Reduce</h2 id='reduce'>
+<h2 id='reduce-like-functions'>Reduce-like functions</h2 id='reduce-like-functions'>
 <p>These functions sort of act like <code>clojure.core/reduce</code>.
 
 </p>
-<h3 id='reduce/order'>order</h3 id='reduce/order'>
+<h3 id='reduce-like-functions/order'>order</h3 id='reduce-like-functions/order'>
 <p>Order the items in the stream according to the provided function. If no
 function is provided, then a default sort order is used.
 
@@ -949,7 +949,7 @@ function is provided, then a default sort order is used.
          (q/order (<span class="function"><span class="keyword">fn</span> [<span class="title">a</span> <span class="title">b</span>] (</span>compare b a)))
          q/into-<span class="keyword">vec</span>!)                         
 [<span class="string">"vadas"</span> <span class="string">"ripple"</span> <span class="string">"peter"</span> <span class="string">"marko"</span> <span class="string">"lop"</span> <span class="string">"josh"</span>]</code></pre>
-<h3 id='reduce/gather'>gather</h3 id='reduce/gather'>
+<h3 id='reduce-like-functions/gather'>gather</h3 id='reduce-like-functions/gather'>
 <p>Collect all objects up to that step and process the gathered list with
 the provided closure.
 
