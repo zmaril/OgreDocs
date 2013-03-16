@@ -5,15 +5,16 @@
 [Ogre](http://github.com/zmaril/ogre) is a domain specific language
 for traversing property graphs in [Clojure](http://clojure.org/). Ogre
 wraps [Gremlin](https://github.com/tinkerpop/gremlin/wiki), a library
-which enables [all sorts of groovy operations on graphs](http://gremlindocs.com/). 
+which enables
+[all sorts of groovy ways to work with graphs](http://gremlindocs.com/).
 
 The documentation and samples presented here attempt to stay current
 with the most current, stable release of Ogre. Please join the
 [Gremlin users group](http://groups.google.com/group/gremlin-users)
-for any Ogre related discussions. Please use the
-[Ogre issue page](https://github.com/zmaril/ogre/issues) for
-specifically reporting bugs and discussing features. For any errors or
-corrections with OgreDocs, please use the
+for Ogre related discussions. Please use the
+[Ogre issue page](https://github.com/zmaril/ogre/issues) for reporting
+bugs and discussing features. For any errors or corrections with
+OgreDocs, please use the
 [OrgeDocs issue page](https://github.com/zmaril/ogredocs). This page
 is a fork of [GremlinDocs](http://gremlindocs.com/).
 
@@ -49,10 +50,10 @@ stack traces will speak of `com.tinkerpop.blueprints.Vertex` and
 `com.tinkerpop.gremlin.GremlinPipeline`, and there is nothing I can
 (well, should) do about it. The Tinkerpop stack is fantastic and
 really well done, but I wanted to warn you that the following is just
-the tip of the iceberg in terms of what you will need to know what is
-really going on when you use Ogre. 
+the tip of the iceberg in terms of what you will need to know to
+understand what is really going on when you use Ogre.
 
-With that terribly encouraging thought, let's get started!
+Thankfully, it's a joy to work with the stack. So, let's get started!
 
 ### leiningen
 
