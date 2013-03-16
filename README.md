@@ -21,9 +21,8 @@ requests will be celebrated.
 Ogre currently powers
 [Archimedes](https://github.com/zmaril/archimedes), a Clojure library
 for blueprints, and [Hermes](https://github.com/zmaril/hermes), a
-Clojure library for working with
-[Titan](http://thinkaurelius.github.com/titan/) (built on top of
-Archimedes). 
+Clojure library built on top of Archimedes for working with
+[Titan](http://thinkaurelius.github.com/titan/).
 
 ***
 
