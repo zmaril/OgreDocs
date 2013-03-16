@@ -63,7 +63,7 @@ authors of Gremlin are the ones who will be causing most of the
 changes to Ogre to hapepn. Ogre is a mere wrapper around their work
 and the version scheme acknowledges that directly. Thus, the first and
 current release is `2.2.0.0`, meaning that the current release uses
-Gremlin `2.2.0.0` and has undergone zero major versions itself so far
+Gremlin `2.2.0` and has undergone zero major versions itself so far
 since release.
 
 To get started with Ogre, include the following dependency for
