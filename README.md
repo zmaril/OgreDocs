@@ -428,38 +428,16 @@ structures. The new functions execute the Gremlin query and then call
 the correct conversion methods to ensure that you can work with the
 returned objects without too much hassle. 
 
-### select
-
-Select the named steps to emit after select with post-processing
-closures.
-
-
-
-### select-only
-
-Select the named steps to emit after select with post-processing
-closures.
-
-
 ### path
 
-Gets the path through the pipeline up to this point, where closures
-are post-processing for each object in the path. If the path step is
-provided closures then, in a round robin fashion, the closures are
-evaluated over each object of the path and that post-processed path is
-returned.
+Gets the path through the pipeline up to this point. If functions are
+provided, they are applied round robin to each of the objects in the
+path. 
 
-[top](#)
-
-***
 
 ### transform
 
 Transform emits the result of a closure.
-
-[top](#)
-
-***
 
 ## Converters
 
@@ -730,6 +708,18 @@ useful for yielding a sideeffect down a particular branch.
 [top](#)
 
 ***
+
+### select
+
+Select the named steps to emit after select with post-processing
+closures.
+
+
+
+### select-only
+
+Select the named steps to emit after select with post-processing
+closures.
 
 ### loop
 
