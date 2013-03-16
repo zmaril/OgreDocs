@@ -167,48 +167,48 @@
         </li>
       
         <li>
-          <a href="#converters">Converters</a>
+          <a href="#executors">Executors</a>
           
             <ul>
               
                 <li>
-                  <a href="#converters/to-list">to-list</a>
+                  <a href="#executors/to-list">to-list!</a>
                 </li>
               
                 <li>
-                  <a href="#converters/into-vec">into-vec</a>
+                  <a href="#executors/into-vec">into-vec!</a>
                 </li>
               
                 <li>
-                  <a href="#converters/into-set">into-set</a>
+                  <a href="#executors/into-set">into-set!</a>
                 </li>
               
                 <li>
-                  <a href="#converters/first-of">first-of</a>
+                  <a href="#executors/first-of">first-of!</a>
                 </li>
               
                 <li>
-                  <a href="#converters/first-into-vec">first-into-vec</a>
+                  <a href="#executors/first-into-vec">first-into-vec!</a>
                 </li>
               
                 <li>
-                  <a href="#converters/first-into-set">first-into-set</a>
+                  <a href="#executors/first-into-set">first-into-set!</a>
                 </li>
               
                 <li>
-                  <a href="#converters/first-into-map">first-into-map</a>
+                  <a href="#executors/first-into-map">first-into-map!</a>
                 </li>
               
                 <li>
-                  <a href="#converters/all-into-vecs">all-into-vecs</a>
+                  <a href="#executors/all-into-vecs">all-into-vecs!</a>
                 </li>
               
                 <li>
-                  <a href="#converters/all-into-sets">all-into-sets</a>
+                  <a href="#executors/all-into-sets">all-into-sets!</a>
                 </li>
               
                 <li>
-                  <a href="#converters/all-into-maps">all-into-maps</a>
+                  <a href="#executors/all-into-maps">all-into-maps!</a>
                 </li>
               
             </ul>
@@ -893,66 +893,127 @@ of vectors.
           <span class="list">(<span class="title">q/transform</span><span class="body"> count</span>)</span>
           q/into-vec!</span>)</span>         
 <span class="comment">;;[5 5 7]</span></code></pre>
-<p><code>first-of!</code> executes the query gets the first element from the list.
-Don&#39;t shoot yourself in the foot.
+<p><code>first-of!</code> executes the query and gets the first element from the
+list. Don&#39;t shoot yourself in the foot.
 
 </p>
-<h2 id='converters'>Converters</h2 id='converters'>
-<p>Ogre cannot do everything for you. You still have to ask to do things.
+<h2 id='executors'>Executors</h2 id='executors'>
+<p>Ogre cannot do everything for you. Specifically, it does not figure
+out the sorts of Java objects that are returned from some arbitrary
+query and convert them automatically into Clojure objects. So, with
+that in mind, Ogre includes several functions that execute the
+pipeline and then do conversions into Clojure data structures.
+
 
 </p>
-<h3 id='converters/to-list'>to-list</h3 id='converters/to-list'>
-<p><a href="#">top</a>
+<h3 id='executors/to-list'>to-list!</h3 id='executors/to-list'>
+<p>This is the Grand Daddy of all Executors. It calls <code>.toList</code> on the
+Gremlin pipeline and gets back the list of Java objects. You probably
+don&#39;t want to use this directly. 
 
 </p>
-<hr>
-<h3 id='converters/into-vec'>into-vec</h3 id='converters/into-vec'>
-<p><a href="#">top</a>
+<pre><code class="clojure"><span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/find-by-id</span><span class="body"> <span class="number">1</span></span>)</span>
+         q/-->
+         q/to-list!</span>)</span>
+<span class="comment">;;#&lt;ArrayList [v[2], v[4], v[3]]></span></code></pre>
+<h3 id='executors/into-vec'>into-vec!</h3 id='executors/into-vec'>
+<p>Gets the objects and sticks them inside of a vector. 
 
 </p>
-<hr>
-<h3 id='converters/into-set'>into-set</h3 id='converters/into-set'>
-<p><a href="#">top</a>
+<pre><code class="clojure">(q/query (g/find-by-id 1)
+         q/-->
+         q/into-vec!)
+;;[#<span class="tag">&lt;<span class="title">TinkerVertex</span> <span class="attribute">v</span>[<span class="attribute">2</span>]></span> #<span class="tag">&lt;<span class="title">TinkerVertex</span> <span class="attribute">v</span>[<span class="attribute">4</span>]></span> #<span class="tag">&lt;<span class="title">TinkerVertex</span> <span class="attribute">v</span>[<span class="attribute">3</span>]></span>]</code></pre>
+<h3 id='executors/into-set'>into-set!</h3 id='executors/into-set'>
+<p>Gets the objects and sticks them inside of a set. 
 
 </p>
-<hr>
-<h3 id='converters/first-of'>first-of</h3 id='converters/first-of'>
-<p><a href="#">top</a>
+<pre><code class="clojure">(q/query (g/find-by-id 1)
+         q/-->         
+         q/into-set!)
+;;#{#<span class="tag">&lt;<span class="title">TinkerVertex</span> <span class="attribute">v</span>[<span class="attribute">2</span>]></span> #<span class="tag">&lt;<span class="title">TinkerVertex</span> <span class="attribute">v</span>[<span class="attribute">3</span>]></span> #<span class="tag">&lt;<span class="title">TinkerVertex</span> <span class="attribute">v</span>[<span class="attribute">4</span>]></span>}</code></pre>
+<h3 id='executors/first-of'>first-of!</h3 id='executors/first-of'>
+<p>Gets the first object of the returned list. 
 
 </p>
-<hr>
-<h3 id='converters/first-into-vec'>first-into-vec</h3 id='converters/first-into-vec'>
-<p><a href="#">top</a>
+<pre><code class="clojure"><span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/find-by-id</span><span class="body"> <span class="number">1</span></span>)</span>
+         q/first-of!</span>)</span>
+<span class="comment">;;#&lt;TinkerVertex v[1]></span></code></pre>
+<h3 id='executors/first-into-vec'>first-into-vec!</h3 id='executors/first-into-vec'>
+<p>Gets the first object of the returned list and puts it into a vector. 
 
 </p>
-<hr>
-<h3 id='converters/first-into-set'>first-into-set</h3 id='converters/first-into-set'>
-<p><a href="#">top</a>
+<pre><code class="clojure"><span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/find-by-id</span><span class="body"> <span class="number">1</span></span>)</span>
+         <span class="list">(<span class="title">q/property</span><span class="body"> <span class="keyword">:name</span></span>)</span>
+         q/path
+         q/into-vec!</span>)</span>
+<span class="comment">;;[#&lt;ArrayList [v[1], marko]>]         </span>
+
+<span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/find-by-id</span><span class="body"> <span class="number">1</span></span>)</span>
+         <span class="list">(<span class="title">q/property</span><span class="body"> <span class="keyword">:name</span></span>)</span>
+         q/path
+         q/first-into-vec!</span>)</span>
+<span class="comment">;;[#&lt;TinkerVertex v[1]> "marko"]</span></code></pre>
+<h3 id='executors/first-into-set'>first-into-set!</h3 id='executors/first-into-set'>
+<p>Gets the first object of the returned list and puts it into a set. 
 
 </p>
-<hr>
-<h3 id='converters/first-into-map'>first-into-map</h3 id='converters/first-into-map'>
-<p><a href="#">top</a>
+<pre><code class="clojure"><span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/find-by-id</span><span class="body"> <span class="number">1</span></span>)</span>
+         q/-->
+         q/id
+         q/gather
+         q/first-into-set!</span>)</span>
+<span class="comment">;;#{"2" "3" "4"}</span></code></pre>
+<h3 id='executors/first-into-map'>first-into-map!</h3 id='executors/first-into-map'>
+<p>Gets the first object of the returned list and puts it into a set. 
 
 </p>
-<hr>
-<h3 id='converters/all-into-vecs'>all-into-vecs</h3 id='converters/all-into-vecs'>
-<p><a href="#">top</a>
+<pre><code class="clojure"><span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/find-by-id</span><span class="body"> <span class="number">1</span></span>)</span>
+          q/map
+          q/first-into-map</span>)</span>
+<span class="comment">;;{:name "marko", :age 29}</span></code></pre>
+<h3 id='executors/all-into-vecs'>all-into-vecs!</h3 id='executors/all-into-vecs'>
+<p>Gets the list of returned objects and maps vec across all of the
+objects.
 
 </p>
-<hr>
-<h3 id='converters/all-into-sets'>all-into-sets</h3 id='converters/all-into-sets'>
-<p><a href="#">top</a>
+<pre><code class="clojure"><span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/find-by-id</span><span class="body"> <span class="number">1</span></span>)</span>
+         q/-->
+         <span class="list">(<span class="title">q/path</span><span class="body"> <span class="list">(<span class="title">q/prop</span><span class="body"> <span class="keyword">:age</span></span>)</span>
+                 <span class="list">(<span class="title">q/prop</span><span class="body"> <span class="keyword">:name</span></span>)</span></span>)</span>
+         q/all-into-vecs!</span>)</span>
+<span class="comment">;;([29 "vadas"] [29 "josh"] [29 "lop"])</span></code></pre>
+<h3 id='executors/all-into-sets'>all-into-sets!</h3 id='executors/all-into-sets'>
+<p>Gets the list of returned objects and maps set across all of the
+objects.
 
 </p>
-<hr>
-<h3 id='converters/all-into-maps'>all-into-maps</h3 id='converters/all-into-maps'>
-<p><a href="#">top</a>
+<pre><code class="clojure"><span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/find-by-id</span><span class="body"> <span class="number">1</span></span>)</span>
+         q/-->
+         <span class="list">(<span class="title">q/path</span><span class="body"> <span class="list">(<span class="title">q/prop</span><span class="body"> <span class="keyword">:age</span></span>)</span>
+                 <span class="list">(<span class="title">q/prop</span><span class="body"> <span class="keyword">:name</span></span>)</span></span>)</span>
+         q/all-into-sets!</span>)</span>
+<span class="comment">;;(#{"vadas" 29} #{"josh" 29} #{"lop" 29})</span></code></pre>
+<h3 id='executors/all-into-maps'>all-into-maps!</h3 id='executors/all-into-maps'>
+<p>Gets the list of returned objects and maps set across all of the
+objects.
 
 </p>
+<pre><code class="clojure"><span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/find-by-id</span><span class="body"> <span class="number">1</span></span>)</span>
+         q/&lt;->
+         q/&lt;->
+         q/map
+         q/all-into-maps!</span>)</span>
+<span class="comment">;; ({:name "marko", :age 29} </span>
+<span class="comment">;;  {:name "marko", :age 29} </span>
+<span class="comment">;;  {:name "ripple", :lang "java"} </span>
+<span class="comment">;;  {:name "lop", :lang "java"} </span>
+<span class="comment">;;  {:name "marko", :age 29} </span>
+<span class="comment">;;  {:name "josh", :age 32} </span>
+<span class="comment">;;  {:name "peter", :age 35})</span></code></pre>
 <hr>
 <h2 id='reduce'>Reduce</h2 id='reduce'>
-<p>These functions act like reduce.
+<p>These functions sort of act like reduce.
 
 </p>
 <h3 id='reduce/order'>order</h3 id='reduce/order'>
