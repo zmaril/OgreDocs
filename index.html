@@ -155,14 +155,6 @@
                 </li>
               
                 <li>
-                  <a href="#map/select">select</a>
-                </li>
-              
-                <li>
-                  <a href="#map/select-only">select-only</a>
-                </li>
-              
-                <li>
                   <a href="#map/path">path</a>
                 </li>
               
@@ -316,6 +308,14 @@
               
                 <li>
                   <a href="#annotations/optional">optional</a>
+                </li>
+              
+                <li>
+                  <a href="#annotations/select">select</a>
+                </li>
+              
+                <li>
+                  <a href="#annotations/select-only">select-only</a>
                 </li>
               
                 <li>
@@ -829,39 +829,17 @@ the correct conversion methods to ensure that you can work with the
 returned objects without too much hassle. 
 
 </p>
-<h3 id='map/select'>select</h3 id='map/select'>
-<p>Select the named steps to emit after select with post-processing
-closures.
-
-
-
-</p>
-<h3 id='map/select-only'>select-only</h3 id='map/select-only'>
-<p>Select the named steps to emit after select with post-processing
-closures.
-
-
-</p>
 <h3 id='map/path'>path</h3 id='map/path'>
-<p>Gets the path through the pipeline up to this point, where closures
-are post-processing for each object in the path. If the path step is
-provided closures then, in a round robin fashion, the closures are
-evaluated over each object of the path and that post-processed path is
-returned.
+<p>Gets the path through the pipeline up to this point. If functions are
+provided, they are applied round robin to each of the objects in the
+path. 
+
 
 </p>
-<p><a href="#">top</a>
-
-</p>
-<hr>
 <h3 id='map/transform'>transform</h3 id='map/transform'>
 <p>Transform emits the result of a closure.
 
 </p>
-<p><a href="#">top</a>
-
-</p>
-<hr>
 <h2 id='converters'>Converters</h2 id='converters'>
 <p>Ogre cannot do everything for you. You still have to ask to do things.
 
@@ -1123,6 +1101,18 @@ useful for yielding a sideeffect down a particular branch.
 
 </p>
 <hr>
+<h3 id='annotations/select'>select</h3 id='annotations/select'>
+<p>Select the named steps to emit after select with post-processing
+closures.
+
+
+
+</p>
+<h3 id='annotations/select-only'>select-only</h3 id='annotations/select-only'>
+<p>Select the named steps to emit after select with post-processing
+closures.
+
+</p>
 <h3 id='annotations/loop'>loop</h3 id='annotations/loop'>
 <p>Loop over a particular set of steps in the pipeline. The first
 argument is either the number of steps back in the pipeline to go or a
