@@ -834,10 +834,52 @@ returned objects without too much hassle.
 provided, they are applied round robin to each of the objects in the
 path. 
 
+</p>
+<pre><code class="clojure">(q/query (g/find-by-id 1)
+         q/<span class="tag">&lt;<span class="title">-</span>></span>
+         q/<span class="tag">&lt;<span class="title">-</span>></span>
+         q/path
+         q/all-into-vecs!)
+;; ([#<span class="tag">&lt;<span class="title">TinkerVertex</span> <span class="attribute">v</span>[<span class="attribute">1</span>]></span> #<span class="tag">&lt;<span class="title">TinkerVertex</span> <span class="attribute">v</span>[<span class="attribute">2</span>]></span> #<span class="tag">&lt;<span class="title">TinkerVertex</span> <span class="attribute">v</span>[<span class="attribute">1</span>]></span>] 
+;;  [#<span class="tag">&lt;<span class="title">TinkerVertex</span> <span class="attribute">v</span>[<span class="attribute">1</span>]></span> #<span class="tag">&lt;<span class="title">TinkerVertex</span> <span class="attribute">v</span>[<span class="attribute">4</span>]></span> #<span class="tag">&lt;<span class="title">TinkerVertex</span> <span class="attribute">v</span>[<span class="attribute">1</span>]></span>] 
+;;  [#<span class="tag">&lt;<span class="title">TinkerVertex</span> <span class="attribute">v</span>[<span class="attribute">1</span>]></span> #<span class="tag">&lt;<span class="title">TinkerVertex</span> <span class="attribute">v</span>[<span class="attribute">4</span>]></span> #<span class="tag">&lt;<span class="title">TinkerVertex</span> <span class="attribute">v</span>[<span class="attribute">5</span>]></span>] 
+;;  [#<span class="tag">&lt;<span class="title">TinkerVertex</span> <span class="attribute">v</span>[<span class="attribute">1</span>]></span> #<span class="tag">&lt;<span class="title">TinkerVertex</span> <span class="attribute">v</span>[<span class="attribute">4</span>]></span> #<span class="tag">&lt;<span class="title">TinkerVertex</span> <span class="attribute">v</span>[<span class="attribute">3</span>]></span>] 
+;;  [#<span class="tag">&lt;<span class="title">TinkerVertex</span> <span class="attribute">v</span>[<span class="attribute">1</span>]></span> #<span class="tag">&lt;<span class="title">TinkerVertex</span> <span class="attribute">v</span>[<span class="attribute">3</span>]></span> #<span class="tag">&lt;<span class="title">TinkerVertex</span> <span class="attribute">v</span>[<span class="attribute">1</span>]></span>] 
+;;  [#<span class="tag">&lt;<span class="title">TinkerVertex</span> <span class="attribute">v</span>[<span class="attribute">1</span>]></span> #<span class="tag">&lt;<span class="title">TinkerVertex</span> <span class="attribute">v</span>[<span class="attribute">3</span>]></span> #<span class="tag">&lt;<span class="title">TinkerVertex</span> <span class="attribute">v</span>[<span class="attribute">4</span>]></span>] 
+;;  [#<span class="tag">&lt;<span class="title">TinkerVertex</span> <span class="attribute">v</span>[<span class="attribute">1</span>]></span> #<span class="tag">&lt;<span class="title">TinkerVertex</span> <span class="attribute">v</span>[<span class="attribute">3</span>]></span> #<span class="tag">&lt;<span class="title">TinkerVertex</span> <span class="attribute">v</span>[<span class="attribute">6</span>]></span>])         
+
+(q/query (g/find-by-id 1)
+         q/<span class="tag">&lt;<span class="title">-</span>></span>
+         q/<span class="tag">&lt;<span class="title">-</span>></span>
+         (q/path (q/prop :name))
+         q/all-into-vecs!)
+;;(["marko" "vadas" "marko"] 
+;; ["marko" "josh" "marko"] 
+;; ["marko" "josh" "ripple"] 
+;; ["marko" "josh" "lop"] 
+;; ["marko" "lop" "marko"] 
+;; ["marko" "lop" "josh"] 
+;; ["marko" "lop" "peter"])
+
+(q/query (g/find-by-id 1)
+         q/<span class="tag">&lt;<span class="title">-</span>></span>
+         q/<span class="tag">&lt;<span class="title">-</span>></span>
+         (q/path (q/prop :name) (fn [v] (count (.getProperty v "name"))))
+         q/all-into-vecs!)
+;;(["marko" 5 "marko"] 
+;; ["marko" 4 "marko"] 
+;; ["marko" 4 "ripple"] 
+;; ["marko" 4 "lop"] 
+;; ["marko" 3 "marko"] 
+;; ["marko" 3 "josh"] 
+;; ["marko" 3 "peter"])</code></pre>
+<p>Note that again we have introduced a new function <code>all-into-vecs!</code>.
+This takes in an ArrayList of ArrayLists and produces a list of
+vectors. 
 
 </p>
 <h3 id='map/transform'>transform</h3 id='map/transform'>
-<p>Transform emits the result of a closure.
+<p>Transform emits the result of a function.
 
 </p>
 <h2 id='converters'>Converters</h2 id='converters'>
