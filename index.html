@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OgreDocs</title>
+    
+    <link rel="stylesheet" type="text/css" href="http://documentup.com/stylesheets/themes/v1.css">
+    
+    
+
+    
+      <!-- Google Analytics -->
+      <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-11943276-8']);
+        _gaq.push(['_trackPageview']);
+
+        (function() {
+          var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+          ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+
+      </script>
+    
+
+    <!-- Typekit -->
+    
+      <script type="text/javascript">
+        (function() {
+          var config = {
+            kitId: 'hjp0pft',
+            scriptTimeout: 3000
+          };
+          var h=document.getElementsByTagName("html")[0];h.className+=" wf-loading";var t=setTimeout(function(){h.className=h.className.replace(/( |^)wf-loading( |$)/g,"");h.className+=" wf-inactive"},config.scriptTimeout);var tk=document.createElement("script");tk.src='//use.typekit.net/'+config.kitId+'.js';tk.type="text/javascript";tk.async="true";tk.onload=tk.onreadystatechange=function(){var a=this.readyState;if(a&&a!="complete"&&a!="loaded")return;clearTimeout(t);try{Typekit.load(config)}catch(b){}};var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(tk,s)
+        })();
+      </script>
+    
+  </head>
+  <body><div id="container">
+  <div id="nav">
+    
+      <div id="header">
+        <a href="#" id="logo">OgreDocs</a>
+      </div>
+    
+    <ul id="sections">
+      
+        <li>
+          <a href="#getting-started">Getting started</a>
+          
+            <ul>
+              
+                <li>
+                  <a href="#getting-started/leiningen">leiningen</a>
+                </li>
+              
+                <li>
+                  <a href="#getting-started/git-clone">git clone</a>
+                </li>
+              
+                <li>
+                  <a href="#getting-started/repl">repl</a>
+                </li>
+              
+            </ul>
+          
+        </li>
+      
+        <li>
+          <a href="#traversal">Traversal</a>
+          
+            <ul>
+              
+                <li>
+                  <a href="#traversal/out">--&gt; / out</a>
+                </li>
+              
+                <li>
+                  <a href="#traversal/e-out-edges">--E&gt; / out-edges</a>
+                </li>
+              
+                <li>
+                  <a href="#traversal/out-vertex">out-vertex</a>
+                </li>
+              
+                <li>
+                  <a href="#traversal/in">&lt;-- / in</a>
+                </li>
+              
+                <li>
+                  <a href="#traversal/e-in-vertices">&lt;E-- / in-vertices</a>
+                </li>
+              
+                <li>
+                  <a href="#traversal/in-vertex">in-vertex</a>
+                </li>
+              
+                <li>
+                  <a href="#traversal/both">&lt;-&gt; / both</a>
+                </li>
+              
+                <li>
+                  <a href="#traversal/">&lt;-&gt;</a>
+                </li>
+              
+                <li>
+                  <a href="#traversal/both-vertices">both-vertices</a>
+                </li>
+              
+            </ul>
+          
+        </li>
+      
+        <li>
+          <a href="#map">Map</a>
+          
+            <ul>
+              
+                <li>
+                  <a href="#map/id">id</a>
+                </li>
+              
+                <li>
+                  <a href="#map/property">property</a>
+                </li>
+              
+                <li>
+                  <a href="#map/label">label</a>
+                </li>
+              
+                <li>
+                  <a href="#map/map">map</a>
+                </li>
+              
+                <li>
+                  <a href="#map/select">select</a>
+                </li>
+              
+                <li>
+                  <a href="#map/select-only">select-only</a>
+                </li>
+              
+                <li>
+                  <a href="#map/path">path</a>
+                </li>
+              
+            </ul>
+          
+        </li>
+      
+        <li>
+          <a href="#converters">Converters</a>
+          
+            <ul>
+              
+                <li>
+                  <a href="#converters/to-list">to-list</a>
+                </li>
+              
+                <li>
+                  <a href="#converters/into-vec">into-vec</a>
+                </li>
+              
+                <li>
+                  <a href="#converters/into-set">into-set</a>
+                </li>
+              
+                <li>
+                  <a href="#converters/first-of">first-of</a>
+                </li>
+              
+                <li>
+                  <a href="#converters/first-into-vec">first-into-vec</a>
+                </li>
+              
+                <li>
+                  <a href="#converters/first-into-set">first-into-set</a>
+                </li>
+              
+                <li>
+                  <a href="#converters/first-into-map">first-into-map</a>
+                </li>
+              
+                <li>
+                  <a href="#converters/all-into-vecs">all-into-vecs</a>
+                </li>
+              
+                <li>
+                  <a href="#converters/all-into-sets">all-into-sets</a>
+                </li>
+              
+                <li>
+                  <a href="#converters/all-into-maps">all-into-maps</a>
+                </li>
+              
+            </ul>
+          
+        </li>
+      
+        <li>
+          <a href="#reduce">Reduce</a>
+          
+            <ul>
+              
+                <li>
+                  <a href="#reduce/order">order</a>
+                </li>
+              
+                <li>
+                  <a href="#reduce/shuffle">shuffle</a>
+                </li>
+              
+                <li>
+                  <a href="#reduce/transform">transform</a>
+                </li>
+              
+            </ul>
+          
+        </li>
+      
+        <li>
+          <a href="#filter">Filter</a>
+          
+            <ul>
+              
+                <li>
+                  <a href="#filter/range">range</a>
+                </li>
+              
+                <li>
+                  <a href="#filter/dedup">dedup</a>
+                </li>
+              
+                <li>
+                  <a href="#filter/except">except</a>
+                </li>
+              
+                <li>
+                  <a href="#filter/filter">filter</a>
+                </li>
+              
+                <li>
+                  <a href="#filter/has">has</a>
+                </li>
+              
+                <li>
+                  <a href="#filter/hasnot">hasNot</a>
+                </li>
+              
+                <li>
+                  <a href="#filter/interval">interval</a>
+                </li>
+              
+                <li>
+                  <a href="#filter/random">random</a>
+                </li>
+              
+                <li>
+                  <a href="#filter/retain">retain</a>
+                </li>
+              
+                <li>
+                  <a href="#filter/simplepath">simplePath</a>
+                </li>
+              
+            </ul>
+          
+        </li>
+      
+        <li>
+          <a href="#annotations">Annotations</a>
+          
+            <ul>
+              
+                <li>
+                  <a href="#annotations/as">as</a>
+                </li>
+              
+                <li>
+                  <a href="#annotations/back">back</a>
+                </li>
+              
+                <li>
+                  <a href="#annotations/back-to">back-to</a>
+                </li>
+              
+                <li>
+                  <a href="#annotations/optional">optional</a>
+                </li>
+              
+                <li>
+                  <a href="#annotations/loop">loop</a>
+                </li>
+              
+                <li>
+                  <a href="#annotations/loop-to">loop-to</a>
+                </li>
+              
+            </ul>
+          
+        </li>
+      
+        <li>
+          <a href="#side-effect">Side Effect</a>
+          
+            <ul>
+              
+                <li>
+                  <a href="#side-effect/get-grouped-by">get-grouped-by</a>
+                </li>
+              
+                <li>
+                  <a href="#side-effect/get-group-count">get-group-count</a>
+                </li>
+              
+                <li>
+                  <a href="#side-effect/cap">cap</a>
+                </li>
+              
+                <li>
+                  <a href="#side-effect/side-effect">side-effect</a>
+                </li>
+              
+                <li>
+                  <a href="#side-effect/get-table">get-table</a>
+                </li>
+              
+                <li>
+                  <a href="#side-effect/get-tree">get-tree</a>
+                </li>
+              
+            </ul>
+          
+        </li>
+      
+        <li>
+          <a href="#branch">Branch</a>
+          
+            <ul>
+              
+                <li>
+                  <a href="#branch/copy-split">copy-split</a>
+                </li>
+              
+                <li>
+                  <a href="#branch/exhaust-merge">exhaust-merge</a>
+                </li>
+              
+                <li>
+                  <a href="#branch/fair-merge">fair-merge</a>
+                </li>
+              
+                <li>
+                  <a href="#branch/if-then-else">if-then-else</a>
+                </li>
+              
+                <li>
+                  <a href="#branch/memoize">memoize</a>
+                </li>
+              
+            </ul>
+          
+        </li>
+      
+        <li>
+          <a href="#recipes">Recipes</a>
+          
+            <ul>
+              
+                <li>
+                  <a href="#recipes/duplicate-edges">Duplicate Edges</a>
+                </li>
+              
+                <li>
+                  <a href="#recipes/paging-results">Paging Results</a>
+                </li>
+              
+                <li>
+                  <a href="#recipes/paths-between-two-vertices">Paths Between Two Vertices</a>
+                </li>
+              
+                <li>
+                  <a href="#recipes/reading-from-a-file">Reading From a File</a>
+                </li>
+              
+                <li>
+                  <a href="#recipes/sampling">Sampling</a>
+                </li>
+              
+                <li>
+                  <a href="#recipes/shortest-path">Shortest Path</a>
+                </li>
+              
+                <li>
+                  <a href="#recipes/gather">gather</a>
+                </li>
+              
+                <li>
+                  <a href="#recipes/scatter">scatter</a>
+                </li>
+              
+            </ul>
+          
+        </li>
+      
+    </ul>
+    
+    
+      <div class="extra twitter">
+        <iframe allowtransparency="true" frameborder="0" scrolling="no" style="width:162px; height:20px;" src="https://platform.twitter.com/widgets/follow_button.html?screen_name=zmaril&show_count=false"></iframe>
+      </div>
+    
+  </div>
+  <div id="content">
+    
+    <p><img src="ogre.png" alt="Ogre">
+
+</p>
+<p><strong>WARNING OgreDocs is still being written.</strong>
+
+</p>
+<p><a href="http://github.com/zmaril/ogre">Ogre</a> is a domain specific language
+for traversing property graphs in Clojure. Ogre wraps
+<a href="https://github.com/tinkerpop/gremlin/wiki">Gremlin</a>, a library which
+enables all sorts of fast and easy operations on graphs. Ogre is an
+open source project maintained by
+<a href="http://zacharymaril.com">Zack Maril</a>. Please join the Gremlin users
+group at <a href="http://groups.google.com/group/gremlin-users">http://groups.google.com/group/gremlin-users</a> for any Ogre or
+Gremlin related discussions.
+
+</p>
+<p>The documentation and samples presented here attempt to stay current
+with the most current, stable release of Ogre. Please note that this
+is the <em>official</em> Ogre documentation. This page is a fork of
+<a href="http://gremlindocs.com/">GremlinDocs</a>. OgreDocs is a
+<a href="https://github.com/spmallette/OgreDocs">GitHub repository</a>. Pull
+requests will be celebrated.
+
+</p>
+<h2 id='getting-started'>Getting started</h2 id='getting-started'>
+<h3 id='getting-started/leiningen'>leiningen</h3 id='getting-started/leiningen'>
+<p>versioning ideas
+
+</p>
+<h3 id='getting-started/git-clone'>git clone</h3 id='getting-started/git-clone'>
+<h3 id='getting-started/repl'>repl</h3 id='getting-started/repl'>
+<p>Unless otherwise noted, all samples are derived from the TinkerPop &quot;toy&quot; graph generated with: 
+
+</p>
+<pre><code class="clojure"><span class="list">(<span class="title">use</span><span class="body"> 'ogre.tinkergraph</span>)</span></code></pre>
+<p>This produces a hardcoded representation of the graph diagrammed <a href="http://github.com/tinkerpop/blueprints/wiki/Property-Graph-Model">here</a>.  
+
+</p>
+<h2 id='traversal'>Traversal</h2 id='traversal'>
+<h3 id='traversal/out'>--&gt; / out</h3 id='traversal/out'>
+<p>Gets the out adjacent vertices to the vertex.
+
+</p>
+<p><a href="#">top</a>
+
+</p>
+<hr>
+<h3 id='traversal/e-out-edges'>--E&gt; / out-edges</h3 id='traversal/e-out-edges'>
+<p>Gets the outgoing edges to the vertex.
+
+</p>
+<p><a href="#">top</a>
+
+</p>
+<hr>
+<h3 id='traversal/out-vertex'>out-vertex</h3 id='traversal/out-vertex'>
+<p>Get both outgoing tail vertex of the edge.
+
+</p>
+<p><a href="#">top</a>
+
+</p>
+<hr>
+<h3 id='traversal/in'>&lt;-- / in</h3 id='traversal/in'>
+<p>Gets the adjacent vertices to the vertex.
+
+</p>
+<p><a href="#">top</a>
+
+</p>
+<hr>
+<h3 id='traversal/e-in-vertices'>&lt;E-- / in-vertices</h3 id='traversal/e-in-vertices'>
+<p>Gets the incoming edges of the vertex.
+
+</p>
+<p><a href="#">top</a>
+
+</p>
+<hr>
+<h3 id='traversal/in-vertex'>in-vertex</h3 id='traversal/in-vertex'>
+<p>Get both incoming head vertex of the edge.
+
+</p>
+<p><a href="#">top</a>
+
+</p>
+<hr>
+<h3 id='traversal/both'>&lt;-&gt; / both</h3 id='traversal/both'>
+<p>Get both adjacent vertices of the vertex, the in and the out.
+
+</p>
+<p><a href="#">top</a>
+
+</p>
+<hr>
+<h3 id='traversal/'>&lt;-&gt;</h3 id='traversal/'>
+<p>Get both incoming and outgoing edges of the vertex.
+
+</p>
+<p><a href="#">top</a>
+
+</p>
+<hr>
+<h3 id='traversal/both-vertices'>both-vertices</h3 id='traversal/both-vertices'>
+<p>Get both incoming and outgoing vertices of the edge.
+
+</p>
+<p><a href="#">top</a>
+
+</p>
+<hr>
+<h2 id='map'>Map</h2 id='map'>
+<p>Transform steps take an object and emit a transformation of it.
+
+</p>
+<hr>
+<h3 id='map/id'>id</h3 id='map/id'>
+<p>Gets the unique identifier of the element.  
+
+</p>
+<p><a href="#">top</a>
+
+</p>
+<hr>
+<h3 id='map/property'>property</h3 id='map/property'>
+<p>Get the property value of an element.  The property value can be obtained by simply appending the name to the end of the element or by referencing it as a Groovy map element with square brackets.  For best performance, drop down to the Blueprints API and use <code>getProperty(key)</code>.
+
+</p>
+<p><a href="#">top</a>
+
+</p>
+<hr>
+<h3 id='map/label'>label</h3 id='map/label'>
+<p>Gets the label of an edge.
+
+</p>
+<p><a href="#">top</a>
+
+</p>
+<hr>
+<h3 id='map/map'>map</h3 id='map/map'>
+<p>Gets the property map of the graph element.
+
+</p>
+<p><a href="#">top</a>
+
+</p>
+<hr>
+<h3 id='map/select'>select</h3 id='map/select'>
+<p>Select the named steps to emit after select with post-processing closures.
+
+</p>
+<p><a href="#">top</a>
+
+</p>
+<hr>
+<h3 id='map/select-only'>select-only</h3 id='map/select-only'>
+<p>Select the named steps to emit after select with post-processing closures.
+
+</p>
+<p><a href="#">top</a>
+
+</p>
+<hr>
+<h3 id='map/path'>path</h3 id='map/path'>
+<p>Gets the path through the pipeline up to this point, where closures are post-processing for each object in the path.  If the path step is provided closures then, in a round robin fashion, the closures are evaluated over each object of the path and that post-processed path is returned.
+
+</p>
+<p><a href="#">top</a>
+
+</p>
+<hr>
+<h2 id='converters'>Converters</h2 id='converters'>
+<p>Ogre cannot do everything for you. You still have to ask to do things. 
+
+</p>
+<h3 id='converters/to-list'>to-list</h3 id='converters/to-list'>
+<p><a href="#">top</a>
+
+</p>
+<hr>
+<h3 id='converters/into-vec'>into-vec</h3 id='converters/into-vec'>
+<p><a href="#">top</a>
+
+</p>
+<hr>
+<h3 id='converters/into-set'>into-set</h3 id='converters/into-set'>
+<p><a href="#">top</a>
+
+</p>
+<hr>
+<h3 id='converters/first-of'>first-of</h3 id='converters/first-of'>
+<p><a href="#">top</a>
+
+</p>
+<hr>
+<h3 id='converters/first-into-vec'>first-into-vec</h3 id='converters/first-into-vec'>
+<p><a href="#">top</a>
+
+</p>
+<hr>
+<h3 id='converters/first-into-set'>first-into-set</h3 id='converters/first-into-set'>
+<p><a href="#">top</a>
+
+</p>
+<hr>
+<h3 id='converters/first-into-map'>first-into-map</h3 id='converters/first-into-map'>
+<p><a href="#">top</a>
+
+</p>
+<hr>
+<h3 id='converters/all-into-vecs'>all-into-vecs</h3 id='converters/all-into-vecs'>
+<p><a href="#">top</a>
+
+</p>
+<hr>
+<h3 id='converters/all-into-sets'>all-into-sets</h3 id='converters/all-into-sets'>
+<p><a href="#">top</a>
+
+</p>
+<hr>
+<h3 id='converters/all-into-maps'>all-into-maps</h3 id='converters/all-into-maps'>
+<p><a href="#">top</a>
+
+</p>
+<hr>
+<h2 id='reduce'>Reduce</h2 id='reduce'>
+<p>These functions act like reduce. 
+
+</p>
+<h3 id='reduce/order'>order</h3 id='reduce/order'>
+<p>Order the items in the stream according to the closure if provided.  If no closure is provided, then a default sort order is used.
+
+</p>
+<p><a href="#">top</a>
+
+</p>
+<hr>
+<hr>
+<h3 id='reduce/shuffle'>shuffle</h3 id='reduce/shuffle'>
+<p>Collect all objects up to that step into a list and randomize their order.
+
+</p>
+<h4>See Also</h4>
+<ul>
+<li><a href="#filter/random">random</a></li>
+</ul>
+<p><a href="#">top</a>
+
+</p>
+<hr>
+<h3 id='reduce/transform'>transform</h3 id='reduce/transform'>
+<p>Transform emits the result of a closure.
+
+</p>
+<p><a href="#">top</a>
+
+</p>
+<hr>
+<h2 id='filter'>Filter</h2 id='filter'>
+<p>Filter steps decide whether to allow an object to pass to the next step or not.
+
+
+</p>
+<h3 id='filter/range'>range</h3 id='filter/range'>
+<p>A range filter that emits the objects within a range.
+
+</p>
+<p><a href="#">top</a>
+
+</p>
+<hr>
+<h3 id='filter/dedup'>dedup</h3 id='filter/dedup'>
+<p>Emit only incoming objects that have not been seen before with an optional closure being the object to check on.
+
+</p>
+<p><a href="#">top</a>
+
+</p>
+<hr>
+<h3 id='filter/except'>except</h3 id='filter/except'>
+<p>Emit everything to pass except what is in the supplied collection.
+
+</p>
+<h4>See Also</h4>
+<ul>
+<li><a href="#filter/retain">retain</a></li>
+</ul>
+<p><a href="#">top</a>
+
+</p>
+<hr>
+<h3 id='filter/filter'>filter</h3 id='filter/filter'>
+<p>Decide whether to allow an object to pass.  Return true from the closure to allow an object to pass.
+
+</p>
+<p><a href="#">top</a>
+
+</p>
+<hr>
+<h3 id='filter/has'>has</h3 id='filter/has'>
+<p>Allows an element if it has a particular property.  Utilizes several options for comparisons through <code>T</code>:
+
+</p>
+<ul>
+<li>T.gt - greater than </li>
+<li>T.gte - greater than or equal to</li>
+<li>T.eq - equal to</li>
+<li>T.neq - not equal to</li>
+<li>T.lte - less than or equal to</li>
+<li>T.lt - less than</li>
+</ul>
+<p>It is worth noting that the syntax of <code>has</code> is similar to <code>g.V(&quot;name&quot;, &quot;marko&quot;)</code>, which has the difference of being a <a href="https://github.com/tinkerpop/blueprints/wiki/Graph-Indices">key index</a> lookup and as such will perform faster. In contrast, this line, <code>g.V.has(&quot;name&quot;, &quot;marko&quot;)</code>, will iterate over all vertices checking the <code>name</code> property of each vertex for a match and will be significantly slower than the key index approach.
+
+</p>
+<h4>See Also</h4>
+<ul>
+<li><a href="#filter/hasnot">hasNot</a></li>
+</ul>
+<p><a href="#">top</a>
+
+</p>
+<hr>
+<h3 id='filter/hasnot'>hasNot</h3 id='filter/hasnot'>
+<p>Allows an element if it does not have a particular property.  Utilizes several options for comparisons on through <code>T</code>:
+
+</p>
+<ul>
+<li>T.gt - greater than </li>
+<li>T.gte - greater than or equal to</li>
+<li>T.eq - equal to</li>
+<li>T.neq - not equal to</li>
+<li>T.lte - less than or equal to</li>
+<li>T.lt - less than</li>
+</ul>
+<p><a href="#">top</a>
+
+</p>
+<hr>
+<h3 id='filter/interval'>interval</h3 id='filter/interval'>
+<p>Allow elements to pass that have their property in the provided start and end interval.
+
+</p>
+<h4>See Also</h4>
+<ul>
+<li><a href="#filter/has">has</a></li>
+</ul>
+<p><a href="#">top</a>
+
+</p>
+<hr>
+<h3 id='filter/random'>random</h3 id='filter/random'>
+<p>Emits the incoming object if biased coin toss is heads.
+
+</p>
+<p><a href="#">top</a>
+
+</p>
+<hr>
+<h3 id='filter/retain'>retain</h3 id='filter/retain'>
+<p>Allow everything to pass except what is not in the supplied collection.
+
+</p>
+<h4>See Also</h4>
+<ul>
+<li><a href="#filter/except">except</a></li>
+</ul>
+<p><a href="#">top</a>
+
+</p>
+<hr>
+<h3 id='filter/simplepath'>simplePath</h3 id='filter/simplepath'>
+<p>Emit the object only if the current path has no repeated elements.
+
+</p>
+<p><a href="#">top</a>
+
+</p>
+<hr>
+<h2 id='annotations'>Annotations</h2 id='annotations'>
+<h3 id='annotations/as'>as</h3 id='annotations/as'>
+<p>Emits input, but names the previous step.
+
+</p>
+<p><a href="#">top</a>
+
+</p>
+<hr>
+<h3 id='annotations/back'>back</h3 id='annotations/back'>
+<p>Go back to the results from n-steps ago or go back to the results of a named step.
+
+</p>
+<p><a href="#">top</a>
+
+</p>
+<hr>
+<h3 id='annotations/back-to'>back-to</h3 id='annotations/back-to'>
+<p>Go back to the results from n-steps ago or go back to the results of a named step.
+
+</p>
+<p><a href="#">top</a>
+
+</p>
+<hr>
+<h3 id='annotations/optional'>optional</h3 id='annotations/optional'>
+<p>Behaves similar to <code>back</code> except that it does not filter. It will go
+down a particular path and back up to where it left off. As such, its
+useful for yielding a sideeffect down a particular branch.
+
+</p>
+<p><a href="#">top</a>
+
+</p>
+<hr>
+<h3 id='annotations/loop'>loop</h3 id='annotations/loop'>
+<p>Loop over a particular set of steps in the pipeline. The first
+argument is either the number of steps back in the pipeline to go or a
+named step. The second argument is a while closure evaluating the
+current object. The <code>it</code> component of the loop step closure has three
+properties that are accessible. These properties can be used to reason
+about when to break out of the loop.
+
+</p>
+<ul>
+<li><code>it.object</code>: the current object of the traverser.</li>
+<li><code>it.path</code>: the current path of the traverser.</li>
+<li><code>it.loops</code>: the number of times the traverser has looped through the loop section.</li>
+</ul>
+<p>The final argument is known as the &quot;emit&quot; closure. This boolean-based closure will determine wether the current object in the loop structure is emitted or not. As such, it is possible to emit intermediate objects, not simply those at the end of the loop.
+
+</p>
+<p><a href="#">top</a>
+
+</p>
+<hr>
+<h3 id='annotations/loop-to'>loop-to</h3 id='annotations/loop-to'>
+<p>Loop over a particular set of steps in the pipeline. The first
+argument is either the number of steps back in the pipeline to go or a
+named step. The second argument is a while closure evaluating the
+current object. The <code>it</code> component of the loop step closure has three
+properties that are accessible. These properties can be used to reason
+about when to break out of the loop.
+
+</p>
+<ul>
+<li><code>it.object</code>: the current object of the traverser.</li>
+<li><code>it.path</code>: the current path of the traverser.</li>
+<li><code>it.loops</code>: the number of times the traverser has looped through the loop section.</li>
+</ul>
+<p>The final argument is known as the &quot;emit&quot; closure. This boolean-based closure will determine wether the current object in the loop structure is emitted or not. As such, it is possible to emit intermediate objects, not simply those at the end of the loop.
+
+</p>
+<p><a href="#">top</a>
+
+</p>
+<hr>
+<h2 id='side-effect'>Side Effect</h2 id='side-effect'>
+<p>Side Effect steps pass the object, but yield some kind of side effect
+while doing so.
+
+</p>
+<h3 id='side-effect/get-grouped-by'>get-grouped-by</h3 id='side-effect/get-grouped-by'>
+<p>Emits input, but groups input after processing it by provided key-closure and value-closure.  It is also possible to supply an optional reduce-closure.  
+
+</p>
+<p><a href="#">top</a>
+
+</p>
+<hr>
+<h3 id='side-effect/get-group-count'>get-group-count</h3 id='side-effect/get-group-count'>
+<p>Emits input, but updates a map for each input, where closures provides generic map update.
+
+</p>
+<p><a href="#">top</a>
+
+</p>
+<hr>
+<h3 id='side-effect/cap'>cap</h3 id='side-effect/cap'>
+<p>Gets the side-effect of the pipe prior.  In other words, it emits the value of the previous step and not the values that flow through it.
+
+</p>
+<p><a href="#">top</a>
+
+</p>
+<hr>
+<h3 id='side-effect/side-effect'>side-effect</h3 id='side-effect/side-effect'>
+<p>Emits input, but calls a side effect closure on each input.
+
+</p>
+<p><a href="#">top</a>
+
+</p>
+<hr>
+<h3 id='side-effect/get-table'>get-table</h3 id='side-effect/get-table'>
+<p>Emits input, but stores row of as values (constrained by column names if provided) in a table.  Accepts an optional set of closures that are applied in round-robin fashion to each column of the table.
+
+</p>
+<h3 id='side-effect/get-tree'>get-tree</h3 id='side-effect/get-tree'>
+<p><a href="#">top</a>
+
+</p>
+<hr>
+<p>Emit input, but stores the tree formed by the traversal as a map.  Accepts an optional set of closures to be applied in round-robin fashion over each level of the tree.
+
+</p>
+<h2 id='branch'>Branch</h2 id='branch'>
+<p>Branch steps decide which step to take.
+
+</p>
+<h3 id='branch/copy-split'>copy-split</h3 id='branch/copy-split'>
+<p>Copies incoming object to internal pipes.
+
+</p>
+<hr>
+<h3 id='branch/exhaust-merge'>exhaust-merge</h3 id='branch/exhaust-merge'>
+<p>Used in combination with a <code>copySplit</code>, merging the parallel traversals by exhaustively getting the objects of the first, then the second, etc.
+
+</p>
+<hr>
+<h3 id='branch/fair-merge'>fair-merge</h3 id='branch/fair-merge'>
+<p>Used in combination with a <code>copySplit</code>, merging the parallel traversals in a round-robin fashion.
+
+</p>
+<hr>
+<h3 id='branch/if-then-else'>if-then-else</h3 id='branch/if-then-else'>
+<p>Allows for if-then-else conditional logic.
+
+</p>
+<p><a href="#">top</a>
+
+</p>
+<hr>
+<h3 id='branch/memoize'>memoize</h3 id='branch/memoize'>
+<p>Remembers a particular mapping from input to output.  Long or expensive expressions with no side effects can use this step to remember a mapping, which helps reduce load when previously processed objects are passed into it.
+
+</p>
+<p>For situations where memoization may consume large amounts of RAM, consider using an embedded key-value store like <a href="http://code.google.com/p/jdbm2/">JDBM</a> or some other persistent Map implementation.
+
+</p>
+<p><a href="#">top</a>
+
+</p>
+<hr>
+<h2 id='recipes'>Recipes</h2 id='recipes'>
+<p>Recipes are common patterns that are seen in using Gremlin.
+
+</p>
+<h3 id='recipes/duplicate-edges'>Duplicate Edges</h3 id='recipes/duplicate-edges'>
+<p>Strictly speaking, you cannot have duplicated egdes with the same id.  This example finds edges with same <code>outV/inV/label</code> properties.
+
+</p>
+<p><a href="#">top</a>
+
+</p>
+<hr>
+<h3 id='recipes/paging-results'>Paging Results</h3 id='recipes/paging-results'>
+<p>It is sometimes desireable to not return an entire results set.  Results can be paged or limited as follows:
+
+</p>
+<p><a href="#">top</a>
+
+</p>
+<hr>
+<h3 id='recipes/paths-between-two-vertices'>Paths Between Two Vertices</h3 id='recipes/paths-between-two-vertices'>
+<p>First, paths for a directed graph:
+
+</p>
+<p>Then, undirected:
+
+</p>
+<p>Use the value of <code>it.loops&lt;=3</code>to control the depth of the traversal:
+
+</p>
+<p><a href="#">top</a>
+
+</p>
+<hr>
+<h3 id='recipes/reading-from-a-file'>Reading From a File</h3 id='recipes/reading-from-a-file'>
+<p>Reading data from an edge file formatted as CSV is easy to do with Gremlin.
+
+</p>
+<p><a href="#">top</a>
+
+</p>
+<hr>
+<h3 id='recipes/sampling'>Sampling</h3 id='recipes/sampling'>
+<p>It is sometimes useful to grab a random sample of the items in a collection.  That can be done to some degree with the <a href="#filter.random">random</a> step, but getting an explicit number of items is not supported using that step.
+
+</p>
+<p><a href="#">top</a>
+
+</p>
+<hr>
+<h3 id='recipes/shortest-path'>Shortest Path</h3 id='recipes/shortest-path'>
+<p>Find the shortest path between two vertices:
+
+</p>
+<p><a href="#">top</a>
+
+</p>
+<hr>
+<h3 id='recipes/gather'>gather</h3 id='recipes/gather'>
+<p>Collect all objects up to that step and process the gathered list with the provided closure.
+
+</p>
+<h4>See Also</h4>
+<ul>
+<li><a href="#transform/scatter">scatter</a></li>
+</ul>
+<p><a href="#">top</a>
+
+</p>
+<hr>
+<h3 id='recipes/scatter'>scatter</h3 id='recipes/scatter'>
+<p>Unroll all objects in the iterable at that step. Gather/Scatter is good for breadth-first traversals where the gather closure filters out unwanted elements at the current radius.
+
+</p>
+<h4>See Also</h4>
+<ul>
+<li><a href="#transform/gather">gather</a></li>
+</ul>
+<p><a href="#">top</a>
+
+</p>
+<hr>
+
+  </div>
+</div></body>
+</html>

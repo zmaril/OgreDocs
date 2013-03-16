@@ -1,4 +1,4 @@
-![Ogre](ogredocs.com/ogre.png)
+![Ogre](ogre.png)
 
 **WARNING OgreDocs is still being written.**
 
