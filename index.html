@@ -514,13 +514,14 @@ leiningen: <code>[zmaril/ogre &quot;0.2.2.0&quot;]</code>.
 
 </p>
 <h3 id='getting-started/the-tinkergraph'>The TinkerGraph</h3 id='getting-started/the-tinkergraph'>
-<p>Unless otherwise noted, all samples reference the TinkeGraph.
+<p>Unless otherwise noted, all samples reference <code>ogre.tinkergraph</code> and <code>ogre.core</code>.
 
 </p>
-<pre><code class="clojure"><span class="list">(<span class="title">use</span><span class="body"> 'ogre.tinkergraph</span>)</span> 
+<pre><code class="clojure"><span class="list">(<span class="title">require</span><span class="body"> '[ogre.tinkergraph <span class="keyword">:as</span> g]</span>)</span> 
+<span class="list">(<span class="title">require</span><span class="body"> '[ogre.core <span class="keyword">:as</span> q]</span>)</span> 
 
-<span class="list">(<span class="title">use-new-tinkergraph</span><span class="body">!</span>)</span></code></pre>
-<p><code>use-new-tinkergraph</code> creates the following graph and secretly
+<span class="list">(<span class="title">g/use-new-tinkergraph</span><span class="body">!</span>)</span></code></pre>
+<p><code>g/use-new-tinkergraph!</code> creates the following graph and secretly
 squirrels it away <em>somewhere</em>: (image from
 <a href="http://github.com/tinkerpop/blueprints/wiki/Property-Graph-Model">here</a>):
 
