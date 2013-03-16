@@ -11,9 +11,9 @@ The documentation and samples presented here attempt to stay current
 with the most current, stable release of Ogre. Please join the
 [Gremlin users group](http://groups.google.com/group/gremlin-users)
 for any Ogre related discussions. Please use the
-[Ogre issue page](https://github.com/zmaril/ogre/issues) for reporting
-bugs and discussing features. For any errors or corrections with
-OgreDocs, please use the
+[Ogre issue page](https://github.com/zmaril/ogre/issues) for
+specifically reporting bugs and discussing features. For any errors or
+corrections with OgreDocs, please use the
 [OrgeDocs issue page](https://github.com/zmaril/ogredocs).
 
 Pull requests will be celebrated, scrutinized, and hopefully accepted.
@@ -23,8 +23,9 @@ Ogre and cross my fingers.
 
 Ogre currently powers
 [Archimedes](https://github.com/zmaril/archimedes), a Clojure library
-for blueprints, and [Hermes](https://github.com/zmaril/hermes), a
-Clojure library built on top of Archimedes for working with
+for [Blueprints](https://github.com/tinkerpop/blueprints/wiki), and
+[Hermes](https://github.com/zmaril/hermes), a Clojure library built on
+top of Archimedes for working with
 [Titan](http://thinkaurelius.github.com/titan/). Ogre, Archimedes, and
 Hermes are all open source projects maintained by
 [Zack Maril](https://twitter.com/ZackMaril).
@@ -35,7 +36,7 @@ Hermes are all open source projects maintained by
 
 ### The Tinkerpop stack
 
-Before gooing down the rabbit hole, I offer the briefest of warnings:
+Before going down the rabbit hole, I offer the briefest of warnings:
 the [Tinkerpop folks](https://github.com/tinkerpop?tab=members) have
 been working on Gremlin,
 [Pipes](https://github.com/tinkerpop/pipes/wiki), and
@@ -43,8 +44,14 @@ been working on Gremlin,
 years now and the stack has become incredibly intertwined. Ogre and
 [Archimedes](https://github.com/zmaril/archimedes) try to hide all of
 this from you at some hide level, but every abstraction leaks. Your
-stack traces will speak of `com.tinkerpop.X` and there is nothing I
-want to do about that. With that, let's get started! 
+stack traces will speak of `com.tinkerpop.blueprints.Vertex` and
+`com.tinkerpop.gremlin.GremlinPipeline`, and there is nothing I can
+(well, should) do about it. The Tinkerpop stack is fantastic and
+really well done, but I wanted to warn you that the following is just
+the tip of the iceberg in terms of what you will need to know what is
+really going on when you use Ogre. 
+
+With that terribly encouraging thought, let's get started!
 
 ### leiningen
 
