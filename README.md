@@ -69,15 +69,16 @@ leiningen: `[zmaril/ogre "0.2.2.0"]`.
 
 ### The TinkerGraph
 
-Unless otherwise noted, all samples reference the TinkeGraph.
+Unless otherwise noted, all samples reference `ogre.tinkergraph` and `ogre.core`.
 
 ```clojure 
-(use 'ogre.tinkergraph) 
+(require '[ogre.tinkergraph :as g]) 
+(require '[ogre.core :as q]) 
 
-(use-new-tinkergraph!)
+(g/use-new-tinkergraph!)
 ```
 
-`use-new-tinkergraph` creates the following graph and secretly
+`g/use-new-tinkergraph!` creates the following graph and secretly
 squirrels it away _somewhere_: (image from
 [here](http://github.com/tinkerpop/blueprints/wiki/Property-Graph-Model)):
 
