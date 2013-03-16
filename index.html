@@ -1193,17 +1193,73 @@ itself, which lets us do all sorts of fancy tricks.
          <span class="list">(<span class="title">q/as</span><span class="body"> <span class="string">"here"</span></span>)</span>
          q/-->      
          <span class="list">(<span class="title">q/back-to</span><span class="body"> <span class="string">"here"</span></span>)</span>         
-         q/into-vec!</span>)</span></code></pre>
+         q/into-vec!</span>)</span>
+<span class="comment">;;[#&lt;TinkerVertex v[1]>]</span></code></pre>
 <h3 id='annotations/select'>select</h3 id='annotations/select'>
-<p>Select the named steps to emit after select with post-processing
-closures.
+<p>Get a list of named steps, with optional functions for post processing
+round robin style. (This will be returned as a map when Pipes is
+upgraded to 2.3.0).
 
 </p>
+<pre><code class="clojure"><span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/find-by-id</span><span class="body"> <span class="number">1</span></span>)</span>
+         <span class="list">(<span class="title">q/as</span><span class="body"> <span class="string">"a"</span></span>)</span>
+         <span class="list">(<span class="title">q/--></span><span class="body"> <span class="keyword">:knows</span></span>)</span>
+         <span class="list">(<span class="title">q/as</span><span class="body"> <span class="string">"b"</span></span>)</span>
+         q/select
+         q/all-into-vecs!</span>)</span>
+<span class="comment">;;([#&lt;TinkerVertex v[1]> #&lt;TinkerVertex v[2]>] </span>
+<span class="comment">;; [#&lt;TinkerVertex v[1]> #&lt;TinkerVertex v[4]>])         </span>
+
+<span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/find-by-id</span><span class="body"> <span class="number">1</span></span>)</span>
+         <span class="list">(<span class="title">q/as</span><span class="body"> <span class="string">"a"</span></span>)</span>
+         <span class="list">(<span class="title">q/--></span><span class="body"> <span class="keyword">:knows</span></span>)</span>
+         <span class="list">(<span class="title">q/as</span><span class="body"> <span class="string">"b"</span></span>)</span>
+         <span class="list">(<span class="title">q/select</span><span class="body"> <span class="list">(<span class="title">q/prop</span><span class="body"> <span class="keyword">:name</span></span>)</span></span>)</span>
+         q/all-into-vecs!</span>)</span>
+<span class="comment">;;(["marko" "vadas"] ["marko" "josh"])</span>
+
+<span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/find-by-id</span><span class="body"> <span class="number">1</span></span>)</span>
+         <span class="list">(<span class="title">q/as</span><span class="body"> <span class="string">"a"</span></span>)</span>
+         <span class="list">(<span class="title">q/--></span><span class="body"> <span class="keyword">:knows</span></span>)</span>
+         <span class="list">(<span class="title">q/as</span><span class="body"> <span class="string">"b"</span></span>)</span>
+         <span class="list">(<span class="title">q/select</span><span class="body"> <span class="list">(<span class="title">q/prop</span><span class="body"> <span class="keyword">:name</span></span>)</span> g/get-id</span>)</span>
+         q/all-into-vecs!</span>)</span>
+<span class="comment">;;(["marko" "2"] ["marko" "4"])</span></code></pre>
 <h3 id='annotations/select-only'>select-only</h3 id='annotations/select-only'>
-<p>Select the named steps to emit after select with post-processing
-closures.
+<p>Select the named steps to emit, with round robin style function
+processing again. 
 
 </p>
+<pre><code class="clojure"><span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/find-by-id</span><span class="body"> <span class="number">1</span></span>)</span>
+         <span class="list">(<span class="title">q/as</span><span class="body"> <span class="string">"a"</span></span>)</span>
+         q/-->
+         <span class="list">(<span class="title">q/as</span><span class="body"> <span class="string">"b"</span></span>)</span>
+         q/-->
+         <span class="list">(<span class="title">q/as</span><span class="body"> <span class="string">"c"</span></span>)</span>       
+         <span class="list">(<span class="title">q/select-only</span><span class="body"> [<span class="string">"a"</span> <span class="string">"b"</span>]</span>)</span>
+         q/all-into-vecs!</span>)</span>
+<span class="comment">;;([#&lt;TinkerVertex v[1]> #&lt;TinkerVertex v[4]>] </span>
+<span class="comment">;; [#&lt;TinkerVertex v[1]> #&lt;TinkerVertex v[4]>])</span>
+
+<span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/find-by-id</span><span class="body"> <span class="number">1</span></span>)</span>
+         <span class="list">(<span class="title">q/as</span><span class="body"> <span class="string">"a"</span></span>)</span>
+         q/-->
+         <span class="list">(<span class="title">q/as</span><span class="body"> <span class="string">"b"</span></span>)</span>
+         q/-->
+         <span class="list">(<span class="title">q/as</span><span class="body"> <span class="string">"c"</span></span>)</span>       
+         <span class="list">(<span class="title">q/select-only</span><span class="body"> [<span class="string">"a"</span> <span class="string">"c"</span>] <span class="list">(<span class="title">q/prop</span><span class="body"> <span class="keyword">:name</span></span>)</span></span>)</span>
+         q/all-into-vecs!</span>)</span>
+<span class="comment">;;(["marko" "ripple"] ["marko" "lop"])</span>
+
+<span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/find-by-id</span><span class="body"> <span class="number">1</span></span>)</span>
+         <span class="list">(<span class="title">q/as</span><span class="body"> <span class="string">"a"</span></span>)</span>
+         <span class="list">(<span class="title">q/--></span><span class="body"> <span class="keyword">:knows</span></span>)</span>
+         <span class="list">(<span class="title">q/as</span><span class="body"> <span class="string">"b"</span></span>)</span>
+         q/-->
+         <span class="list">(<span class="title">q/as</span><span class="body"> <span class="string">"c"</span></span>)</span>                
+         <span class="list">(<span class="title">q/select-only</span><span class="body"> [<span class="string">"a"</span> <span class="string">"c"</span>] <span class="list">(<span class="title">q/prop</span><span class="body"> <span class="keyword">:name</span></span>)</span> g/get-id</span>)</span>
+         q/all-into-vecs!</span>)</span>
+<span class="comment">;;(["marko" "5"] ["marko" "3"])</span></code></pre>
 <h3 id='annotations/loop'>loop</h3 id='annotations/loop'>
 <p>Loop over a particular set of steps in the pipeline. The first
 argument is either the number of steps back in the pipeline to go or a
