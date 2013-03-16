@@ -89,11 +89,11 @@
             <ul>
               
                 <li>
-                  <a href="#traversal/out">--&gt; / out</a>
+                  <a href="#traversal/out">out / --&gt;</a>
                 </li>
               
                 <li>
-                  <a href="#traversal/e-out-edges">--E&gt; / out-edges</a>
+                  <a href="#traversal/out-edges-e">out-edges --E&gt;</a>
                 </li>
               
                 <li>
@@ -101,11 +101,11 @@
                 </li>
               
                 <li>
-                  <a href="#traversal/in">&lt;-- / in</a>
+                  <a href="#traversal/in">in / &lt;--</a>
                 </li>
               
                 <li>
-                  <a href="#traversal/e-in-edges">&lt;E-- / in-edges</a>
+                  <a href="#traversal/in-edges-e">in-edges / &lt;E--</a>
                 </li>
               
                 <li>
@@ -113,11 +113,11 @@
                 </li>
               
                 <li>
-                  <a href="#traversal/both">&lt;-&gt; / both</a>
+                  <a href="#traversal/both">both / &lt;-&gt;</a>
                 </li>
               
                 <li>
-                  <a href="#traversal/e-both-edges">&lt;E&gt;/both-edges</a>
+                  <a href="#traversal/both-edges-e">both-edges / &lt;E&gt;</a>
                 </li>
               
                 <li>
@@ -623,7 +623,7 @@ charming face of <code>#&lt;TinkerVertex v[2]&gt;</code>.
 vertices are connected.
 
 </p>
-<h3 id='traversal/out'>--&gt; / out</h3 id='traversal/out'>
+<h3 id='traversal/out'>out / --&gt;</h3 id='traversal/out'>
 <p><code>--&gt;</code> or <code>out</code> gets the out adjacent vertices (the functions do
 exactly the same thing, one just looks cooler). 
 
@@ -637,7 +637,7 @@ exactly the same thing, one just looks cooler).
          q/out
          q/into-vec!</span>)</span>
 <span class="comment">;;[#&lt;TinkerVertex v[5]> #&lt;TinkerVertex v[3]>]</span></code></pre>
-<h3 id='traversal/e-out-edges'>--E&gt; / out-edges</h3 id='traversal/e-out-edges'>
+<h3 id='traversal/out-edges-e'>out-edges --E&gt;</h3 id='traversal/out-edges-e'>
 <p>Gets the outgoing edges of the vertex.
 
 </p>
@@ -667,7 +667,7 @@ That means, by the time we are asking for the <code>out-vertex</code>, we have
 two objects &quot;in the pipeline&quot;. Thus, we get two objects back. 
 
 </p>
-<h3 id='traversal/in'>&lt;-- / in</h3 id='traversal/in'>
+<h3 id='traversal/in'>in / &lt;--</h3 id='traversal/in'>
 <p>Gets the adjacent vertices to the vertex.
 
 </p>
@@ -675,7 +675,7 @@ two objects &quot;in the pipeline&quot;. Thus, we get two objects back.
          q/<span class="tag">&lt;<span class="title">--
 </span>         <span class="attribute">q</span>/<span class="attribute">into-vec</span>!)
 ;;[#&lt;<span class="attribute">TinkerVertex</span> <span class="attribute">v</span>[<span class="attribute">1</span>]></span> #<span class="tag">&lt;<span class="title">TinkerVertex</span> <span class="attribute">v</span>[<span class="attribute">4</span>]></span> #<span class="tag">&lt;<span class="title">TinkerVertex</span> <span class="attribute">v</span>[<span class="attribute">6</span>]></span>]</code></pre>
-<h3 id='traversal/e-in-edges'>&lt;E-- / in-edges</h3 id='traversal/e-in-edges'>
+<h3 id='traversal/in-edges-e'>in-edges / &lt;E--</h3 id='traversal/in-edges-e'>
 <p>Gets the incoming edges of the vertex.
 
 </p>
@@ -693,7 +693,7 @@ two objects &quot;in the pipeline&quot;. Thus, we get two objects back.
 </span>         <span class="attribute">q</span>/<span class="attribute">in-vertex</span>
          <span class="attribute">q</span>/<span class="attribute">into-vec</span>!)
 ;;[#&lt;<span class="attribute">TinkerVertex</span> <span class="attribute">v</span>[<span class="attribute">3</span>]></span> #<span class="tag">&lt;<span class="title">TinkerVertex</span> <span class="attribute">v</span>[<span class="attribute">3</span>]></span> #<span class="tag">&lt;<span class="title">TinkerVertex</span> <span class="attribute">v</span>[<span class="attribute">3</span>]></span>]</code></pre>
-<h3 id='traversal/both'>&lt;-&gt; / both</h3 id='traversal/both'>
+<h3 id='traversal/both'>both / &lt;-&gt;</h3 id='traversal/both'>
 <p>Get both adjacent vertices of the vertex, the in and the out.
 
 </p>
@@ -701,7 +701,7 @@ two objects &quot;in the pipeline&quot;. Thus, we get two objects back.
          q/<span class="tag">&lt;<span class="title">-</span>></span>
          q/into-vec!)
 ;;[#<span class="tag">&lt;<span class="title">TinkerVertex</span> <span class="attribute">v</span>[<span class="attribute">1</span>]></span> #<span class="tag">&lt;<span class="title">TinkerVertex</span> <span class="attribute">v</span>[<span class="attribute">5</span>]></span> #<span class="tag">&lt;<span class="title">TinkerVertex</span> <span class="attribute">v</span>[<span class="attribute">3</span>]></span>]</code></pre>
-<h3 id='traversal/e-both-edges'><E>/both-edges</h3 id='traversal/e-both-edges'>
+<h3 id='traversal/both-edges-e'>both-edges / <E></h3 id='traversal/both-edges-e'>
 <p>Get both incoming and outgoing edges of the vertex.
 
 </p>
