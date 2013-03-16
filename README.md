@@ -114,13 +114,13 @@ the JVM as a Turing machine. Poor gal.
 
 OgreDocs is organized to be read mostly linearly. That means that you
 can probably read it from start to finish and understand what is going
-on. OgreDocs starts from the basics, with traversals, maps, query
-executions, and filters. Then it transitions into the more advanced
-topics of annotations and side effects. At the same time, OgreDocs is
-meant to serve as a reference for anyone using the library (ctrl+f is
-your friend). These examples were are developed at the command line or
-inside emacs with a REPL, so they are meant to be run and experimented
-with.
+on. OgreDocs starts from the basics, with traversals, transformations,
+query executions, and filters. Then it transitions into the more
+advanced topics of annotations and side effects. At the same time,
+OgreDocs is meant to serve as a reference for anyone using the library
+(ctrl+f is your friend). These examples were are developed at the
+command line or inside emacs with a REPL, so they are meant to be run
+and experimented with.
 
 ***
 
@@ -670,8 +670,8 @@ function is provided, then a default sort order is used.
 
 ### gather
 
-Collect all objects up to that step and process the gathered list with
-the provided closure.
+Collect all objects up to that step and, optionally, process the
+gathered list with the provided function.
 
 ``` clojure
 (q/query (g/find-by-id 1)
@@ -693,8 +693,7 @@ the provided closure.
 
 ## Filter
 
-Filter steps decide whether to allow an object to pass to the next
-step or not.
+Here be functions which filter out objects.
 
 ### range
 
@@ -741,8 +740,8 @@ the values that the pipeline will consider when filtering
 ;;["marko" "lop"]          
 ```                         
 
-`g/get-vertices` retrieves all of the vertices of the graph and
-provides them in a list. 
+Note that `g/get-vertices` retrieves all of the vertices of the graph
+and provides them in a list.
 
 ### except
 
@@ -759,8 +758,7 @@ Filter out the provided objects.
 
 ### filter
 
-Decide whether to allow an object to pass. Return true from the
-closure to allow an object to pass.
+Uses a predicate to decide whether an object should pass.
 
 
 ``` clojure
@@ -776,7 +774,7 @@ closure to allow an object to pass.
 
 Allows an element if it has a particular property. The standard
 Clojure operations for comparisons can also be supplied:
-`>`,`>=`,`<`,`<=`,`=`,`not=`.
+`>`,`>=`,`<`,`<=`,`=`,`not=`. 
 
 ```clojure
 (q/query (g/get-vertices)
@@ -826,7 +824,7 @@ and end interval.
 Emits the incoming objects, each with the supplied chance.
 
 ```clojure
-;; Results will vary
+;; Results may vary
 (q/query (g/get-vertices)
          (q/random 0.5)
          (q/into-vec!))
@@ -835,13 +833,11 @@ Emits the incoming objects, each with the supplied chance.
 (q/query (g/get-vertices)
          (q/random 0.5)
          (q/into-vec!))
-;; Results will vary
 [#<TinkerVertex v[3]> #<TinkerVertex v[1]> #<TinkerVertex v[6]> #<TinkerVertex v[4]>]
 ```
 ### retain
 
-Allow everything to pass except what is not in the supplied
-collection.
+Only allows elements in the supplied collection to pass.
 
 ```clojure
 (q/query (g/find-by-id 1)
@@ -855,10 +851,9 @@ collection.
 
 So far, we've had great success traversing the graph. If you've
 understood most of everything up to this point, you know how to do
-sorts of neat things with graphs. There's another level of traversal
+sorts of neat things with graphs now. There's another level of traversal
 that we can attain though. We can annotate and traverse the pipeline
 itself, which lets us do all sorts of fancy tricks. 
-
 
 ### back
 
@@ -995,7 +990,7 @@ instead.
 
 ## Side Effect
 
-As this stage in Ogre's development, most side effect steps immediately
+At this stage in Ogre's development, most side effect steps immediately
 return various data structures about the query. 
 
 ### get-grouped-by
@@ -1090,7 +1085,7 @@ functions can be supplied as well.
 
 ### side-effect
 
-Let's you execute some side effect. 
+Execute some side-effect.
 
 ```clojure
 (let [lst (atom [])
@@ -1109,7 +1104,7 @@ Let's you execute some side effect.
 
 ## Summary
 
-Ogre let's you effectively query graphs. It's a young library
-built on top of a solid stack. If you are looking for a way to create
-and store these graphs from within Clojure, you should check out
+Ogre let's you effectively query graphs. It's a young library built on
+top of a solid stack. If you are looking for a way to create and store
+graphs from within Clojure, you should check out
 [Hermes](https://github.com/zmaril/hermes).
