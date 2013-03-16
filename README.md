@@ -3,13 +3,13 @@
 **WARNING OgreDocs is still being written.**
 
 [Ogre](http://github.com/zmaril/ogre) is a domain specific language
-for traversing property graphs in [Clojure](http://clojure.org/). Ogre wraps
-[Gremlin](https://github.com/tinkerpop/gremlin/wiki), a library which
-enables all sorts of neat operations on graphs. Ogre is an open source
-project maintained by [Zack Maril](http://zacharymaril.com). Please
-join the Gremlin users group at
-http://groups.google.com/group/gremlin-users for any Ogre or Gremlin
-related discussions.
+for traversing property graphs in [Clojure](http://clojure.org/). Ogre
+wraps [Gremlin](https://github.com/tinkerpop/gremlin/wiki), a library
+which enables all sorts of neat operations on graphs. Ogre is an open
+source project maintained by [Zack Maril](http://zacharymaril.com).
+Please join the
+[Gremlin users group](http://groups.google.com/group/gremlin-users)
+for any Ogre or Gremlin related discussions.
 
 The documentation and samples presented here attempt to stay current
 with the most current, stable release of Ogre. Please note that this
@@ -43,9 +43,6 @@ undergone zero major versions itself so far.
 
 To get started with Ogre write away, include the following
 dependency for leiningen: `[zmaril/ogre "0.2.2.0"]`.
-
-
-### git clone
 
 ### repl
 
