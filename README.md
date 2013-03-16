@@ -965,53 +965,54 @@ processing again.
 ### loop
 
 Loop over a particular set of steps in the pipeline. The first
-argument is either the number of steps back in the pipeline to go or a
-named step. The second argument is a while closure evaluating the
-current object. The `it` component of the loop step closure has three
-properties that are accessible. These properties can be used to reason
-about when to break out of the loop.
+argument is the number of steps back. The second argument is a
+predicate that takes three objects: the current object, the current
+path, and the number of loops thus far. While the predicate evaluates
+true, the loop continues on it's merry way. 
 
-* `it.object`: the current object of the traverser.
-* `it.path`: the current path of the traverser.
-* `it.loops`: the number of times the traverser has looped through the
-  loop section.
-
-The final argument is known as the "emit" closure. This boolean-based
-closure will determine wether the current object in the loop structure
-is emitted or not. As such, it is possible to emit intermediate
-objects, not simply those at the end of the loop.
-
+```clojure
+(q/query (g/find-by-id 1)
+         (q/-->)
+         (q/loop 1
+                 (fn [l o p] (< l 3)))
+         (q/property :name)
+         (q/into-vec!))                           
+;;["ripple" "lop"]
+```                  
+                
 ### loop-to
 
-Loop over a particular set of steps in the pipeline. The first
-argument is either the number of steps back in the pipeline to go or a
-named step. The second argument is a while closure evaluating the
-current object. The `it` component of the loop step closure has three
-properties that are accessible. These properties can be used to reason
-about when to break out of the loop.
+`loop-to` is just like loop, but it travels back to a named step
+instead. 
 
-* `it.object`: the current object of the traverser.
-* `it.path`: the current path of the traverser.
-* `it.loops`: the number of times the traverser has looped through the
-  loop section.
-
-The final argument is known as the "emit" closure. This boolean-based
-closure will determine wether the current object in the loop structure
-is emitted or not. As such, it is possible to emit intermediate
-objects, not simply those at the end of the loop.
+```clojure
+(q/query (g/find-by-id 1)
+         (q/as "here")
+         (q/-->)
+         (q/loop-to "here"
+                 (fn [l o p] (< l 3)))
+         (q/property :name)
+         (q/into-vec!))                           
+;;["ripple" "lop"]
+```                  
 
 *** 
 
 ## Side Effect
 
-Side Effect steps pass the object, but yield some kind of side effect
-while doing so.
+As this stage in Ogre's development, side effect steps immediately
+return various data structures about the query. 
 
 ### get-grouped-by
 
-Emits input, but groups input after processing it by provided
-key-closure and value-closure. It is also possible to supply an
-optional reduce-closure.
+Returns all of the objects grouped by 
+
+```clojure
+(q/query (g/get-vertices)
+         (q/get-grouped-by! (q/prop :lang)
+                            (q/prop :name)))
+;;{nil ["vadas" "marko" "peter" "josh"], "java" ["lop" "ripple"]}
+```
 
 ### get-group-count
 
