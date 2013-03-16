@@ -320,6 +320,10 @@
                 </li>
               
                 <li>
+                  <a href="#side-effect/get-group-count">get-group-count!</a>
+                </li>
+              
+                <li>
                   <a href="#side-effect/get-table">get-table!</a>
                 </li>
               
@@ -1266,46 +1270,39 @@ return various data structures about the query.
 processed objects grouped by the value of the key function.
 
 </p>
-<p>```clojure!
-(q/query (g/get-vertices)
-         (q/get-grouped-by! (q/prop :lang)
-                            identity))
-;;{nil [#<TinkerVertex v[2]> #<TinkerVertex v[1]> 
-;;      #<TinkerVertex v[6]> #<TinkerVertex v[4]>], 
-;;&quot;java&quot; [#<TinkerVertex v[3]> #<TinkerVertex v[5]>]}
+<pre><code class="clojure"><span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/get-vertices</span><span class="body"></span>)</span>
+         <span class="list">(<span class="title">q/get-grouped-by</span><span class="body">! <span class="list">(<span class="title">q/prop</span><span class="body"> <span class="keyword">:lang</span></span>)</span>
+                            identity</span>)</span></span>)</span>
+<span class="comment">;;{nil [#&lt;TinkerVertex v[2]> #&lt;TinkerVertex v[1]> </span>
+<span class="comment">;;      #&lt;TinkerVertex v[6]> #&lt;TinkerVertex v[4]>], </span>
+<span class="comment">;;"java" [#&lt;TinkerVertex v[3]> #&lt;TinkerVertex v[5]>]}</span>
+
+<span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/get-vertices</span><span class="body"></span>)</span>
+         <span class="list">(<span class="title">q/get-grouped-by</span><span class="body">! <span class="list">(<span class="title">q/prop</span><span class="body"> <span class="keyword">:lang</span></span>)</span>
+                            <span class="list">(<span class="title">q/prop</span><span class="body"> <span class="keyword">:name</span></span>)</span></span>)</span></span>)</span>
+<span class="comment">;;{nil ["vadas" "marko" "peter" "josh"], "java" ["lop" "ripple"]}</span>
+
+
+<span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/get-vertices</span><span class="body"></span>)</span>
+         <span class="list">(<span class="title">q/get-grouped-by</span><span class="body">! <span class="list">(<span class="title">q/prop</span><span class="body"> <span class="keyword">:lang</span></span>)</span>
+                            #<span class="list">(<span class="title">q/query</span><span class="body"> % q/out q/into-vec!</span>)</span></span>)</span></span>)</span>
+<span class="comment">;;{nil [[] </span>
+<span class="comment">;;      [#&lt;TinkerVertex v[2]> #&lt;TinkerVertex v[4]> #&lt;TinkerVertex v[3]>]</span>
+<span class="comment">;;      [#&lt;TinkerVertex v[3]>] </span>
+<span class="comment">;;      [#&lt;TinkerVertex v[5]> #&lt;TinkerVertex v[3]>]], </span>
+<span class="comment">;;      "java" [[] []]}</span></code></pre>
+<h3 id='side-effect/get-group-count'>get-group-count!</h3 id='side-effect/get-group-count'>
+<p>Takes in a key function, and optionally, a counting function. Returns
+the count of the objects grouped by the key function.
 
 </p>
-<p>(q/query (g/get-vertices)
-         (q/get-grouped-by! (q/prop :lang)
-                            (q/prop :name)))
-;;{nil [&quot;vadas&quot; &quot;marko&quot; &quot;peter&quot; &quot;josh&quot;], &quot;java&quot; [&quot;lop&quot; &quot;ripple&quot;]}
-
-
-</p>
-<p>(q/query (g/get-vertices)
-         (q/get-grouped-by! (q/prop :lang)
-</p>
-<pre><code>                        <span class="comment">#(q/query % q/out q/into-vec!)))</span></code></pre>
-<p>;;{nil [[] 
-;;      [#<TinkerVertex v[2]> #<TinkerVertex v[4]> #<TinkerVertex v[3]>]
-;;      [#<TinkerVertex v[3]>] 
-;;      [#<TinkerVertex v[5]> #<TinkerVertex v[3]>]], 
-;;      &quot;java&quot; [[] []]}
-</p>
-<pre><code>
-### <span class="keyword">get</span>-group-count!
-
-Takes <span class="keyword">in</span> a key <span class="keyword">function</span>, <span class="keyword">and</span> optionally, a counting <span class="keyword">function</span>. Returns
-the count of the objects grouped by the key <span class="keyword">function</span>.
-
-```clojure 
-(q/query (g/<span class="keyword">get</span>-vertices)
-         (q/<span class="keyword">get</span>-group-count! (q/prop :lang)))
-;;{nil <span class="number">4</span>, <span class="string">"java"</span> <span class="number">2</span>}
-(q/query (g/<span class="keyword">get</span>-vertices)
-         (q/<span class="keyword">get</span>-group-count! (q/prop :lang)
-                             (fn [a b] (+ b (count (.getProperty a <span class="string">"name"</span>))))))
-;;{nil <span class="number">19</span>, <span class="string">"java"</span> <span class="number">9</span>}</code></pre>
+<pre><code class="clojure"><span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/get-vertices</span><span class="body"></span>)</span>
+         <span class="list">(<span class="title">q/get-group-count</span><span class="body">! <span class="list">(<span class="title">q/prop</span><span class="body"> <span class="keyword">:lang</span></span>)</span></span>)</span></span>)</span>
+<span class="comment">;;{nil 4, "java" 2}</span>
+<span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/get-vertices</span><span class="body"></span>)</span>
+         <span class="list">(<span class="title">q/get-group-count</span><span class="body">! <span class="list">(<span class="title">q/prop</span><span class="body"> <span class="keyword">:lang</span></span>)</span>
+                             <span class="list">(<span class="title">fn</span><span class="body"> [a b] <span class="list">(<span class="title">+</span><span class="body"> b <span class="list">(<span class="title">count</span><span class="body"> <span class="list">(<span class="body">.getProperty a <span class="string">"name"</span></span>)</span></span>)</span></span>)</span></span>)</span></span>)</span></span>)</span>
+<span class="comment">;;{nil 19, "java" 9}</span></code></pre>
 <h3 id='side-effect/get-table'>get-table!</h3 id='side-effect/get-table'>
 <p>Returns a list of maps that correspond to the values of the named
 steps. Optional arguments are a list of functions that are applied
