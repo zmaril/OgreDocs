@@ -90,8 +90,6 @@ I recommend that you open this image up into a
 [new tab](https://github.com/tinkerpop/blueprints/raw/master/doc/images/graph-example-1.jpg).
 It will serve as the main reference for the majority of the examples below. 
 
-***
-
 ### So what does Ogre actually do? 
 
 At a high level, Ogre let's you easily ask complex questions about
@@ -121,6 +119,9 @@ same time, it is meant to serve as a complete reference for anyone
 using the library. These examples were are developed at the command
 line or inside emacs with a REPL, so they are meant to be run and
 experimented with. 
+
+
+***
 
 ## Queries and Pipes
 
