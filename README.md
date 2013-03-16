@@ -118,7 +118,9 @@ on. That means it starts from the basics, traversals, maps,
 conversions, and filters. Then it transitions into the more advanced
 topics of annotations, side effects, branching, and recipes. At the
 same time, it is meant to serve as a complete reference for anyone
-using the library. 
+using the library. These examples were are developed at the command
+line or inside emacs with a REPL, so they are meant to be run and
+experimented with. 
 
 ## Queries and Pipes
 
