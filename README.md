@@ -62,12 +62,12 @@ The version scheme for Ogre is as follows:
 authors of Gremlin are the ones who will be causing most of the
 changes to Ogre to hapepn. Ogre is a mere wrapper around their work
 and the version scheme acknowledges that directly. Thus, the first and
-current release is `2.2.0.0`, meaning that the current release uses
-Gremlin `2.2.0` and has undergone zero major versions itself so far
+current release is `2.3.0.0`, meaning that the current release uses
+Gremlin `2.3.0` and has undergone zero major versions itself so far
 since release.
 
 To get started with Ogre, include the following dependency for
-leiningen: `[zmaril/ogre "2.2.0.0"]`.
+leiningen: `[zmaril/ogre "2.3.0.0"]`.
 
 ### The TinkerGraph
 
@@ -503,9 +503,20 @@ that in mind, Ogre includes several functions that execute the
 pipeline and then do conversions into specific Clojure data
 structures.
 
+### count!
+
+`q/count!` returns the number of objects currently in the pipeline. 
+
+``` clojure
+(q/query (g/find-by-id 1)
+         q/-->
+         q/count!)
+;;3
+``` 
+
 ### to-list!
 
-This is the Grand Daddy of all Executors. It calls `.toList` on the
+This is the Grand Daddy of most Executors. It calls `.toList` on the
 Gremlin pipeline and gets back the list of Java objects. You probably
 don't want to use this directly. 
 
