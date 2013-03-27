@@ -172,6 +172,10 @@
             <ul>
               
                 <li>
+                  <a href="#query-execution/count">count!</a>
+                </li>
+              
+                <li>
                   <a href="#query-execution/to-list">to-list!</a>
                 </li>
               
@@ -420,13 +424,13 @@ understand what is really going on when you use Ogre.
 authors of Gremlin are the ones who will be causing most of the
 changes to Ogre to hapepn. Ogre is a mere wrapper around their work
 and the version scheme acknowledges that directly. Thus, the first and
-current release is <code>2.2.0.0</code>, meaning that the current release uses
-Gremlin <code>2.2.0</code> and has undergone zero major versions itself so far
+current release is <code>2.3.0.0</code>, meaning that the current release uses
+Gremlin <code>2.3.0</code> and has undergone zero major versions itself so far
 since release.
 
 </p>
 <p>To get started with Ogre, include the following dependency for
-leiningen: <code>[zmaril/ogre &quot;2.2.0.0&quot;]</code>.
+leiningen: <code>[zmaril/ogre &quot;2.3.0.0&quot;]</code>.
 
 </p>
 <h3 id='getting-started/the-tinkergraph'>The TinkerGraph</h3 id='getting-started/the-tinkergraph'>
@@ -818,8 +822,16 @@ pipeline and then do conversions into specific Clojure data
 structures.
 
 </p>
+<h3 id='query-execution/count'>count!</h3 id='query-execution/count'>
+<p><code>q/count!</code> returns the number of objects currently in the pipeline. 
+
+</p>
+<pre><code class="clojure"><span class="list">(<span class="title">q/query</span><span class="body"> <span class="list">(<span class="title">g/find-by-id</span><span class="body"> <span class="number">1</span></span>)</span>
+         q/-->
+         q/count!</span>)</span>
+<span class="comment">;;3</span></code></pre>
 <h3 id='query-execution/to-list'>to-list!</h3 id='query-execution/to-list'>
-<p>This is the Grand Daddy of all Executors. It calls <code>.toList</code> on the
+<p>This is the Grand Daddy of most Executors. It calls <code>.toList</code> on the
 Gremlin pipeline and gets back the list of Java objects. You probably
 don&#39;t want to use this directly. 
 
